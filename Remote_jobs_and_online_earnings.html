@@ -598,6 +598,185 @@
 
   </div>
 
+  <div>
+
+  <style>
+
+    .info-container {
+
+      position: fixed;
+
+      top: 15px;
+
+      right: 15px;
+
+      z-index: 1000;
+
+    }
+
+    .info-icon {
+
+      background: linear-gradient(135deg, #000000, #1a001a);
+
+      color: white;
+
+      border-radius: 50%;
+
+      width: 45px;
+
+      height: 45px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 22px;
+
+      cursor: pointer;
+
+      box-shadow: 0 0 12px rgba(128, 0, 128, 0.5);
+
+      transition: transform 0.2s ease;
+
+      user-select: none;
+
+    }
+
+    .info-icon:hover {
+
+      transform: scale(1.1);
+
+    }
+
+    .modal {
+
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      background: rgba(0, 0, 0, 0.7);
+
+      z-index: 999;
+
+    }
+
+    .modal-content {
+
+      position: absolute;
+
+      top: 70px;
+
+      right: 20px;
+
+      background: #0a0a0a;
+
+      border: 2px solid #2d003d;
+
+      border-radius: 12px;
+
+      padding: 15px 25px;
+
+      box-shadow: 0 0 20px rgba(100, 0, 150, 0.6);
+
+    }
+
+    .modal-content a {
+
+      display: block;
+
+      color: #e0b3ff;
+
+      text-decoration: none;
+
+      margin: 10px 0;
+
+      font-size: 16px;
+
+      transition: color 0.2s ease;
+
+    }
+
+    .modal-content a:hover {
+
+      color: #ffffff;
+
+    }
+
+  </style>
+
+  <div class="info-container">
+
+    <div class="info-icon" id="infoBtn">i</div>
+
+  </div>
+
+  <div class="modal" id="infoModal">
+
+    <div class="modal-content">
+      <a href="#">Subscribe </a>
+      
+      <a href="Edge_privacy_policy.html">Privacy Policy</a>
+
+      <a href="Contact_edge.html">Contact Us</a>
+
+      <a href="About_edge.html">About Us</a>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    const infoBtn = document.getElementById("infoBtn");
+
+    const modal = document.getElementById("infoModal");
+
+    // Toggle function
+
+    function toggleModal() {
+
+      if (modal.style.display === "block") {
+
+        modal.style.display = "none";
+
+      } else {
+
+        modal.style.display = "block";
+
+      }
+
+    }
+
+    // Click the icon → toggle modal
+
+    infoBtn.addEventListener("click", (e) => {
+
+      e.stopPropagation(); // prevents window click from firing
+
+      toggleModal();
+
+    });
+
+    // Click outside modal → close
+
+    window.addEventListener("click", (e) => {
+
+      if (e.target === modal) {
+
+        modal.style.display = "none";
+
+      }
+
+    });
+
+  </script>
+
+  </div>
+
   <script>
 
     // Tab navigation
