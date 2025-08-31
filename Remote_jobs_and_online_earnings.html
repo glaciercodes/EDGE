@@ -1,0 +1,649 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Edge — How are remote jobs & online earning reshaping modern life?</title>
+
+  <style>
+
+    :root{
+
+      --bg:#060400; /* near-black */
+
+      --panel:#2b2200; /* dark brownish yellow panel */
+
+      --accent:#ffd54f; /* warm dark-yellow accent */
+
+      --muted:#d6c59a;
+
+      --glass: rgba(255,255,255,0.03);
+
+      --card-radius:14px;
+
+      --max-width:1200px;
+
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+
+    }
+
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #000 100%);color:#fff6e6}
+
+    .container{max-width:var(--max-width);margin:26px auto;padding:20px}
+
+    header{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+
+    .logo{width:70px;height:70px;border-radius:12px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent);font-size:22px}
+
+    .brand h1{margin:0;font-size:22px}
+
+    .lead{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+
+    .tab{background:var(--panel);padding:8px 12px;border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,0.03);font-size:14px}
+
+    .tab.active{background:linear-gradient(180deg,var(--accent), #ffcc33);color:#201600;font-weight:700;box-shadow:0 8px 26px rgba(255,213,79,0.08)}
+
+    .hero{padding:16px;border-radius:12px;background:linear-gradient(90deg, rgba(43,34,0,0.6), rgba(0,0,0,0.35));border:1px solid rgba(255,255,255,0.02);margin-bottom:18px}
+
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:12px;color:var(--muted);margin-right:8px}
+
+    .cards{display:grid;grid-template-columns:1fr;gap:18px}
+
+    @media(min-width:1000px){.cards{grid-template-columns:1fr}}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border-radius:var(--card-radius);padding:22px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+
+    .kicker{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+
+    h2{margin:0 0 8px;font-size:20px}
+
+    h3{margin:0 0 12px;color:var(--muted);font-weight:500}
+
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+
+    .fav{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;cursor:pointer;font-size:14px}
+
+    .fav.active{background:rgba(255,213,79,0.08);border-color:rgba(255,213,79,0.18);color:var(--accent)}
+
+    .content{line-height:1.7;font-size:15px;color:#fff9ec}
+
+    .content p{max-width:72ch;margin-bottom:12px}
+
+    .faq{margin-top:16px;border-top:1px dashed rgba(255,255,255,0.03);padding-top:12px}
+
+    .faq h4{margin:0 0 8px}
+
+    .faq p{margin:6px 0;color:var(--muted);font-size:14px}
+
+    footer{margin-top:28px;padding:18px;border-radius:12px;background:linear-gradient(90deg, rgba(43,34,0,0.45), rgba(0,0,0,0.25));color:var(--muted);font-size:13px}
+
+    .hidden{display:none}
+
+    .tab:focus,.fav:focus{outline:2px dashed rgba(255,213,79,0.25);outline-offset:3px}
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+
+      <div class="logo"><a href="#" style="color:var(--accent);text-decoration:none">#</a></div>
+
+      <div class="brand">
+
+        <h1>How are remote jobs & online earning reshaping modern life?</h1>
+
+        <div class="lead">Ten deep perspectives on remote work prevalence, hybrid preferences, productivity, online earning and the future of work.</div>
+
+      </div>
+
+    </header>
+
+    <div class="hero">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+
+        <div>
+
+          <span class="badge">Edge — Remote Work & Online Earning</span>
+
+          <span class="badge">Dark Yellow Theme</span>
+
+        </div>
+
+        <div style="color:var(--muted);font-size:13px">10 sections • Mobile-friendly • Interactive</div>
+
+      </div>
+
+      <div style="margin-top:12px;color:var(--muted);font-size:14px">Pick a tab to view a single deep-dive, or click "All" to read the full integrated narrative. Each card includes an "Add to favourite" button and a concise FAQ below.</div>
+
+    </div>
+
+    <nav aria-label="Categories">
+
+      <button class="tab active" data-target="all">All</button>
+
+      <button class="tab" data-target="prevalence">1. Remote Work Prevalence</button>
+
+      <button class="tab" data-target="capable">2. Remote-Capable Jobs</button>
+
+      <button class="tab" data-target="preference">3. Hybrid Work Preference</button>
+
+      <button class="tab" data-target="productivity">4. Productivity & Motivation</button>
+
+      <button class="tab" data-target="nomads">5. Digital Nomads Growth</button>
+
+      <button class="tab" data-target="market">6. Remote Job Market Availability</button>
+
+      <button class="tab" data-target="freelance">7. Online Earnings & Freelance Work</button>
+
+      <button class="tab" data-target="underemp">8. Underemployment Trend</button>
+
+      <button class="tab" data-target="tools">9. Technology & Tools Adoption</button>
+
+      <button class="tab" data-target="future">10. Future Trends</button>
+
+    </nav>
+
+    <main class="cards" id="cards">
+
+      <!-- 1 Remote Work Prevalence -->
+
+      <article class="card" data-cat="prevalence">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">How common is working outside the office?</span>
+
+            <h2>Remote Work Prevalence</h2>
+
+            <h3>Measured shares of fully remote and hybrid work and what they mean for labor markets</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Remote work prevalence has matured from an ad-hoc pandemic response to a structural feature of advanced labor markets. In many urbanized, service-oriented economies, a large minority of roles now function either fully remotely or in hybrid arrangements. That shift changes commuting patterns, commercial real estate demand, and the geography of opportunity: talent markets become less bound by city limits while secondary cities and smaller towns see new inflows of remote-capable workers.</p>
+
+          <p>Fully remote rates vary by labor market structure and industry mix, with knowledge-intensive sectors showing higher shares. Hybrid arrangements — mixing several days remote with some in-office days — dominate preferences for many workers because they balance focused individual work with in-person collaboration. For employers, prevalence metrics inform office strategy (smaller hubs, hot-desking) and policy on stipends, equipment, and cross-border hiring.</p>
+
+          <p>At the household level, remote prevalence affects location choices, housing demand, and time allocation. Workers who can disconnect commutes often invest time savings into family, leisure, or side businesses — shifting consumption and saving patterns. For cities, the shift demands rethinking public transit funding and central-business district economies.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Is remote work here to stay?<br><strong>A:</strong> Yes for many knowledge roles — hybrid models appear to be the persistent equilibrium for most employers and employees.</p>
+
+          <p><strong>Q:</strong> Will city centers decline economically?<br><strong>A:</strong> City centers will adapt — repurposed office space, more local amenities, and flexible work hubs are common evolutions.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 2 Remote-Capable Jobs -->
+
+      <article class="card" data-cat="capable">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">What fraction of jobs can be done remotely?</span>
+
+            <h2>Remote-Capable Jobs</h2>
+
+            <h3>Which occupations are remote-ready and how urbanization influences capability</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Estimating the share of remote-capable jobs depends on task composition: jobs dominated by cognitive work, computer-based tasks, and asynchronous communication are most portable. Urban labor markets with high concentrations of professional services, finance, and tech exhibit larger remote-capable shares than manufacturing or care-heavy regions. This has two implications: first, cities with heavy tech sectors can more readily shift to remote work; second, individuals in remote-capable roles gain geographic flexibility that can be translated into lifestyle choices or arbitrage of living costs.</p>
+
+          <p>Remote-capability also varies within cities by wage level: higher-paid roles often allow more remote time, while frontline service jobs require physical presence. Policy design and training programs that increase the share of remote-capable roles — by digitizing workflows and reskilling workers — expand economic inclusion for regions outside major metropolitan centers.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Can non-tech jobs become remote-capable?<br><strong>A:</strong> Some can, with workflow redesign and digital tool adoption, but many frontline roles remain inherently on-site.</p>
+
+          <p><strong>Q:</strong> Does remote-capability mean higher pay?
+
+<br><strong>A:</strong> Not automatically — pay reflects demand and skill; remote capability expands options but doesn't guarantee wage increases.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 3 Hybrid Work Preference -->
+
+      <article class="card" data-cat="preference">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">What workers actually want</span>
+
+            <h2>Hybrid Work Preference</h2>
+
+            <h3>Why most workers favor a mix of office and home, and how firms respond</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Surveys consistently show a majority preference for hybrid work: a blend of focused remote days and collaborative in-office time. Workers cite reduced commuting stress, better work-life balance, and concentrated deep work as remote benefits, while valuing in-person time for team cohesion, mentorship, and serendipitous problem solving. Employers increasingly design policies around a few in-office days for collaboration and the rest remote for heads-down work.</p>
+
+          <p>Hybrid preferences inform office scheduling tools, booking systems, and performance measurement — moving from hours-in-seat toward outputs and outcomes. Performance metrics, manager training, and intentional meeting design support hybrid effectiveness and reduce the risk that remote days translate into reduced visibility and stalled career progression.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> How many days should a hybrid worker be in office?<br><strong>A:</strong> Many organizations converge on 2–3 days per week for collaboration, but optimal mixes vary by role.</p>
+
+          <p><strong>Q:</strong> Do hybrid arrangements hurt promotions?
+
+<br><strong>A:</strong> They can if visibility and sponsorship are neglected; intentional manager practices prevent bias against remote-first employees.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 4 Productivity & Motivation -->
+
+      <article class="card" data-cat="productivity">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Does working remotely change output?</span>
+
+            <h2>Productivity & Motivation</h2>
+
+            <h3>Evidence on productivity, morale and the role of autonomy</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Multiple studies find that remote work boosts perceived productivity and work-life balance for many knowledge workers. Gains stem from fewer interruptions, more flexible scheduling, and time saved from commuting. Yet true productivity effects vary by job type, managerial quality, and home environment. Where remote work is well-supported by tools and clear expectations, workers report higher motivation and lower turnover intentions.</p>
+
+          <p>Managers need to rethink outputs, measurement and team rituals. Synchronous time should be reserved for high-value collaboration; asynchronous channels handle status and routine coordination. Coaching managers to lead remote teams and investing in employee wellbeing — mental health supports, home equipment stipends — maintains sustained productivity over time.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Is remote work more productive than office work?<br><strong>A:</strong> Often yes for deep-focused tasks; collaborative creativity sometimes benefits from in-person interactions.</p>
+
+          <p><strong>Q:</strong> How can managers measure remote productivity?
+
+<br><strong>A:</strong> Focus on outcomes, milestones, and customer impact rather than hours logged.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 5 Digital Nomads Growth -->
+
+      <article class="card" data-cat="nomads">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">People who work while traveling</span>
+
+            <h2>Digital Nomads Growth</h2>
+
+            <h3>Emerging scale, lifestyle choices, and policy responses around mobility</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Digital nomadism has exploded as connectivity, cloud tools, and platform-based income enable extended travel without career sacrifice. Large numbers of freelancers and remote employees now spend months in different countries, attracted by lower living costs or lifestyle variety. This growth spurs policy responses — from remote-worker visas to taxation and social security questions — and affects local economies through short-term rental demand and service consumption.</p>
+
+          <p>Challenges for nomads include fragmented benefits (healthcare, retirement contributions), tax complexity, and variable internet and workspace quality. Some employers create nomad-friendly policies — stipends, time-zone-matching guidance, and security protocols — while cities adopt regulations to capture value and avoid housing market distortions.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Are digital nomads taxed differently?<br><strong>A:</strong> Tax rules depend on residency definitions and days-in-country rules; consult tax advisors for multi-country stays.</p>
+
+          <p><strong>Q:</strong> Can companies support nomads safely?
+
+<br><strong>A:</strong> Yes — with security training, VPNs, and clear policies on data handling and benefits.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 6 Remote Job Market Availability -->
+
+      <article class="card" data-cat="market">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Where remote job ads concentrate</span>
+
+            <h2>Remote Job Market Availability</h2>
+
+            <h3>How posting density, platform dynamics, and sector mix shape opportunity</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Remote job availability varies by platform penetration and sector composition. Some labor markets show exceptional remote-listing densities due to a high concentration of tech, customer support, and knowledge roles. High availability increases labor market fluidity and enables workers to compare offers across regions. It also intensifies competition, pressuring wages for some roles while creating premium opportunities for specialized skills.</p>
+
+          <p>Employers benefit from larger talent pools but must manage distributed onboarding and compliance with multi-jurisdictional employment rules. Remote posting density also influences local policy: regions with high listing rates can attract remote workers, boosting local economies if housing and infrastructure are prepared.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Do remote job postings pay less than onsite roles?<br><strong>A:</strong> It depends — some roles use location-adjusted pay, while others maintain market-based salaries for talent retention.</p>
+
+          <p><strong>Q:</strong> How can job seekers find remote roles reliably?
+
+<br><strong>A:</strong> Use specialized remote job boards, network in industry communities, and demonstrate remote-work readiness in applications.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 7 Online Earnings & Freelance Work -->
+
+      <article class="card" data-cat="freelance">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Earning outside traditional employment</span>
+
+            <h2>Online Earnings & Freelance Work</h2>
+
+            <h3>Platforms, pay scales and the paths to sustainable online income</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Online freelancing and platform work let individuals transform skills into marketable services. High-value roles (data science, specialized consulting, engineering) command strong rates, while micro-task marketplaces provide accessible entry points at lower pay. Platform reputations, portfolio samples, and niche positioning determine earnings trajectories; freelancers who specialize and invest in repeat clients often achieve predictable income streams.</p>
+
+          <p>Building sustainable online income requires professionalizing operations: clear contracts, invoicing, client relationship management, and tax compliance. Diversifying platforms, creating recurring revenue (retainers, subscriptions), and packaging skills into higher-value offerings reduce vulnerability to demand shocks. Education and mentorship programs help freelancers move from low-paid gig work to higher-margin project work.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> How much can freelancers earn long-term?<br><strong>A:</strong> Top freelancers in specialized fields earn competitive full-time-equivalent incomes; results vary widely by skill and market positioning.</p>
+
+          <p><strong>Q:</strong> Should freelancers incorporate a business entity?
+
+<br><strong>A:</strong> Often yes for liability protection and tax planning; consult local advisors for the best structure.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 8 Underemployment Trend -->
+
+      <article class="card" data-cat="underemp">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Skills vs roles mismatch in online markets</span>
+
+            <h2>Underemployment Trend</h2>
+
+            <h3>Highly educated workers taking lower-skilled online roles and what it means</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Underemployment in online markets arises when credentialed workers accept lower-skill freelance tasks because of geographic arbitrage, schedule flexibility, or limited local opportunities. While this provides income and flexibility, it risks skills atrophy and long-term wage stagnation if not accompanied by upskilling. Platforms can help by signaling pathways to higher-value work via certifications, reputation systems, and mentorship.</p>
+
+          <p>Policy responses that increase local high-quality job creation, subsidize retraining, and ensure portable benefits for contingent workers reduce the downsides of underemployment while preserving its flexibility advantages.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Is underemployment a new problem?
+
+<br><strong>A:</strong> No, but online platforms make it more visible and globally competitive.</p>
+
+          <p><strong>Q:</strong> How can underemployed workers move up?
+
+<br><strong>A:</strong> Focused upskilling, building repeat client relationships, and targeting niche high-value services help transition to better-paying work.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 9 Technology & Digital Tools Adoption -->
+
+      <article class="card" data-cat="tools">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">The software that makes remote work possible</span>
+
+            <h2>Technology & Digital Tools Adoption</h2>
+
+            <h3>Cloud, collaboration platforms, and the emerging role of AI in remote productivity</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Collaboration suites, cloud storage, and communication tools are the plumbing of modern remote work. Organizations that adopt synchronous and asynchronous practices intentionally — plus supporting tools like documentation platforms and project trackers — see higher remote effectiveness. AI-powered assistants and automation reduce friction: from scheduling to code generation and meeting summarization, these tools accelerate output and lower cognitive load.</p>
+
+          <p>Privacy and compliance constraints shape adoption: stricter data regimes require careful vendor selection and localized hosting. Investment in secure endpoints, identity management, and device policies protects both employers and remote workers from breaches that would compromise trust and productivity.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Which tools are critical for remote teams?<br><strong>A:</strong> Video conferencing, async documentation, task trackers, secure file sharing, and single-sign-on/identity tools.</p>
+
+          <p><strong>Q:</strong> Is AI safe to use on company data?
+
+<br><strong>A:</strong> Use vetted enterprise tools with clear data policies; avoid sending sensitive data to consumer-grade models.
+
+</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 10 Future Trends -->
+
+      <article class="card" data-cat="future">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Where remote work is headed</span>
+
+            <h2>Future Trends</h2>
+
+            <h3>Hybrid permanence, AI productivity stacks, cross-border freelancing, and policy evolution</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Looking forward, hybrid work patterns are likely to stabilize as organizations codify flexible policies. AI-driven productivity tools will augment individual output and make asynchronous collaboration more powerful. Cross-border freelancing will expand as more countries pilot digital nomad visas and remote-work tax regimes. However, these trends will challenge traditional labor regulation, social insurance, and tax systems, prompting policy innovation to keep benefits portable and ensure fair contribution systems for public goods.</p>
+
+          <p>Employers that pair flexible policies with strong culture, measured outcomes, and investment in worker wellbeing will gain recruiting advantage. Workers who blend remote-capable skills with reputation-building and diversified income streams (employment + freelance) will enjoy resilience and choice. Cities and regions that adapt infrastructure and legal frameworks to host remote talent safely and sustainably will capture economic upside without destabilizing local housing or services.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Will AI replace remote jobs?<br><strong>A:</strong> AI will automate tasks but also create new remote-capable roles; emphasis shifts to higher-skill orchestration and judgment work.</p>
+
+          <p><strong>Q:</strong> How should governments respond to cross-border remote work?
+
+<br><strong>A:</strong> Create clear tax rules, portable benefits pilots, and straightforward visa regimes to capture value while protecting social systems.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+    </main>
+
+    <footer>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+
+        <div>Edge — Remote Work & Online Earning</div>
+
+        <div style="color:var(--muted)">Dark yellow & black theme • Mobile friendly • No intrusive modals</div>
+
+      </div>
+
+    </footer>
+
+  </div>
+
+  <script>
+
+    // Tab navigation
+
+    const tabs = document.querySelectorAll('.tab');
+
+    const cards = document.querySelectorAll('.card');
+
+    tabs.forEach(t => t.addEventListener('click', ()=>{
+
+      tabs.forEach(x=>x.classList.remove('active'));
+
+      t.classList.add('active');
+
+      const target = t.getAttribute('data-target');
+
+      if(target === 'all'){ cards.forEach(c=>c.classList.remove('hidden')); return; }
+
+      cards.forEach(c=> c.getAttribute('data-cat')===target ? c.classList.remove('hidden') : c.classList.add('hidden'));
+
+      const first = document.querySelector('.card:not(.hidden)'); if(first) first.scrollIntoView({behavior:'smooth',block:'start'});
+
+    }));
+
+    // Favourite toggles
+
+    document.querySelectorAll('.fav').forEach(btn=>{
+
+      btn.addEventListener('click', ()=>{
+
+        const active = btn.classList.toggle('active');
+
+        btn.setAttribute('aria-pressed', active? 'true':'false');
+
+        btn.textContent = active? '★ Added to favourite' : '☆ Add to favourite';
+
+      });
+
+    });
+
+    // keyboard
+
+    tabs.forEach(t=>t.setAttribute('tabindex','0'));
+
+  </script>
+
+</body>
+
+</html>
