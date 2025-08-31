@@ -1,0 +1,651 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Edge — How Health & Wealth blends in today's world?</title>
+
+  <style>
+
+    :root{
+
+      --bg:#001025; /* deep navy/black */
+
+      --panel:#04243a; /* dark blue panel */
+
+      --accent:#39c0ff; /* bright cyan accent */
+
+      --muted:#9cc6d8;
+
+      --glass: rgba(255,255,255,0.03);
+
+      --card-radius:16px;
+
+      --max-width:1200px;
+
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+
+      -webkit-font-smoothing:antialiased;
+
+      -moz-osx-font-smoothing:grayscale;
+
+    }
+
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #000814 100%);color:#eaf6ff}
+
+    .container{max-width:var(--max-width);margin:28px auto;padding:20px}
+
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+
+    .logo{width:68px;height:68px;border-radius:12px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent);font-size:20px}
+
+    .logo a{color:var(--accent);text-decoration:none}
+
+    h1{margin:0;font-size:22px}
+
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+
+    .tab{background:var(--panel);padding:8px 12px;border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,0.03);font-size:14px}
+
+    .tab.active{background:linear-gradient(180deg,var(--accent), #19aee6);color:#021824;font-weight:700;box-shadow:0 8px 26px rgba(57,192,255,0.08)}
+
+    .hero{padding:16px;border-radius:12px;background:linear-gradient(90deg, rgba(4,36,58,0.6), rgba(0,8,18,0.35));border:1px solid rgba(255,255,255,0.02);margin-bottom:18px}
+
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:12px;color:var(--muted);margin-right:8px}
+
+    .cards{display:grid;grid-template-columns:1fr;gap:18px}
+
+    @media(min-width:1000px){.cards{grid-template-columns:1fr}}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border-radius:var(--card-radius);padding:24px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 14px 44px rgba(0,6,12,0.6)}
+
+    .kicker{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+
+    h2{margin:0 0 8px;font-size:20px}
+
+    h3{margin:0 0 12px;color:var(--muted);font-weight:500}
+
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+
+    .fav{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;cursor:pointer;font-size:14px}
+
+    .fav.active{background:rgba(57,192,255,0.08);border-color:rgba(57,192,255,0.18);color:var(--accent)}
+
+    .content{line-height:1.75;font-size:15px;color:#e6fbff}
+
+    .content p{max-width:72ch;margin-bottom:12px}
+
+    .faq{margin-top:18px;border-top:1px dashed rgba(255,255,255,0.03);padding-top:12px}
+
+    .faq h4{margin:0 0 8px}
+
+    .faq p{margin:6px 0;color:var(--muted);font-size:14px}
+
+    footer{margin-top:28px;padding:18px;border-radius:12px;background:linear-gradient(90deg, rgba(4,36,58,0.6), rgba(0,6,12,0.35));color:var(--muted);font-size:13px}
+
+    .hidden{display:none}
+
+    .tab:focus,.fav:focus{outline:2px dashed rgba(57,192,255,0.25);outline-offset:3px}
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+
+      <div class="logo"><a href="#">#</a></div>
+
+      <div>
+
+        <h1>EDGE -How Does Health & Wealth blends in today's world?</h1>
+
+        <div class="subtitle">A comprehensive exploration of GDP, health spending, outcomes and system design — ten deep perspectives connecting economics and population health.</div>
+
+      </div>
+
+    </header>
+
+    <div class="hero">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+
+        <div>
+
+          <span class="badge">Edge — Health & Wealth</span>
+
+          <span class="badge">Dark Blue Theme</span>
+
+        </div>
+
+        <div style="color:var(--muted);font-size:13px">10 sections • Long-form insights • Mobile friendly</div>
+
+      </div>
+
+      <div style="margin-top:12px;color:var(--muted);font-size:14px">Use the tabs to view each detailed section individually or select "All" to read the full integrated narrative. Each card includes an "Add to favourite" control and a short FAQ below.</div>
+
+    </div>
+
+    <nav aria-label="Categories">
+
+      <button class="tab active" data-target="all">All</button>
+
+      <button class="tab" data-target="gdp">1. GDP (Total)</button>
+
+      <button class="tab" data-target="gdp_per">2. GDP per Capita</button>
+
+      <button class="tab" data-target="hc_total">3. Healthcare Spending (Total)</button>
+
+      <button class="tab" data-target="hc_pct">4. Healthcare Spending (% of GDP)</button>
+
+      <button class="tab" data-target="hc_percap">5. Healthcare Spending per Capita</button>
+
+      <button class="tab" data-target="hc_growth">6. Healthcare Spending Growth (2023)</button>
+
+      <button class="tab" data-target="life">7. Life Expectancy</button>
+
+      <button class="tab" data-target="infant">8. Infant Mortality Rate</button>
+
+      <button class="tab" data-target="obesity">9. Obesity Rate</button>
+
+      <button class="tab" data-target="system">10. Healthcare System Type</button>
+
+    </nav>
+
+    <section class="cards" id="cards">
+
+      <!-- 1 GDP Total -->
+
+      <article class="card" data-cat="gdp">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">The macro engine behind public services</span>
+
+            <h2>GDP (Total)</h2>
+
+            <h3>Why the size of the economy matters for health system capacity and national resilience</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Gross Domestic Product measures the total market value of goods and services produced in a country. At the most fundamental level, a larger GDP expands the fiscal space that governments and private actors can allocate to healthcare. Absolute GDP underpins investments in hospitals, research institutions, public health campaigns, workforce training, and supply chains for medicines and equipment. Larger economies can sustain more complex tertiary care systems, fund expensive treatments, and host world-class medical research — all of which contribute to better population health when paired with deliberate policy choices.</p>
+
+          <p>But GDP alone is a blunt instrument. Two economies with similar GDPs can deliver vastly different health outcomes depending on public finance, spending priorities, and distribution. How GDP is taxed and redistributed (progressive taxation, social transfers, targeted health subsidies) determines whether economic abundance becomes widespread health improvements or concentrates in specialist care that mainly benefits a small, wealthy fraction. Policymakers need to translate aggregate wealth into effective systems that reach underserved groups — investments in primary care, preventive services, and rural clinics often yield higher marginal health returns than concentrating expenditures on advanced tertiary centers.</p>
+
+          <p>Economic shocks provide a further lesson: countries with higher GDPs may be better placed to absorb shocks (economic downturns, pandemics, natural disasters) but are not immune if their social protections are weak. Building fiscal buffers, emergency health funds, and international cooperation mechanisms ensures that GDP provides resilience rather than false security. Private sector capacity — pharmaceutical manufacturing, medical technology firms, insurers — also depends on national economic scale but requires supportive policy frameworks to align incentives toward accessibility and affordability.</p>
+
+          <p>For households, large national GDP often translates into more job opportunities and stronger public services, but disparities in wage growth and regional development can leave pockets of poor access. Advocates should therefore pair GDP-based arguments for investment with granular distributional plans showing how funds will improve coverage and reduce disparities across populations.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Does a higher GDP always mean better healthcare?<br><strong>A:</strong> Not automatically; the distribution of spending and policy choices determine whether GDP benefits broad population health.</p>
+
+          <p><strong>Q:</strong> What should countries prioritize if GDP grows rapidly?<br><strong>A:</strong> Invest in primary care, prevention, workforce training, and equitable access mechanisms to maximize health returns.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 2 GDP per Capita -->
+
+      <article class="card" data-cat="gdp_per">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Economic wellbeing at the household level</span>
+
+            <h2>GDP per Capita</h2>
+
+            <h3>How average economic resources per person influence access, affordability and health choices</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>GDP per capita divides total output by population size and is a commonly used proxy for the average material standard of living. Higher GDP per capita generally correlates with better housing, nutrition, education, and access to health services — all of which feed into improved life expectancy and lower child mortality. Households with greater disposable income are more able to afford private care, insurance premiums, preventive services, and healthier lifestyles, reducing their risk of catastrophic health spending.</p>
+
+          <p>However, as an average, GDP per capita hides distributional realities. Income inequality means that an elevated GDP per capita can coexist with large pockets of deprivation if wealth concentrates among a small elite. Therefore, analysts pair per-capita measures with inequality indices to capture lived reality. For policy design, improving per-capita income should be complemented with social protection and targeted subsidies that prevent access gaps and ensure that increases in national wealth lift vulnerable groups, not just aggregate statistics.</p>
+
+          <p>Demographics also play a role: aging populations raise per-capita healthcare needs and can increase per-person spending even if GDP per capita remains stable. Policymakers should therefore plan health financing strategies that account for population age structure, ensuring that entitlements and contribution systems remain sustainable as needs evolve.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Is GDP per capita the best measure for health planning?<br><strong>A:</strong> It’s a useful starting point but must be used with distributional and demographic measures for effective planning.</p>
+
+          <p><strong>Q:</strong> How does per-capita income affect insurance take-up?<br><strong>A:</strong> Higher disposable incomes generally increase voluntary insurance uptake and employer-provided benefits, stabilizing risk pools.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 3 Healthcare Spending Total -->
+
+      <article class="card" data-cat="hc_total">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Absolute investments that enable advanced care</span>
+
+            <h2>Healthcare Spending (Total)</h2>
+
+            <h3>What aggregate health expenditures reveal about priority setting and capacity</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Total healthcare spending — the sum of public, private, and out-of-pocket expenditures — signals how much resource is devoted to health in a year. High absolute spending funds research institutions, specialized hospitals, and broad public health campaigns that can accelerate improvements in survival and quality of care. Absolute figures matter for procurement scale: large budgets enable bulk purchasing of vaccines and equipment, fostering domestic manufacturing potential and negotiating leverage with suppliers.</p>
+
+          <p>Yet absolute spending is not destiny. Efficiency and allocation determine whether these resources produce meaningful health gains. Countries that direct a higher share of spending to primary care and preventive services often achieve better population outcomes per dollar spent than those that prioritize high-cost tertiary care with limited population-level impact. Transparent budgeting, accountability frameworks, and evidence-driven prioritization help translate large expenditure pools into measurable health improvements.</p>
+
+          <p>For households, the composition of total spending affects out-of-pocket exposure. Systems with high public financing generally shield families from catastrophic costs, while those heavily reliant on private spending can leave households vulnerable. Designing mixed financing systems that ensure a basic public floor of universal services while allowing supplemental private options can balance equity and choice.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Does more total spending always improve outcomes?<br><strong>A:</strong> No — spending must be efficient and equitably allocated to achieve better outcomes.</p>
+
+          <p><strong>Q:</strong> How can governments improve spending efficiency?<br><strong>A:</strong> Invest in primary care, digital records, evidence-based procurement, and workforce training.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 4 Healthcare Spending % of GDP -->
+
+      <article class="card" data-cat="hc_pct">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Relative commitment and fiscal trade-offs</span>
+
+            <h2>Healthcare Spending (% of GDP)</h2>
+
+            <h3>Why the share of national output devoted to health matters for sustainability and priorities</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>The percentage of GDP spent on health normalizes spending for cross-country comparison and indicates how much societal output is allocated to health versus other public goods. A higher share can signify strong public commitment to comprehensive coverage and protection, but it must be sustainable. Rapid increases in health’s share of GDP require revenue adjustments or efficiency gains to avoid crowding out other essential services or creating fiscal imbalances.</p>
+
+          <p>Demographic pressures (aging), medical innovation (expensive new treatments), and shifting expectations (expanded benefit packages) drive health’s GDP share. Policymakers can manage these pressures through strategic purchasing, preventive care emphasis, and payment reforms that reward outcomes over volume. Ultimately, the % of GDP is a signal — its health depends on governance, accountability, and value-oriented spending.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Is a higher share of GDP spent on health always positive?<br><strong>A:</strong> It signals priority but must be assessed alongside outcomes and equity to determine if it’s beneficial.</p>
+
+          <p><strong>Q:</strong> How do governments control rapid growth in health spending?<br><strong>A:</strong> Emphasize prevention, negotiate prices, and reform provider payment systems toward value.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 5 Healthcare Spending per Capita -->
+
+      <article class="card" data-cat="hc_percap">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">What resources look like for each person</span>
+
+            <h2>Healthcare Spending per Capita</h2>
+
+            <h3>How per-person spending affects access, wait times and quality</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Per-capita healthcare spending divides total health budgets by population and gives a concrete sense of average resource availability. Higher per-capita funding often enables better staffing ratios, investment in technology, and shorter wait times for elective procedures. Importantly, it supports more comprehensive primary care networks and responsiveness in emergencies. Yet averages mask inequities; targeted allocations ensure that per-capita resources translate to improved access for rural, marginalized, and low-income groups.</p>
+
+          <p>Efficiency again matters: greater per-capita spending that funds duplication and administrative overhead produces limited patient benefit. Conversely, strategic investments in integrated services, telehealth for remote areas, and needs-based resource formulas deliver larger health returns per capita and reduce regional disparities.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Does higher per-capita spending guarantee shorter wait times?<br><strong>A:</strong> Often yes if funds expand capacity and staffing where bottlenecks exist; misallocated funds may not change wait times.</p>
+
+          <p><strong>Q:</strong> How should per-capita budgets be distributed?
+
+<br><strong>A:</strong> Use needs-based formulas that account for demographics, geographic access, and disease burden.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 6 Healthcare Spending Growth 2023 -->
+
+      <article class="card" data-cat="hc_growth">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Short-term shifts, long-term implications</span>
+
+            <h2>Healthcare Spending Growth (2023)</h2>
+
+            <h3>Interpreting recent increases — inflation, policy, and demographic drivers</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Year-on-year growth in healthcare spending can be decomposed into price effects (inflation in wages, drugs, equipment), volume effects (more services delivered), and policy-driven changes (expanded coverage or benefit packages). The 2023 period reflected a mix of these forces: lingering pandemic-related costs, wage pressures in health workforces, and an acceleration of investment in digital health and surge capacity. Distinguishing nominal growth from real growth (inflation-adjusted) is critical for policymakers to know whether they're buying more care or simply paying higher prices.</p>
+
+          <p>For fiscal planning, sustained above-GDP growth in health spending requires either productivity improvements in health delivery or new revenue sources. Reforms that shift care toward community and primary settings, embrace telehealth, and drive down drug prices via negotiation yield sustainable paths forward. Transparent public communication about what drove recent growth helps maintain trust when cost-sharing or tax measures are contemplated to fund expansions.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> If health spending rose in 2023, will my taxes go up?<br><strong>A:</strong> Not necessarily; it depends on how governments choose to fund increased spending — through reallocation, efficiency savings, or new revenue.</p>
+
+          <p><strong>Q:</strong> What can control spending growth without reducing care?
+
+<br><strong>A:</strong> Emphasize prevention, negotiate prices, and invest in care models that reduce hospitalizations.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 7 Life Expectancy -->
+
+      <article class="card" data-cat="life">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">A long-run outcome of systems and society</span>
+
+            <h2>Life Expectancy (Average)</h2>
+
+            <h3>How longevity reflects health services, social determinants and economic conditions</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Average life expectancy summarizes the cumulative impact of health care quality, public health, nutrition, safety, and social conditions. Higher life expectancy correlates with better chronic disease management, strong maternal-child health programs, and effective prevention strategies. Economically, longer lives alter workforce structures, pension systems and healthcare demand — policymakers must plan for longer retirements and rising chronic-care needs.</p>
+
+          <p>However, life expectancy gains are unequal. Socioeconomic gradients mean wealthier groups often gain more from medical progress, while disadvantaged populations may lag due to barriers to care, poor housing, or unhealthy environments. Narrowing these gaps — through targeted prevention, social policy, and universal access — produces both human and economic returns, increasing labor productivity and reducing healthcare costs over time.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Does higher life expectancy always mean healthier lives?<br><strong>A:</strong> Not necessarily; longer life with higher disability years increases care needs — aim for healthy life expectancy gains.</p>
+
+          <p><strong>Q:</strong> What policies boost life expectancy fastest?
+
+<br><strong>A:</strong> Vaccination, maternal-child health, tobacco control, and basic sanitation show rapid population gains.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 8 Infant Mortality -->
+
+      <article class="card" data-cat="infant">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">A sentinel indicator of system reach</span>
+
+            <h2>Infant Mortality Rate</h2>
+
+            <h3>Why newborn survival reveals access, equity, and public health performance</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Infant mortality — deaths per 1,000 live births — is a powerful measure of how well a health system supports its most vulnerable. Reducing infant deaths requires functioning prenatal care, safe delivery services, neonatal care, nutrition, and sanitation. Because effective interventions are well-known and cost-effective, persistent infant mortality is often a sign of access barriers or inequitable distribution of services.</p>
+
+          <p>Programs that strengthen primary care, expand skilled birth attendance, ensure vaccine coverage, and address maternal nutrition can reduce infant mortality rapidly. Tracking disaggregated data (by geography, income, ethnicity) helps direct interventions to communities with the highest burden and measure progress with precision.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Can infant mortality be reduced quickly?<br><strong>A:</strong> Yes — targeted maternal-child health programs and vaccination campaigns often produce fast and measurable declines.</p>
+
+          <p><strong>Q:</strong> How does infant mortality affect economies?
+
+<br><strong>A:</strong> Lower infant deaths translate to stronger human capital development and long-term productivity gains.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 9 Obesity Rate -->
+
+      <article class="card" data-cat="obesity">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Chronic disease and lifestyle economics</span>
+
+            <h2>Obesity Rate</h2>
+
+            <h3>How rising obesity changes long-term healthcare demand, productivity and prevention priorities</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>Obesity increases the prevalence of chronic conditions — diabetes, cardiovascular disease, certain cancers — shifting health systems from episodic acute care to long-term management. The fiscal implications are significant: chronic disease treatment consumes sustained resources, increases medication use, and raises long-term care needs. For employers and economies, obesity-related morbidity reduces productivity and increases absenteeism, linking public health to economic performance in tangible ways.</p>
+
+          <p>Addressing obesity requires cross-sectoral action: urban planning that enables physical activity, food policy that increases access to healthy options, regulation of marketing to children, and clinical preventive programs that identify and manage weight-related risk early. Insurance designs that cover preventive services and behavioral interventions increase uptake and long-run savings compared to paying only for downstream complications.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Can obesity rates be reversed at scale?<br><strong>A:</strong> Yes — comprehensive policies combining environment changes, education, and health services have reduced rates in targeted contexts.</p>
+
+          <p><strong>Q:</strong> How does obesity affect household finances?
+
+<br><strong>A:</strong> It increases healthcare spending and can lower lifetime earnings due to illness-related productivity losses.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+      <!-- 10 Healthcare System Type -->
+
+      <article class="card" data-cat="system">
+
+        <div class="meta">
+
+          <div>
+
+            <span class="kicker">Design choices that determine equity and efficiency</span>
+
+            <h2>Healthcare System Type</h2>
+
+            <h3>Comparing public, mixed and private models — implications for access, cost, and innovation</h3>
+
+          </div>
+
+          <div><button class="fav" aria-pressed="false">☆ Add to favourite</button></div>
+
+        </div>
+
+        <div class="content">
+
+          <p>The financing and delivery model of a health system—publicly funded, mixed public-private, or primarily private—fundamentally shapes access, financial protection, and innovation pathways. Public systems that provide universal coverage tend to minimize catastrophic out-of-pocket spending and deliver predictable access for essential services. Mixed systems aim to harness private sector capacity while safeguarding a public floor for vulnerable populations. Market-dominated systems can be rapid at adopting cutting-edge care for those who can pay but risk leaving many uninsured or underinsured.</p>
+
+          <p>System design also affects incentives: payment models that reward volume drive different behaviors than those that reward outcomes. Transitioning to value-based payments, strengthening primary care, and ensuring effective regulation of private insurers and providers can align financial incentives with health outcomes. Ultimately, political choices, institutional capacity, and social preferences guide which model best fits a given country’s context; hybrid approaches that combine universal basic coverage with regulated private options often achieve good balance between equity and innovation.</p>
+
+        <div class="faq">
+
+          <h4>FAQs</h4>
+
+          <p><strong>Q:</strong> Which system type is best for equity?<br><strong>A:</strong> Well-designed public or strong hybrid systems with a universal basic package typically deliver the best equity outcomes.</p>
+
+          <p><strong>Q:</strong> Can countries change system types quickly?
+
+<br><strong>A:</strong> Major transitions are complex; incremental reforms that expand coverage and strengthen primary care are more feasible and politically durable.</p>
+
+        </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+    <footer>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+
+        <div>Edge — Health & Wealth Integration</div>
+
+        <div style="color:var(--muted)">Dark blue theme • Mobile-friendly • No intrusive modals</div>
+
+      </div>
+
+    </footer>
+
+  </div>
+
+  <script>
+
+    // Tab navigation
+
+    const tabs = document.querySelectorAll('.tab');
+
+    const cards = document.querySelectorAll('.card');
+
+    tabs.forEach(t => t.addEventListener('click', ()=>{
+
+      tabs.forEach(x=>x.classList.remove('active'));
+
+      t.classList.add('active');
+
+      const target = t.getAttribute('data-target');
+
+      if(target === 'all'){ cards.forEach(c=>c.classList.remove('hidden')); return; }
+
+      cards.forEach(c=> c.getAttribute('data-cat')===target ? c.classList.remove('hidden') : c.classList.add('hidden'));
+
+      const first = document.querySelector('.card:not(.hidden)'); if(first) first.scrollIntoView({behavior:'smooth',block:'start'});
+
+    }));
+
+    // Favourite toggle
+
+    document.querySelectorAll('.fav').forEach(btn=>{
+
+      btn.addEventListener('click', ()=>{
+
+        const active = btn.classList.toggle('active');
+
+        btn.setAttribute('aria-pressed', active? 'true':'false');
+
+        btn.textContent = active? '★ Added to favourite' : '☆ Add to favourite';
+
+      });
+
+    });
+
+    // accessibility
+
+    tabs.forEach(t=>t.setAttribute('tabindex','0'));
+
+  </script>
+
+</body>
+
+</html>
