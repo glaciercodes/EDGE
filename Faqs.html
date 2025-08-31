@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Edge • FAQs — Frequently Asked Questions</title>
+
+  <style>
+
+    :root{
+
+      --bg:#0a0a0c;            /* black */
+
+      --ink:#f6f6fb;           /* primary text */
+
+      --muted:#b9b9c9;         /* secondary text */
+
+      --panel:#121218;         /* elevated panel */
+
+      --line:#23232d;          /* hairline */
+
+      /* Accents */
+
+      --purple:#4b2c6f;        /* dark purple */
+
+      --oxblood:#4a0f1f;       /* oxblood */
+
+      --blue:#0f2b4a;          /* dark blue */
+
+      --yellow:#4a3f0f;        /* dark yellow */
+
+      --green:#0f4a2b;         /* dark green */
+
+      --glow: drop-shadow(0 10px 30px rgba(0,0,0,.5));
+
+      --shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.03);
+
+      --radius-xl: 24px;
+
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{height:100%}
+
+    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;}
+
+    /* Header */
+
+    header{position:sticky; top:0; z-index:40; backdrop-filter: blur(10px); background:linear-gradient(180deg, rgba(10,10,12,.95), rgba(10,10,12,.7)); border-bottom:1px solid var(--line)}
+
+    .wrap{max-width:1200px; margin:0 auto; padding:18px 20px}
+
+    .brand{display:flex; align-items:center; gap:14px}
+
+    .brand img{width:48px; height:48px; border-radius:14px; background:radial-gradient(closest-side, #7c3aed, transparent), linear-gradient(135deg, #ef4444, #22d3ee); filter:var(--glow)}
+
+    .brand h1{margin:0; font-size: clamp(18px,4vw,28px)}
+
+    .subtitle{color:var(--muted); font-size:14px; margin-top:2px}
+
+    /* Grid */
+
+    main{max-width:1200px; margin:22px auto 120px; padding:0 20px}
+
+    .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:20px}
+
+    /* Card styling */
+
+    .card{grid-column:span 12; border-radius:var(--radius-xl); padding:24px; border:1px solid var(--line); box-shadow:var(--shadow); position:relative; overflow:hidden}
+
+    @media (min-width:700px){.card{grid-column:span 6}}
+
+    @media (min-width:1100px){.card{grid-column:span 4}}
+
+    /* Decorative backgrounds per card */
+
+    .accent-ai{background:
+
+      radial-gradient(900px 480px at 110% -10%, rgba(75,44,111,.35), transparent 62%),
+
+      linear-gradient(180deg, var(--panel), rgba(15,15,24,1));}
+
+    .accent-money{background:
+
+      radial-gradient(1000px 520px at -10% -10%, rgba(74,15,31,.35), transparent 62%),
+
+      linear-gradient(180deg, var(--panel), rgba(15,15,24,1));}
+
+    .accent-health{background:
+
+      radial-gradient(900px 520px at 0% 110%, rgba(15,43,74,.35), transparent 62%),
+
+      linear-gradient(180deg, var(--panel), rgba(15,15,24,1));}
+
+    .accent-sustain{background:
+
+      radial-gradient(900px 520px at 110% 110%, rgba(74,63,15,.35), transparent 62%),
+
+      linear-gradient(180deg, var(--panel), rgba(15,15,24,1));}
+
+    .accent-remote{background:
+
+      radial-gradient(900px 520px at -10% 110%, rgba(15,74,43,.35), transparent 62%),
+
+      linear-gradient(180deg, var(--panel), rgba(15,15,24,1));}
+
+    /* Card content */
+
+    .pill{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:#efe8ff; font-size:12px}
+
+    .card h2{margin:10px 0 6px; font-size: clamp(18px, 2.4vw, 24px); line-height:1.2}
+
+    .card h3{margin:0 0 14px; font-weight:500; color:#eaddff; font-size:15px}
+
+    .card p{color:#ececf6; line-height:1.75; font-size:15.5px; margin:12px 0}
+
+    .byline{color:var(--muted); font-size:12.5px; margin-bottom:10px}
+
+    /* FAQ block */
+
+    .faq{margin-top:12px; border-top:1px solid var(--line); padding-top:10px}
+
+    .faq details{border:1px solid var(--line); border-radius:16px; padding:12px 14px; background:#0f0f14; margin:10px 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.02)}
+
+    .faq summary{cursor:pointer; font-weight:600}
+
+    .faq summary::marker{content:"❓  "}
+
+    .faq .teaser{display:block; color:var(--muted); font-weight:400; font-size:14px; margin-top:4px; line-height:1.6}
+
+    /* Partial collapsible effect: show first ~3 lines until opened */
+
+    .faq details > .answer{display:block; margin-top:8px; position:relative}
+
+    .faq details:not([open]) > .answer{max-height:4.6em; overflow:hidden}
+
+    .faq details:not([open]) > .answer::after{
+
+      content:""; position:absolute; inset:auto 0 0 0; height:2.2em;
+
+      background:linear-gradient(180deg, rgba(15,15,20,0), rgba(15,15,20,1));
+
+    }
+
+    .hint{display:inline-block; margin-top:6px; font-size:12px; color:#ccf0ff; opacity:.8}
+
+    /* Utilities */
+
+    ul.keypoints{margin:8px 0 8px 18px}
+
+    ul.keypoints li{margin:6px 0}
+
+    footer{border-top:1px solid var(--line); color:var(--muted); padding:30px 20px 80px; text-align:center; background:#0b0b11}
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <div class="wrap">
+
+      <div class="brand">
+
+        <img src="#" alt="Edge logo"/>
+
+        <div>
+
+          <h1>Edge — FAQs • Frequently Asked Questions</h1>
+
+          <div class="subtitle">25 intriguing questions across AI, personal finance, health & wealth, sustainable living, and remote work—crafted for quick insight and deeper reading.</div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <main>
+
+    <div class="wrap">
+
+      <section class="grid">
+
+        <!-- CARD 1: AI & Technology -->
+
+        <article class="card accent-ai">
+
+          <span class="pill">AI • Technology</span>
+
+          <h2>How is AI changing work today—not someday?</h2>
+
+          <h3>From code generation to safe deployment, here’s what to know right now.</h3>
+
+          <div class="byline">Tool‑agnostic, human‑centered, and practical.</div>
+
+          <p>AI doesn’t erase expertise; it compresses the distance from idea to draft and from prototype to test. The winners pair strong fundamentals with machine assistance: precise specs, tight review loops, and clear accountability. Below are five high‑curiosity questions with partially collapsible answers—scan the teasers, open to read the deeper guidance.</p>
+
+          <div class="faq">
+
+            <details>
+
+              <summary>Is AI going to replace programmers?<span class="teaser"> Short answer: it replaces repetitive typing, not responsibility; the role shifts to specification, verification, and integration.</span></summary>
+
+              <div class="answer">
+
+                AI excels at boilerplate, scaffolding, and translations between frameworks. Programmers move up the stack: framing problems, choosing architectures, designing tests, and protecting systems. Treat AI like a junior pair: fast, tireless, occasionally wrong. Keep guardrails—linting, unit/integration tests, code review, and threat modeling. The career moat is domain knowledge plus taste in trade‑offs; those aren’t auto‑generated.
+
+                <ul class="keypoints">
+
+                  <li>Draft quickly → test ruthlessly.</li>
+
+                  <li>Prefer small PRs; verify with CI.</li>
+
+                  <li>Document decisions so future you can trust past you.</li>
+
+                </ul>
+
+                <span class="hint">Tip: keep a “gotchas” file for recurring hallucinations and edge cases.</span>
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>Is AI bad or dangerous?<span class="teaser"> Risk depends on design and use; safety grows from privacy‑by‑default, audits, and narrow deployments before scale.</span></summary>
+
+              <div class="answer">
+
+                Harms range from data leakage to biased outcomes and over‑reliance. Mitigate by minimizing sensitive inputs, isolating workloads, red‑teaming prompts/outputs, and logging decisions. Start with clear use limits; escalate only after monitoring. Communicate capabilities and failures plainly to keep users in the loop.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>Does AI really make me more productive?<span class="teaser"> Yes—when you articulate acceptance criteria and measure output quality, not just speed.</span></summary>
+
+              <div class="answer">
+
+                Use AI for drafts, scaffolds, unit tests, and API glue. Maintain a definition of done (DoD) and compare cycle time before/after. Many teams see faster throughput and fewer context‑switches. The point isn’t more stories closed—it’s fewer defects escaping.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>Is technology the same as science?<span class="teaser"> Science explains; technology applies. They dance together but have different goals.</span></summary>
+
+              <div class="answer">
+
+                Science seeks reliable truths about nature via hypotheses and evidence. Technology applies knowledge to build tools and systems. Good products respect both: theory informs design; field feedback refines understanding.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>Is technology dangerous?<span class="teaser"> Any powerful tool can harm; governance, secure defaults, and human oversight reduce risk.</span></summary>
+
+              <div class="answer">
+
+                Adopt least‑privilege access, fail‑safe modes, and transparent incident handling. For end users, demand plain‑language settings and the ability to opt out. Safer tech is designed, not wished into being.
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+        <!-- CARD 2: Personal Finance & Investing (Holistic) -->
+
+        <article class="card accent-money">
+
+          <span class="pill">Money • Investing</span>
+
+          <h2>How do you build wealth calmly—without chasing headlines?</h2>
+
+          <h3>Five starter questions that anchor a resilient plan.</h3>
+
+          <div class="byline">Education‑first. This is general information, not financial advice.</div>
+
+          <p>Focus on behaviors you control: saving rate, diversification, fees, and time in the market. Protect with cash buffers and insurance. Invest in yourself to raise earnings power. Then let compounding do its quiet magic.</p>
+
+          <div class="faq">
+
+            <details>
+
+              <summary>How do I invest in gold?<span class="teaser"> Decide between physical, vaulted, or diversified funds; size it as insurance, not as your growth engine.</span></summary>
+
+              <div class="answer">
+
+                Physical coins/bars add storage and spread costs; vaulted solutions offer convenience with custody risk; funds simplify but add fees. Gold diversifies and may hedge crises, but lacks cash flow—treat as a modest allocation alongside productive assets.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How do I invest in the stock market?<span class="teaser"> Use broad‑market funds, automate contributions, and hold for years; costs and behavior beat timing.</span></summary>
+
+              <div class="answer">
+
+                Pick an allocation matching your risk horizon. Dollar‑cost average monthly. Rebalance on a schedule. Keep fees low and taxes mindful. Most results come from staying invested through cycles.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How do I invest in bitcoin?<span class="teaser"> Understand volatility and custody; only invest money you can risk, via regulated venues and secure wallets.</span></summary>
+
+              <div class="answer">
+
+                Crypto carries sharp swings and operational risks. If you participate, learn custody (hot vs. cold), use strong security, and size the position conservatively within a diversified plan.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How do I invest in “money” itself?<span class="teaser"> For near‑term goals, use high‑yield cash and short‑term instruments; for growth, own businesses via funds.</span></summary>
+
+              <div class="answer">
+
+                Cash preserves optionality; productive assets generate returns. Match vehicles to timelines: cash (0–2 years), balanced (3–5), equities (5+), always considering your risk tolerance.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How do I invest in myself?<span class="teaser"> Skills, health, relationships, and reputation usually beat any single asset’s ROI.</span></summary>
+
+              <div class="answer">
+
+                Upskill toward scarce, valued work; maintain health to protect work capacity; cultivate networks; ship visible, trustworthy work—opportunity finds reliability.
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+        <!-- CARD 3: Health & Wealth -->
+
+        <article class="card accent-health">
+
+          <span class="pill">Health • Daily Care</span>
+
+          <h2>What routines protect your organs and mood for the long run?</h2>
+
+          <h3>Nine essentials distilled into five focused answers.</h3>
+
+          <div class="byline">General wellness education. Always consult qualified clinicians for personal care.</div>
+
+          <p>Health compounds through consistent basics: sleep, movement, whole foods, sunlight, stress skills, and preventive screening. The following questions translate those into organ‑specific actions you can start today.</p>
+
+          <div class="faq">
+
+            <details>
+
+              <summary>How can I take care of my kidneys?<span class="teaser"> Hydration, blood pressure and glucose control, and prudent medication use matter most.</span></summary>
+
+              <div class="answer">
+
+                Drink water through the day; limit excess salt; moderate alcohol; avoid unnecessary NSAIDs; and work with a clinician if you have hypertension, diabetes, or a family history. Early labs and urine tests catch issues before damage accumulates.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How can I take care of my liver?<span class="teaser"> Limit alcohol, manage weight, vaccinate where recommended, and be cautious with supplements.</span></summary>
+
+              <div class="answer">
+
+                Non‑alcoholic fatty liver disease is tied to diet and activity; adopt fiber‑rich meals, regular exercise, and weight management. Review medications and supplements with a professional—“natural” does not mean safe for the liver.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How can I take care of my hair and skin?<span class="teaser"> Gentle routines, sun protection, nutrition, and addressing scalp/derm issues early.</span></summary>
+
+              <div class="answer">
+
+                Use mild cleansers, avoid frequent high‑heat styling, and protect from UV with hats/sunscreen. For skin, moisturize, avoid smoking, and treat persistent acne/eczema with professional help.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How can I take care of my eyes?<span class="teaser"> Protection + breaks + regular exams keep vision comfortable and safer.</span></summary>
+
+              <div class="answer">
+
+                Follow the 20‑20‑20 rule at screens, use proper lighting, wear protective eyewear for sun/sports/work, and schedule exams based on age and risk factors.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How can I take care of my heart and mental health?<span class="teaser"> Move daily, monitor blood pressure/lipids, connect socially, and use therapy/stress tools as needed.</span></summary>
+
+              <div class="answer">
+
+                Combine aerobic and strength training, emphasize whole foods, sleep consistently, and practice stress reducers (walks, breathing, journaling). Seek help early—mental fitness is health.
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+        <!-- CARD 4: Sustainable living & eco‑friendly lifestyle -->
+
+        <article class="card accent-sustain">
+
+          <span class="pill">Sustainable • Lifestyle</span>
+
+          <h2>How do you live lightly on the planet—and feel good doing it?</h2>
+
+          <h3>Joy, health, and simplicity can reinforce each other.</h3>
+
+          <div class="byline">Everyday actions that save money and reduce waste.</div>
+
+          <p>Life satisfaction rises when routines match values. Think less stuff, better stuff, and shared stuff. Cook more, walk more, repair more. The gains compound in your wallet and your mood.</p>
+
+          <div class="faq">
+
+            <details>
+
+              <summary>How to live alone—well?<span class="teaser"> Design your week for connection, comfort, and competence.</span></summary>
+
+              <div class="answer">
+
+                Schedule social anchors (classes, volunteering), create cozy rituals (music, tea, reading), and master simple home skills (batch cooking, basic repairs). A tidy, resource‑efficient home lowers bills and raises calm.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How to live a happy life?<span class="teaser"> Align time with values, invest in relationships, and move your body.</span></summary>
+
+              <div class="answer">
+
+                Keep a “top‑of‑week” list of what matters (people, projects, health) and block the calendar first. Gratitude and service nudge mood upward; screens late at night nudge it down.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How to live a healthy life?<span class="teaser"> Cook most meals, sleep on a schedule, and choose active transport when possible.</span></summary>
+
+              <div class="answer">
+
+                Meal planning cuts waste and improves nutrition; walking or cycling for short trips adds automatic movement; consistent sleep stabilizes energy and decision‑making.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How to live longer?<span class="teaser"> Don’t smoke, maintain healthy weight, prioritize friendship, and get screenings.</span></summary>
+
+              <div class="answer">
+
+                Simple patterns dominate longevity research: activity, nutrient‑dense diets, social ties, and medical preventive care. Add fun—you’ll keep doing it.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How to be eco‑friendly on a budget?<span class="teaser"> Buy once, buy durable; repair and share; reduce energy waste at home.</span></summary>
+
+              <div class="answer">
+
+                Reusables, insulation, LED lighting, and smart power use often save money fast. Community libraries (tools, toys) convert occasional needs into shared resources.
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+        <!-- CARD 5: Remote work, digital, online earning -->
+
+        <article class="card accent-remote">
+
+          <span class="pill">Remote • Online Earning</span>
+
+          <h2>How can you earn online—ethically and sustainably?</h2>
+
+          <h3>Start simple, prove value, and build systems you control.</h3>
+
+          <div class="byline">For creators, freelancers, and small businesses.</div>
+
+          <p>Pick a problem people pay to solve, publish useful samples, and make buying easy. Own your audience via email and your website, then diversify platforms. Use AI to speed drafts and research; keep human quality control.</p>
+
+          <div class="faq">
+
+            <details>
+
+              <summary>How can I make money online?<span class="teaser"> Package a clear outcome (design, writing, tutoring) and sell it with proof.</span></summary>
+
+              <div class="answer">
+
+                A simple one‑page site, testimonials, and a booking link outperform complicated funnels. Deliver reliably, then productize repeat requests.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How can I make money from YouTube?<span class="teaser"> Solve a repeated problem on a schedule; monetize with ads, affiliates, and your own offers.</span></summary>
+
+              <div class="answer">
+
+                Nail titles/thumbnails, keep intros short, and end with a specific next step. Repurpose shorts to other platforms to widen discovery.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How can I make money fast / right now?<span class="teaser"> Sell existing skills today: freelance gigs, micro‑services, or declutter sales—avoid risky schemes.</span></summary>
+
+              <div class="answer">
+
+                Offer rush services at a premium, deliver same‑day results, and ask for a review/referral. Short feedback cycles reveal durable niches.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How can I make money on TikTok / with my phone?<span class="teaser"> Batch short tutorials, link a lead magnet, and route to a simple paid service.</span></summary>
+
+              <div class="answer">
+
+                Shoot in natural light, keep framing consistent, and post at set times. Track questions in comments—they’re prompts for future content and products.
+
+              </div>
+
+            </details>
+
+            <details>
+
+              <summary>How can I make money with AI?<span class="teaser"> Use AI to accelerate deliverables—sell outcomes (reports, code, designs), not prompts.</span></summary>
+
+              <div class="answer">
+
+                Build a repeatable workflow: brief → AI draft → human edit → QA checklist. Keep ethics clear: disclose assistance where relevant and protect client data.
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer>
+
+    <div class="wrap">
+
+      © Edge • Partially collapsible FAQs with decorative cards • Built for mobile and desktop.
+
+    </div>
+
+  </footer>
+
+</body>
+
+</html>
