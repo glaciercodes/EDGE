@@ -1,0 +1,453 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Edge — Balancing technology with Health</title>
+
+  <style>
+
+    :root{
+
+      --bg:#050507;
+
+      --card-radius:18px;
+
+      --gap:18px;
+
+      --glass: rgba(255,255,255,0.03);
+
+      --muted: rgba(255,255,255,0.65);
+
+      --accent-purple: #3b0f4a; /* dark purple */
+
+      --accent-green:  #0b3b29; /* dark green */
+
+      --accent-blue:   #07213a; /* dark blue */
+
+      --accent-red:    #3a0b0b; /* dark red */
+
+      --accent-ox:     #2d0b0f; /* oxblood */
+
+      --card-shadow: 0 8px 30px rgba(0,0,0,0.7);
+
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{height:100%}
+
+    body{
+
+      margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+      background: linear-gradient(180deg,var(--bg) 0%, #000000 100%);
+
+      color: #fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+
+      -webkit-tap-highlight-color: transparent;
+
+      padding:32px; display:flex; align-items:flex-start; justify-content:center;
+
+    }
+
+    .container{
+
+      width:100%; max-width:1200px;
+
+    }
+
+    header{
+
+      display:flex; gap:16px; align-items:center; margin-bottom:20px;
+
+    }
+
+    .logo{
+
+      width:64px; height:64px; border-radius:10px; background:#111; display:flex;align-items:center;justify-content:center;flex-shrink:0; overflow:hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+
+    }
+
+    .logo img{width:100%;height:100%;object-fit:contain}
+
+    .title{
+
+      display:flex; flex-direction:column; gap:4px;
+
+    }
+
+    .title h1{font-size:20px;margin:0;letter-spacing:0.2px}
+
+    .title p{margin:0;color:var(--muted);font-size:13px}
+
+    /* grid */
+
+    .grid{
+
+      display:grid; grid-template-columns: repeat(2, 1fr); gap:var(--gap);
+
+    }
+
+    .card{
+
+      background: linear-gradient(180deg, var(--glass), rgba(255,255,255,0.02));
+
+      border-radius:var(--card-radius);
+
+      padding:18px; box-shadow:var(--card-shadow); position:relative; overflow:hidden; min-height:220px;
+
+      transition:transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease;
+
+      display:flex; flex-direction:column; justify-content:space-between;
+
+    }
+
+    .card:hover{transform:translateY(-8px) scale(1.01); box-shadow:0 18px 50px rgba(0,0,0,0.8)}
+
+    .card .accent-band{position:absolute; left:0; top:0; bottom:0; width:8px;}
+
+    .card h2{font-size:18px;margin:0 0 10px 0}
+
+    .card h2 a{color:#fff; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,0.06); padding-bottom:2px}
+
+    .card p{margin:0;color:var(--muted);line-height:1.55}
+
+    .meta{display:flex;gap:12px;align-items:center;margin-top:12px}
+
+    .badge{font-size:12px;padding:6px 10px;border-radius:12px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    .cta{margin-left:auto}
+
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.08);color:#fff;padding:8px 12px;border-radius:10px;font-size:13px;cursor:pointer}
+
+    /* specific colors */
+
+    .p-purple{background:linear-gradient(180deg, rgba(59,15,74,0.14), rgba(0,0,0,0.15));}
+
+    .p-green{background:linear-gradient(180deg, rgba(11,59,41,0.12), rgba(0,0,0,0.15));}
+
+    .p-blue{background:linear-gradient(180deg, rgba(7,33,58,0.12), rgba(0,0,0,0.15));}
+
+    .p-red{background:linear-gradient(180deg, rgba(58,11,11,0.12), rgba(0,0,0,0.15));}
+
+    .p-ox{background:linear-gradient(180deg, rgba(45,11,15,0.12), rgba(0,0,0,0.15));}
+
+    .p-purple .accent-band{background:linear-gradient(180deg,var(--accent-purple),#000)}
+
+    .p-green  .accent-band{background:linear-gradient(180deg,var(--accent-green),#000)}
+
+    .p-blue   .accent-band{background:linear-gradient(180deg,var(--accent-blue),#000)}
+
+    .p-red    .accent-band{background:linear-gradient(180deg,var(--accent-red),#000)}
+
+    .p-ox     .accent-band{background:linear-gradient(180deg,var(--accent-ox),#000)}
+
+    /* small screens */
+
+    @media (max-width:860px){
+
+      .grid{grid-template-columns: 1fr;}
+
+      body{padding:18px}
+
+    }
+
+    /* card-specific layout tweaks */
+
+    .card .eyebrow{font-size:12px;color:rgba(255,255,255,0.55); text-transform:uppercase; letter-spacing:1px}
+
+    /* subtle floating blob */
+
+    .card:after{
+
+      content:''; position:absolute; right:-40px; top:-40px; width:160px; height:160px; border-radius:50%; opacity:0.06; filter:blur(18px)
+
+    }
+
+    .p-purple.card:after{background:linear-gradient(45deg,#7a3db1,#3b0f4a)}
+
+    .p-green.card:after{background:linear-gradient(45deg,#167a5a,#0b3b29)}
+
+    .p-blue.card:after{background:linear-gradient(45deg,#1b4fa0,#07213a)}
+
+    .p-red.card:after{background:linear-gradient(45deg,#a83434,#3a0b0b)}
+
+    .p-ox.card:after{background:linear-gradient(45deg,#6b3036,#2d0b0f)}
+
+    /* accessible focus */
+
+    a:focus{outline:3px solid rgba(255,255,255,0.06); outline-offset:3px}
+
+    /* small interactive tilt effect on pointer move */
+
+    .card[data-tilt='true']{will-change:transform}
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+
+      <div class="logo" aria-hidden>
+
+        <img src="#" alt="Edge logo placeholder">
+
+      </div>
+
+      <div class="title">
+
+        <h1>Edge — Balancing technology with Health</h1>
+
+        <p>A thoughtful magazine blending tech, finance, wellness, sustainability, and remote work insights.</p>
+
+      </div>
+
+    </header>
+
+    <main class="grid" id="mag-grid">
+
+      <!-- Card 1: AI & Technology (Dark Purple + Black) -->
+
+      <article class="card p-purple" data-tilt="true" aria-labelledby="c1h">
+
+        <div class="accent-band" aria-hidden></div>
+
+        <div>
+
+          <div class="eyebrow">Ai &amp; Technology</div>
+
+          <h2 id="c1h"><a href="#">How is smart tech quietly rewiring our everyday health choices?</a></h2>
+
+          <p>
+
+            Sensors, wearables and ambient intelligence now nudge what we eat, how we sleep and when we move. Rather than dramatic "robot-doctors," expect subtle, personalized nudges — step reminders tuned to your circadian rhythm, hydration cues that learn your routine, or medication alerts that appear exactly when your workflow allows a break. This fusion of telemetry and behavioral design raises huge opportunities (early detection, daily habit improvement) and serious questions (who owns the data, how are models biased, what happens when devices stop recommending?).
+
+          </p>
+
+        </div>
+
+        <div class="meta">
+
+          <div class="badge">Trends • AI</div>
+
+          <div class="cta"><button class="btn" onclick="reveal(1)">Explore</button></div>
+
+        </div>
+
+      </article>
+
+      <!-- Card 2: Personal Finance & Investing (Dark Green + Black) -->
+
+      <article class="card p-green" data-tilt="true" aria-labelledby="c2h">
+
+        <div class="accent-band" aria-hidden></div>
+
+        <div>
+
+          <div class="eyebrow">Personal Finance &amp; Investing</div>
+
+          <h2 id="c2h"><a href="#">Could your next passive income stream arrive via digital platforms?</a></h2>
+
+          <p>
+
+            The investing landscape has evolved beyond stocks and bonds: micro-entrepreneurship, creator monetization, and platform-enabled passive income mix with traditional portfolios. Intelligent budgeting apps now synthesize recurring cash flows, while fractional ownership and tokenized assets open new access points. Savvy stewards combine diversification, recurring revenue streams (subscriptions, royalties), and risk-aware leverage — but they also prioritize liquidity and guardrails. The smartest playbooks merge automation with human oversight: autopilot savings plus intentional, periodic strategy reviews.
+
+          </p>
+
+        </div>
+
+        <div class="meta">
+
+          <div class="badge">Money • Future-proof</div>
+
+          <div class="cta"><button class="btn" onclick="reveal(2)">Explore</button></div>
+
+        </div>
+
+      </article>
+
+      <!-- Card 3: Health & Wealth (Dark Blue + Black) -->
+
+      <article class="card p-blue" data-tilt="true" aria-labelledby="c3h">
+
+        <div class="accent-band" aria-hidden></div>
+
+        <div>
+
+          <div class="eyebrow">Health &amp; Wealth</div>
+
+          <h2 id="c3h"><a href="#">What if preventive care became part of your daily tech routine?</a></h2>
+
+          <p>
+
+            Prevention is quietly migrating from clinic visits into daily apps: sleep coaching tied to calendar patterns, stress signals inferred from typing cadence, and personalized nutrition guided by cheap at-home assays. By shifting focus from episodic treatment to continuous monitoring, individuals can intercept risk earlier and reduce long-term costs. The challenge is designing interventions that respect autonomy, preserve privacy and avoid anxiety — showing helpful patterns without turning life into one long health audit.
+
+          </p>
+
+        </div>
+
+        <div class="meta">
+
+          <div class="badge">Wellness • Preventive</div>
+
+          <div class="cta"><button class="btn" onclick="reveal(3)">Explore</button></div>
+
+        </div>
+
+      </article>
+
+      <!-- Card 4: Sustainable Living & Eco Lifestyle (Dark Red + Black) -->
+
+      <article class="card p-red" data-tilt="true" aria-labelledby="c4h">
+
+        <div class="accent-band" aria-hidden></div>
+
+        <div>
+
+          <div class="eyebrow">Sustainable Living</div>
+
+          <h2 id="c4h"><a href="#">How can small tech choices shrink your carbon footprint today?</a></h2>
+
+          <p>
+
+            Small, practical adjustments—smarter thermostats, energy-aware charging for EVs, and local-sourcing apps—compound into measurable reductions. Circular-economy platforms and repair marketplaces extend product lifecycles, while micro-investments in green projects let everyday users support transition efforts. The next wave focuses less on flashy gadgets and more on systems: interoperable batteries, municipal data sharing for efficient transit, and incentives that reward low-carbon behavior at scale.
+
+          </p>
+
+        </div>
+
+        <div class="meta">
+
+          <div class="badge">Climate • Practical</div>
+
+          <div class="cta"><button class="btn" onclick="reveal(4)">Explore</button></div>
+
+        </div>
+
+      </article>
+
+      <!-- Card 5: Remote Work & Digital Earning (Oxblood + Black) -->
+
+      <article class="card p-ox" data-tilt="true" aria-labelledby="c5h">
+
+        <div class="accent-band" aria-hidden></div>
+
+        <div>
+
+          <div class="eyebrow">Remote Work &amp; Online Earning</div>
+
+          <h2 id="c5h"><a href="#">Are flexible workflows the secret to better health and higher productivity?</a></h2>
+
+          <p>
+
+            Flexible schedules can reduce commute stress and create space for healthier routines — but only when paired with clear boundaries and asynchronous tools. The highest-performing distributed teams pair explicit expectations with lightweight coordination systems: short async updates, clear decision rights, and rhythmical meetings that respect deep work. For independent digital earners, the combination of diverse income channels, a disciplined pipeline, and attention to wellbeing beats frantic hustle.
+
+          </p>
+
+        </div>
+
+        <div class="meta">
+
+          <div class="badge">Work • Remote</div>
+
+          <div class="cta"><button class="btn" onclick="reveal(5)">Explore</button></div>
+
+        </div>
+
+      </article>
+
+    </main>
+
+    <!-- small footer -->
+
+    <footer style="margin-top:22px;color:var(--muted); font-size:13px">
+
+      <div>Edge — A compact magazine for people balancing modern tech, money, and wellbeing.</div>
+
+    </footer>
+
+  </div>
+
+  <script>
+
+    // Keep interactions local: reveal shows a quick modal-like expanded note.
+
+    function reveal(i){
+
+      const cards = {
+
+        1: `Sensors and AI-driven nudges are improving early detection, sleep and movement. Consider device privacy, data portability, and the need for human-in-the-loop oversight.`,
+
+        2: `Combine passive income ideas with diversified savings. Automate what you can but retain periodic manual review to avoid hidden fees or concentration risk.`,
+
+        3: `Daily preventive practices (sleep, nutrition, micro-activity) reduce long-term risk and healthcare spend. Aim for "helpful" not intrusive monitoring.`,
+
+        4: `Prioritize repair, reuse and smarter energy patterns. Community-level solutions often outperform isolated gadget purchases.`,
+
+        5: `Trust-building, predictable async flows, and explicit deep-work windows let teams be both healthier and more productive.`
+
+      };
+
+      const msg = cards[i] || 'More to explore.';
+
+      // simple floating toast
+
+      const t = document.createElement('div');
+
+      t.textContent = msg;
+
+      t.style.position='fixed'; t.style.left='50%'; t.style.top='20px'; t.style.transform='translateX(-50%)';
+
+      t.style.background='rgba(0,0,0,0.8)'; t.style.padding='12px 18px'; t.style.borderRadius='10px'; t.style.boxShadow='0 10px 30px rgba(0,0,0,0.7)';
+
+      t.style.zIndex=9999; t.style.maxWidth='88%'; t.style.fontSize='14px';
+
+      document.body.appendChild(t);
+
+      setTimeout(()=>{ t.style.transition='opacity .4s'; t.style.opacity='0'; setTimeout(()=>t.remove(),400)},3200);
+
+    }
+
+    // pointer tilt micro-interaction
+
+    (function(){
+
+      const cards = document.querySelectorAll('.card[data-tilt="true"]');
+
+      cards.forEach(card=>{
+
+        card.addEventListener('pointermove', e=>{
+
+          const rect = card.getBoundingClientRect();
+
+          const dx = e.clientX - (rect.left + rect.width/2);
+
+          const dy = e.clientY - (rect.top + rect.height/2);
+
+          const rX = (dy/rect.height)*4; const rY = (dx/rect.width)*-6;
+
+          card.style.transform = `perspective(800px) rotateX(${rX}deg) rotateY(${rY}deg)`;
+
+        });
+
+        card.addEventListener('pointerleave', ()=>{ card.style.transform='translateY(-8px) scale(1.01)'; });
+
+      })
+
+    })();
+
+  </script>
+
+</body>
+
+  </html>
