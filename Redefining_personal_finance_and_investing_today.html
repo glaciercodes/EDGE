@@ -40,7 +40,12 @@
 
     header{display:flex;gap:16px;align-items:center}
 
-    .logo{width:68px;height:68px;border-radius:12px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:22px}
+
+.logo{
+
+      width:64px; height:64px; border-radius:10px; background:#111; display:flex;align-items:center;justify-content:center;flex-shrink:0; overflow:hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+
+}
 
     .brand h1{margin:0;font-size:22px}
 
@@ -104,8 +109,11 @@
 
     <header>
 
-      <div class="logo"><a href="000000002c4c620a83e245426d942eea.png" style="color:var(--accent);text-decoration:none">#</a></div>
+      <div class="logo" aria-hidden>
 
+        <img src="000000002c4c620a83e245426d942eea.png" alt="Edge logo placeholder">
+
+      </div>
       <div class="brand">
 
         <h1>How to Redefine Personal Finance and Investing Today?</h1>
