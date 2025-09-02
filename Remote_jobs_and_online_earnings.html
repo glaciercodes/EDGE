@@ -605,6 +605,7 @@ background:#fff176; margin:20px 0;"></div>
         <div>@ Edge — Magazine Website informative on how to blend tech, and health</div>
 
         <br>
+        <div><a href="#" id="shareLink">Tell Others About EDGE</a></div><br>
 <div><a href="Faqs.html">FAQ`s: Frequently
 Asked Questions</a></div><br>
 <div><a href="Contact_edge.html">Promotion &
@@ -614,7 +615,6 @@ Us</a></div><br>
 <div><a href="Edge_privacy_policy.html">Privacy
 Policy </a></div>
 <br>
-<div><a href="#">Subscribe.</a></div><br>
       </div>
 
       </div>
@@ -742,7 +742,7 @@ Policy </a></div>
   <div class="modal" id="infoModal">
 
     <div class="modal-content">
-      <a href="#">Subscribe </a>
+      <a href="#" id="shareLink">Share</a>
       
       <a href="Edge_privacy_policy.html">Privacy Policy</a>
 
@@ -754,6 +754,44 @@ Policy </a></div>
 
   </div>
 
+<script>
+
+    const shareData = {
+
+      title: "EDGE Magazine",
+
+      text: "You have access to AI but can’t unlock its power? 🤔 Living eco-friendly but struggling to navigate the balance? 🌱 EDGE Magazine bridges the gap—where technology meets wellbeing to transform daily life.✨ With free insights for 2025, discover how innovation and mindful living unite to promising a smarter, and healthier future. 🌍💡",
+
+      url: "http://edgeus.netlify.app" // replace with your site
+
+    };
+
+    document.getElementById("shareLink").addEventListener("click", async (e) => {
+
+      e.preventDefault();
+
+      if (navigator.share) {
+
+        try {
+
+          await navigator.share(shareData);
+
+        } catch (err) {
+
+          console.log("Share canceled or failed:", err);
+
+        }
+
+      } else {
+
+        alert("Sharing not supported on this browser.");
+
+      }
+
+    });
+
+</script>
+    
   <script>
 
     const infoBtn = document.getElementById("infoBtn");
