@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.edgeus.netlify.app/sitemap.xml
+Sitemap: https://edgeus.netlify.app/sitemap.xml
