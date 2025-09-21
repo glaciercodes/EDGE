@@ -117,10 +117,9 @@
       </div>
       <div class="brand">
 
-        <h1>How are remote jobs & online earning reshaping modern life?</h1>
+        <h1>How remote jobs & online earning reshape modern life</h1>
 
-        <div class="lead">Ten deep perspectives on remote work prevalence, hybrid preferences, productivity, online earning and the future of work.</div>
-
+        
       </div>
 
     </header>
@@ -131,20 +130,7 @@ background:#fff176; margin:20px 0;"></div>
 
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
 
-        <div>
-
-          <span class="badge">Edge — Remote Work & Online Earning</span>
-
-          <span class="badge">Dark Yellow Theme</span>
-
-        </div>
-
-        <div style="color:var(--muted);font-size:13px">10 sections • Mobile-friendly • Interactive</div>
-
-      </div>
-
-      <div style="margin-top:12px;color:var(--muted);font-size:14px">Pick a tab to view a single deep-dive, or click "All" to read the full integrated narrative. Each card includes an "Add to favourite" button and a concise FAQ below.</div>
-
+        
     </div>
 
     <nav aria-label="Categories">
@@ -601,29 +587,7 @@ background:#fff176; margin:20px 0;"></div>
 
     </main>
 
-    <footer>
-
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-
-        <div>@ Edge — Magazine Website informative on how to blend tech, and health</div>
-
-        <br>
-        <div><a href="#" id="shareLink">Tell Others About EDGE</a></div><br>
-<div><a href="Faqs.html">FAQ`s: Frequently
-Asked Questions</a></div><br>
-<div><a href="Contact_edge.html">Promotion &
-Partnership- Reach out to us</a></div><br>
-<div><a href="About_edge.html">Read More About
-Us</a></div><br>
-<div><a href="Edge_privacy_policy.html">Privacy
-Policy </a></div>
-<br>
-      </div>
-
-      </div>
-
-    </footer>
-
+    
   </div>
 
   <div>
@@ -887,198 +851,6 @@ Policy </a></div>
     tabs.forEach(t=>t.setAttribute('tabindex','0'));
 
   </script>
-
-  <div>
-
-  <style>
-
-    .shareWrapper {
-
-      position: fixed;
-
-      top: 15px;
-
-      right: -80px; /* hidden outside */
-
-      width: 45px;
-
-      height: 45px;
-
-      border-radius: 50%;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      transition: right 0.6s ease;
-
-      z-index: 9999;
-
-    }
-
-    .shareWrapper.show {
-
-      right: 15px; /* slide into view */
-
-    }
-
-    /* Rotating dotted ring */
-
-    .shareRing {
-
-      position: absolute;
-
-      width: 60px;
-
-      height: 60px;
-
-      border-radius: 50%;
-
-      border: 4px dashed #2a003f; /* very dark purple */
-
-      animation: spin 2s linear infinite;
-
-    }
-
-    @keyframes spin {
-
-      from { transform: rotate(0deg); }
-
-      to { transform: rotate(360deg); }
-
-    }
-
-    /* The button inside */
-
-    .shareBtn {
-
-      width: 45px;
-
-      height: 45px;
-
-      border-radius: 50%;
-
-      background: black;
-
-      color: white;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-size: 18px;
-
-      cursor: pointer;
-
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-
-      transition: transform 0.2s ease;
-
-      z-index: 2;
-
-    }
-
-    /* Tap (click) animation */
-
-    .shareBtn:active {
-
-      transform: scale(0.85);
-
-    }
-
-  </style>
-
-  <!-- Button -->
-
-  <div class="shareWrapper" id="shareWrapper">
-
-    <div class="shareRing"></div>
-
-    <div class="shareBtn" id="shareBtn">⚡️</div>
-
-  </div>
-
-  <script>
-
-    // === EDIT THESE VALUES ===
-
-    const SHARE_TITLE = "EDGE: Magazine";
-
-    const SHARE_TEXT  = "EDGE Magazine ushers you into tomorrow 🚀 —where AI 🤖 and wellbeing 🌱 collide to create extraordinary possibilities. Imagine limitless clarity ✨, unshakable balance ⚖️, and peak performance 🏆, all shaped by intelligent innovation. With free insights 📖 built for 2025, uncover how technology 💡 and self-care 🧘‍♀️ redefine the art of living at your very best 🌍.";
-
-    const SHARE_URL   = "https://edgeus.netlify.app";
-
-    // =========================
-
-    const shareWrapper = document.getElementById('shareWrapper');
-
-    const shareBtn = document.getElementById('shareBtn');
-
-    function toggleButton() {
-
-      shareWrapper.classList.add('show');
-
-      // Hide after 30s
-
-      setTimeout(() => {
-
-        shareWrapper.classList.remove('show');
-
-      }, 20000);
-
-    }
-
-    // First show after 30s
-
-    setTimeout(toggleButton, 30000);
-
-    // Repeat cycle every 60s
-
-    setInterval(toggleButton, 50000);
-
-    // Share functionality
-
-    shareBtn.addEventListener('click', async () => {
-
-      const shareData = {
-
-        title: SHARE_TITLE,
-
-        text: SHARE_TEXT,
-
-        url: SHARE_URL
-
-      };
-
-      if (navigator.share) {
-
-        try {
-
-          await navigator.share(shareData);
-
-        } catch (err) {
-
-          console.error("Share cancelled", err);
-
-        }
-
-      } else {
-
-        navigator.clipboard.writeText(SHARE_URL);
-
-        alert("Link copied to clipboard!");
-
-      }
-
-    });
-
-  </script>
-
-  </div>
 
 </body>
 
