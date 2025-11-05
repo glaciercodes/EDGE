@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spark AI Pro</title>
+    <title>Spark AI Pro - Intelligent AI Solutions for Modern Productivity</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -34,14 +34,20 @@
             overflow-x: hidden;
         }
 
-        /* Header Styles */
+        /* Improved Header Styles */
         header {
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-blue) 100%);
+            padding: 1rem 5%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(26, 115, 232, 0.1);
+        }
+
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .logo-container {
@@ -57,8 +63,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
-            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+            margin-right: 12px;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: rotate(10deg);
+            box-shadow: 0 6px 16px rgba(26, 115, 232, 0.4);
         }
 
         .logo i {
@@ -67,14 +79,54 @@
         }
 
         .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--dark-blue);
+            line-height: 1;
+        }
+
+        .logo-tagline {
+            font-size: 0.75rem;
+            color: var(--dark-gray);
+            font-weight: 500;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-contact {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .contact-item i {
+            color: var(--primary-blue);
+            font-size: 1rem;
+        }
+
+        .header-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.8rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .nav-links a {
@@ -85,10 +137,71 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 0.95rem;
         }
 
         .nav-links a:hover {
             color: var(--primary-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--dark-blue));
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login {
+            padding: 0.6rem 1.2rem;
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-demo {
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
         }
 
         /* Hero Section */
@@ -112,51 +225,168 @@
             color: var(--dark-gray);
         }
 
-        /* Horizontal Scrolling Bar */
-        .scrolling-bar-container {
-            overflow: hidden;
-            background-color: var(--light-blue);
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-        }
-
-        .scrolling-bar {
+        /* Star Rating */
+        .rating-container {
             display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .star {
+            color: #FFC107;
+            font-size: 1.3rem;
+        }
+
+        .rating-text {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .rating-text:hover {
+            background-color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .rating-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .rating-count {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+
+        /* Sequential Notification Bar with Label */
+        .notification-container {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            padding: 1.5rem 5%;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notification-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
             gap: 2rem;
-            padding: 0 2rem;
-            animation: scroll 15s linear infinite; /* Increased speed */
-            cursor: grab;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .scrolling-bar:active {
-            cursor: grabbing;
-        }
-
-        .scrolling-bar-item {
+        .notification-label {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2rem;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
             padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-label i {
+            color: #FFC107;
+            font-size: 1.3rem;
+        }
+
+        .notification-track {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            height: 60px;
+            position: relative;
+        }
+
+        .notification-item {
+            position: absolute;
+            white-space: nowrap;
+            padding: 0.8rem 1.8rem;
             background-color: var(--white);
             border-radius: 50px;
-            box-shadow: var(--card-shadow);
-            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            font-weight: 600;
             color: var(--dark-blue);
-            transition: var(--transition);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             flex-shrink: 0;
             text-decoration: none;
+            opacity: 0;
+            transform: translateX(100px) scale(0.8);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 1;
         }
 
-        .scrolling-bar-item:hover {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            transform: translateY(-3px);
+        .notification-item.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
         }
 
-        @keyframes scroll {
+        .notification-item.exiting {
+            opacity: 0;
+            transform: translateX(-100px) scale(0.8);
+        }
+
+        .notification-item i {
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+        }
+
+        .notification-item:hover {
+            background-color: var(--light-blue);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .notification-pulse {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #FFC107;
+            border-radius: 50%;
+            top: 50%;
+            left: -15px;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
             0% {
-                transform: translateX(0);
+                transform: translateY(-50%) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50%) scale(1.5);
+                opacity: 0.7;
             }
             100% {
-                transform: translateX(-50%);
+                transform: translateY(-50%) scale(1);
+                opacity: 1;
             }
         }
 
@@ -250,6 +480,84 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 1.5rem;
+        }
+
+        /* Testimonial Styles */
+        .testimonial {
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--primary-blue);
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--dark-gray);
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--dark-blue);
+            font-size: 0.9rem;
+        }
+
+        .author-role {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+
+        /* Read More Link */
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary-blue);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .read-more:hover {
+            color: var(--dark-blue);
+            text-decoration: underline;
+        }
+
+        .read-more i {
+            margin-left: 0.3rem;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .read-more:hover i {
+            transform: translateX(3px);
         }
 
         /* Improved Footer */
@@ -364,14 +672,30 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .header-contact {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
             header {
+                padding: 1rem 5%;
+            }
+
+            .header-top, .header-bottom {
                 flex-direction: column;
                 gap: 1rem;
             }
 
             .nav-links {
                 gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-actions {
+                justify-content: center;
             }
 
             .hero h1 {
@@ -386,9 +710,25 @@
                 flex-direction: column;
                 gap: 2rem;
             }
+
+            .notification-wrapper {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .notification-label {
+                justify-content: center;
+                font-size: 1.1rem;
+            }
+
+            .notification-item {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
         }
 
-        /* Highlighted text */
+        /* Enhanced Highlighted text */
         .highlight {
             background-color: rgba(26, 115, 232, 0.1);
             padding: 0.2rem 0.4rem;
@@ -397,46 +737,109 @@
             color: var(--dark-blue);
         }
 
+        .highlight-secondary {
+            background-color: rgba(13, 71, 161, 0.08);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+            color: var(--dark-blue);
+            border-left: 3px solid var(--dark-blue);
+        }
+
         b {
             color: var(--dark-blue);
+        }
+
+        .card-feature {
+            margin: 0.8rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .card-feature:before {
+            content: "•";
+            color: var(--primary-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Improved Header -->
     <header>
-        <div class="logo-container">
-            <div class="logo">
-                <i class="fas fa-bolt"></i>
+        <div class="header-top">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-main">Spark AI Pro</div>
+                    <div class="logo-tagline">Intelligent Solutions for Modern Productivity</div>
+                </div>
             </div>
-            <div class="logo-text">Spark AI Pro</div>
+            <div class="header-contact">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@sparkaipro.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Mon-Fri: 9AM-6PM</span>
+                </div>
+            </div>
         </div>
-        <nav class="nav-links">
-            <a href="site.html"><i class="fas fa-info-circle"></i> About Us</a>
-            <a href="site.html"><i class="fas fa-envelope"></i> Contact Us</a>
-            <a href="site.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
-        </nav>
+        <div class="header-bottom">
+            <nav class="nav-links">
+                <a href="site.html"><i class="fas fa-info-circle"></i> About Us</a>
+                <a href="site.html"><i class="fas fa-envelope"></i> Contact Us</a>
+                <a href="site.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> Security</a>
+                <a href="#"><i class="fas fa-book"></i> Documentation</a>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="btn-login">Client Login</a>
+                <a href="#" class="btn-demo">Request Demo</a>
+            </div>
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <h1>Spark AI Pro</h1>
         <p>Boost your productivity with smart AI that understands your style. Get quick summaries, clear conclusions, and personalized results in seconds — Spark-AI Pro helps you save time, stay focused, and achieve more with ease.</p>
+        
+        <!-- Star Rating -->
+        <div class="rating-container">
+            <a href="index.html" class="rating-text">
+                <div class="stars">
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                </div>
+                <span class="rating-value">5.0</span>
+                <span class="rating-count">(2,458 reviews)</span>
+            </a>
+        </div>
     </section>
 
-    <!-- Horizontal Scrolling Bar -->
-    <div class="scrolling-bar-container">
-        <div class="scrolling-bar">
-            <a href="#article-generator" class="scrolling-bar-item">Article Generator</a>
-            <a href="#auto-summary" class="scrolling-bar-item">Auto Summary</a>
-            <a href="#movie-suggestor" class="scrolling-bar-item">Movie Suggestor</a>
-            <a href="#music-suggestor" class="scrolling-bar-item">Music Suggestor</a>
-            <a href="#hashtag-generator" class="scrolling-bar-item">Hashtag Generator</a>
-            <a href="#verify-news" class="scrolling-bar-item">Verify News/Trends</a>
-            <a href="#top-trending" class="scrolling-bar-item">Top Trending</a>
-            <a href="#human-ai-claims" class="scrolling-bar-item">Human/AI Article Claims</a>
-            <a href="#iq-grader" class="scrolling-bar-item">IQ Grader</a>
-            <a href="#idea-suggestor" class="scrolling-bar-item">Idea/Business Suggestor</a>
+    <!-- Sequential Notification Bar with Label -->
+    <div class="notification-container">
+        <div class="notification-wrapper">
+            <div class="notification-label">
+                <i class="fas fa-bolt"></i>
+                Spark AI Pro offers:
+            </div>
+            <div class="notification-track">
+                <div class="notification-pulse"></div>
+                <!-- Notification items will be dynamically added here -->
+            </div>
         </div>
     </div>
 
@@ -448,8 +851,25 @@
                 <i class="fas fa-newspaper"></i>
             </div>
             <h3>Article Generator</h3>
-            <p>Transform your ideas and keywords into <b>well-structured, engaging articles</b> with our advanced AI. Whether you're a content creator, marketer, or blogger, our tool helps you overcome writer's block and generate unique content in minutes. Simply input your main ideas or keywords, and our AI will craft a <span class="highlight">coherent, readable article</span> tailored to your needs.</p>
-            <p>The system analyzes your input to understand context and tone, then generates content that flows naturally and maintains reader engagement. You can specify length, style, and focus areas to ensure the output matches your requirements perfectly.</p>
+            <p>Transform your <span class="highlight">raw ideas and scattered keywords</span> into polished, publication-ready articles with our sophisticated AI writing assistant. Whether you're a busy content marketer, an aspiring blogger, or a corporate communicator, our tool eliminates writer's block by generating <span class="highlight-secondary">coherent, engaging content</span> that captures your unique voice and perspective.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"As a freelance writer, this tool has cut my research time in half. I can now produce 3-4 quality articles per day instead of just one. The AI really understands context!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SM</div>
+                    <div class="author-info">
+                        <div class="author-name">Sarah Mitchell</div>
+                        <div class="author-role">Content Writer</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>The system performs <b>deep semantic analysis</b> of your input to understand context, tone, and intent before crafting content that flows naturally and maintains reader engagement. You can specify desired length, writing style (conversational, formal, technical), and focus areas to ensure the output perfectly matches your requirements.</p>
+            <div class="card-feature">Advanced <b>topic clustering</b> identifies related concepts to create comprehensive coverage</div>
+            <div class="card-feature">Built-in <b>SEO optimization</b> ensures your content ranks well in search results</div>
+            <div class="card-feature">Multiple <b>content variations</b> allow you to choose the perfect version for your audience</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -464,8 +884,25 @@
                 <i class="fas fa-file-alt"></i>
             </div>
             <h3>Auto Summary</h3>
-            <p>Save hours of reading time with our intelligent summarization tool that <b>condenses lengthy articles</b> into key takeaways. Our AI doesn't just shorten text—it identifies the most important points, arguments, and conclusions to give you a comprehensive overview. Additionally, it suggests <span class="highlight">relevant content topics and titles</span> based on the key points extracted.</p>
-            <p>Perfect for researchers, students, and professionals who need to process large volumes of information quickly. The system maintains the original meaning while removing redundancy, helping you grasp complex concepts faster and more efficiently.</p>
+            <p>Reclaim precious hours with our intelligent summarization engine that <span class="highlight">distills lengthy documents</span> into their essential insights. Our AI doesn't merely truncate text—it performs sophisticated <b>semantic analysis</b> to identify core arguments, supporting evidence, and critical conclusions, delivering comprehensive overviews that preserve original meaning.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"I process dozens of research papers weekly. This tool extracts key findings so efficiently that I've reduced my reading time by 70% while actually understanding more."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">DR</div>
+                    <div class="author-info">
+                        <div class="author-name">Dr. Robert Chen</div>
+                        <div class="author-role">Research Scientist</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Perfect for academics conducting literature reviews, executives processing market reports, or students preparing for exams. The system employs <span class="highlight-secondary">advanced NLP techniques</span> to maintain contextual relationships while eliminating redundancy, helping you absorb complex information faster and more effectively than ever before.</p>
+            <div class="card-feature">Generates <b>multiple summary lengths</b> from bullet points to paragraph formats</div>
+            <div class="card-feature">Identifies and highlights <b>key terminology and concepts</b> for quick reference</div>
+            <div class="card-feature">Suggests <b>related reading materials</b> based on content analysis</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -480,8 +917,25 @@
                 <i class="fas fa-film"></i>
             </div>
             <h3>Movie Suggestor</h3>
-            <p>Never waste time scrolling through streaming services again. Our AI analyzes your <b>viewing history, mood, and preferences</b> to recommend movies you'll love. Whether you're in the mood for a thriller, comedy, drama, or documentary, our system provides personalized suggestions that match your taste.</p>
-            <p>The algorithm considers factors like genre preferences, director styles, actor preferences, and even time of day to offer the perfect movie choice. You can also specify if you're watching alone, with friends, or with family to get appropriate recommendations.</p>
+            <p>Eliminate decision fatigue with our intelligent cinema companion that learns your <span class="highlight">unique viewing preferences and patterns</span> to recommend films you'll genuinely enjoy. Our system analyzes your viewing history, ratings, and even your stated mood to create a <b>personalized watchlist</b> that evolves with your tastes.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"My husband and I used to spend 30+ minutes deciding what to watch. Now we get perfect recommendations in seconds. Found so many hidden gems we would've missed!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MJ</div>
+                    <div class="author-info">
+                        <div class="author-name">Maria Johnson</div>
+                        <div class="author-role">Film Enthusiast</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>The recommendation engine employs <span class="highlight-secondary">collaborative filtering and content-based algorithms</span> that consider hundreds of attributes including director style, cinematography, pacing, thematic elements, and emotional resonance. Whether you're planning a solo movie night or selecting something for family viewing, you'll discover perfect matches every time.</p>
+            <div class="card-feature">Considers <b>contextual factors</b> like time available, viewing companions, and desired emotional experience</div>
+            <div class="card-feature">Provides <b>detailed justification</b> for each recommendation based on your preferences</div>
+            <div class="card-feature">Identifies <b>underrated gems</b> beyond mainstream algorithms</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -496,8 +950,25 @@
                 <i class="fas fa-music"></i>
             </div>
             <h3>Music Suggestor</h3>
-            <p>Discover your next favorite song or album with our intelligent music recommendation system. By analyzing your <b>listening habits, mood, and musical preferences</b>, our AI suggests tracks and artists that align with your taste while introducing you to new genres and emerging artists.</p>
-            <p>The system considers factors like tempo, instrumentation, lyrical themes, and even the time of day to create the perfect playlist for any occasion. Whether you're working out, studying, or relaxing, you'll always have the right soundtrack.</p>
+            <p>Discover your next musical obsession with our sophisticated recommendation system that analyzes your <span class="highlight">listening habits, emotional responses, and sonic preferences</span> to suggest tracks and artists perfectly aligned with your taste. Our AI examines musical attributes like <b>tempo, key, instrumentation, and lyrical themes</b> to build a comprehensive understanding of what resonates with you.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"I've discovered more new favorite artists in 2 months with Spark AI than in 5 years with other services. The mood-based playlists are incredibly accurate."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">TK</div>
+                    <div class="author-info">
+                        <div class="author-name">Thomas Kelly</div>
+                        <div class="author-role">Music Producer</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>The platform creates <span class="highlight-secondary">dynamic listening experiences</span> that adapt to your current activity, whether you're focusing on work, exercising, or relaxing. By connecting with your music streaming services, it continuously refines its understanding of your preferences while introducing you to emerging artists and forgotten classics.</p>
+            <div class="card-feature">Creates <b>mood-based playlists</b> that evolve throughout your day</div>
+            <div class="card-feature">Identifies <b>musical connections</b> between seemingly disparate artists</div>
+            <div class="card-feature">Provides <b>background context</b> about recommended artists and albums</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -512,8 +983,25 @@
                 <i class="fas fa-hashtag"></i>
             </div>
             <h3>Hashtag Generator</h3>
-            <p>Maximize your social media reach with our intelligent hashtag generator. Designed for platforms like <b>TikTok, Instagram, Twitter, and more</b>, this tool analyzes your content to suggest the most effective hashtags that will help your posts go viral and reach more users.</p>
-            <p>Our AI evaluates trending topics, engagement patterns, and platform-specific algorithms to provide a mix of popular and niche hashtags that give your content the best chance of appearing on the "For You" page. The system also suggests optimal posting times based on your audience's activity.</p>
+            <p>Amplify your social media presence with our intelligent hashtag optimization tool designed for maximum visibility across platforms including <span class="highlight">TikTok, Instagram, Twitter, and LinkedIn</span>. Our system performs comprehensive analysis of your content, target audience, and platform algorithms to suggest the <b>most effective hashtag combinations</b> for virality and engagement.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"My engagement tripled after using this! Went from 200 to 2,000 followers in 6 weeks. The platform-specific suggestions are game-changing for creators."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AL</div>
+                    <div class="author-info">
+                        <div class="author-name">Amanda Lee</div>
+                        <div class="author-role">Content Creator</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>The AI evaluates <span class="highlight-secondary">real-time trending topics, engagement patterns, and competitor strategies</span> to provide a balanced mix of high-volume and niche hashtags that give your content the best chance of appearing on explore pages and feeds. The platform also identifies optimal posting times based on when your specific audience is most active.</p>
+            <div class="card-feature">Generates <b>platform-specific strategies</b> tailored to each network's algorithm</div>
+            <div class="card-feature">Provides <b>performance predictions</b> for different hashtag combinations</div>
+            <div class="card-feature">Identifies <b>seasonal and event-based opportunities</b> for increased relevance</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -528,8 +1016,25 @@
                 <i class="fas fa-check-circle"></i>
             </div>
             <h3>Verify News/Trends</h3>
-            <p>In today's information age, it's crucial to distinguish fact from fiction. Our verification tool uses <b>advanced fact-checking algorithms</b> to analyze trending news stories and allegations, providing you with a credibility score and supporting evidence.</p>
-            <p>The system cross-references multiple reliable sources, checks for consistency in reporting, and identifies potential biases or misinformation patterns. Stay informed with accurate information and avoid spreading false claims with this essential tool for digital literacy.</p>
+            <p>Navigate today's complex information landscape with confidence using our advanced verification system that <span class="highlight">analyzes trending stories and viral claims</span> for accuracy and credibility. Our tool employs sophisticated <b>fact-checking algorithms</b> that cross-reference information across thousands of reliable sources, providing transparency scores and supporting evidence for any claim.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"As a journalist, this has become my go-to verification tool. It's saved me from publishing incorrect information multiple times. The bias analysis is particularly insightful."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">DW</div>
+                    <div class="author-info">
+                        <div class="author-name">David Wilson</div>
+                        <div class="author-role">Investigative Reporter</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>The system examines <span class="highlight-secondary">source reliability, contextual consistency, and potential biases</span> while identifying common misinformation patterns. For journalists, researchers, and concerned citizens, this tool provides an essential defense against the spread of false information while promoting digital literacy and critical thinking.</p>
+            <div class="card-feature">Tracks <b>information provenance</b> to identify original sources and potential manipulation</div>
+            <div class="card-feature">Provides <b>bias analysis</b> across political and ideological spectrums</div>
+            <div class="card-feature">Offers <b>historical context</b> for recurring claims and debunked narratives</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -544,8 +1049,25 @@
                 <i class="fas fa-chart-line"></i>
             </div>
             <h3>Top Trending</h3>
-            <p>Stay ahead of the curve with our comprehensive trending topics tracker. Get real-time insights into <b>what's trending globally</b> or personalized to your interests across various categories including news, entertainment, technology, and more.</p>
-            <p>The system aggregates data from multiple sources and uses machine learning to identify emerging trends before they peak. You can customize your feed based on location, interests, or industry to ensure you're always in the know about what matters most to you.</p>
+            <p>Stay ahead of the cultural curve with our comprehensive trending topics tracker that provides <span class="highlight">real-time insights into emerging conversations</span> across global and niche communities. Our system aggregates data from diverse sources including social platforms, news outlets, and search engines to identify <b>patterns before they peak</b> in mainstream awareness.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"This tool predicted three viral trends before they hit mainstream. My content now regularly gets 5x more engagement by being early to emerging topics."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RG</div>
+                    <div class="author-info">
+                        <div class="author-name">Rachel Green</div>
+                        <div class="author-role">Social Media Manager</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>For content creators, marketers, and curious minds, this tool offers <span class="highlight-secondary">actionable intelligence about shifting interests</span> and emerging opportunities. You can customize your feed based on location, industry, or personal interests to ensure you're always informed about developments that matter most to your work and passions.</p>
+            <div class="card-feature">Identifies <b>cross-platform trends</b> showing how topics evolve across different media</div>
+            <div class="card-feature">Provides <b>velocity metrics</b> indicating how quickly topics are gaining traction</div>
+            <div class="card-feature">Offers <b>predictive analysis</b> of potential trend duration and impact</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -560,8 +1082,25 @@
                 <i class="fas fa-user-edit"></i>
             </div>
             <h3>Human/AI Article Claims</h3>
-            <p>As AI-generated content becomes more prevalent, it's increasingly important to identify its origin. Our detection tool analyzes writing patterns to <b>determine whether an article was written by a human or generated by AI</b> with remarkable accuracy.</p>
-            <p>The system examines factors like sentence structure, vocabulary diversity, coherence, and stylistic elements that are characteristic of AI writing. This is particularly valuable for educators, publishers, and content consumers who need to verify the authenticity of written material.</p>
+            <p>In an era of increasingly sophisticated AI-generated content, our detection tool provides <span class="highlight">critical transparency about content origins</span> by analyzing writing patterns to determine authorship with remarkable accuracy. The system examines hundreds of linguistic features including <b>sentence structure, vocabulary diversity, and stylistic consistency</b> to identify hallmarks of AI composition.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"As a university professor, this tool helps me maintain academic integrity. It's identified AI-generated submissions with 98% accuracy, saving countless hours of manual review."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">PE</div>
+                    <div class="author-info">
+                        <div class="author-name">Prof. Elena Rodriguez</div>
+                        <div class="author-role">University Professor</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>For educators verifying student work, publishers maintaining editorial standards, or consumers seeking authentic voices, this tool offers <span class="highlight-secondary">essential verification capabilities</span> in an evolving content landscape. The detection model continuously learns from new examples to maintain effectiveness against increasingly sophisticated AI writing systems.</p>
+            <div class="card-feature">Provides <b>confidence scores</b> and detailed analysis of determining factors</div>
+            <div class="card-feature">Identifies <b>specific AI writing tools</b> that may have been used</div>
+            <div class="card-feature">Detects <b>hybrid content</b> that combines human and AI writing</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -576,8 +1115,25 @@
                 <i class="fas fa-brain"></i>
             </div>
             <h3>IQ Grader</h3>
-            <p>Challenge yourself with our intelligent IQ assessment tool that adapts to your responses in real-time. Unlike static tests, our system <b>dynamically adjusts question difficulty</b> based on your performance, providing a more accurate measurement of cognitive abilities.</p>
-            <p>The assessment covers various domains including logical reasoning, pattern recognition, verbal comprehension, and spatial awareness. Upon completion, you'll receive a detailed report with your IQ score, strengths, and areas for improvement, along with personalized recommendations for cognitive enhancement.</p>
+            <p>Challenge your cognitive abilities with our adaptive intelligence assessment that <span class="highlight">dynamically adjusts to your performance</span> in real-time, providing a more accurate measurement than traditional static tests. Our comprehensive evaluation covers multiple domains of intelligence including <b>logical reasoning, spatial visualization, verbal comprehension, and working memory</b>.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"The adaptive testing method is brilliant! Unlike standard IQ tests that can be too easy or hard, this perfectly matched my ability level. The cognitive profile was incredibly detailed."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">KS</div>
+                    <div class="author-info">
+                        <div class="author-name">Kevin Simmons</div>
+                        <div class="author-role">Software Engineer</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Upon completion, you'll receive a <span class="highlight-secondary">detailed cognitive profile</span> with your IQ score, strengths analysis, and personalized recommendations for intellectual development. The assessment adapts question difficulty based on your responses, creating a tailored experience that accurately measures your capabilities across different cognitive domains.</p>
+            <div class="card-feature">Measures <b>multiple intelligence types</b> beyond traditional IQ metrics</div>
+            <div class="card-feature">Provides <b>actionable insights</b> for cognitive improvement</div>
+            <div class="card-feature">Tracks <b>progress over time</b> with comparative analytics</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -592,8 +1148,25 @@
                 <i class="fas fa-lightbulb"></i>
             </div>
             <h3>Idea/Business Suggestor</h3>
-            <p>Unlock your entrepreneurial potential with our personalized idea generation system. By analyzing your <b>skills, interests, market trends, and personal characteristics</b>, our AI suggests viable business ideas and strategies tailored specifically to you.</p>
-            <p>The system considers factors like your risk tolerance, available resources, industry knowledge, and geographic location to provide practical suggestions with high potential for success. Each recommendation includes initial steps, potential challenges, and resources to help you get started on your entrepreneurial journey.</p>
+            <p>Unlock your entrepreneurial potential with our personalized ideation system that analyzes your <span class="highlight">unique skills, interests, and market opportunities</span> to generate viable business concepts tailored specifically to you. Our AI examines current market trends, emerging technologies, and economic indicators to identify <b>underserved niches and growth opportunities</b> aligned with your capabilities.</p>
+            
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p class="testimonial-text">"This suggested a niche e-commerce business perfectly aligned with my skills. 6 months in, we're already profitable! The market analysis was spot-on."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JP</div>
+                    <div class="author-info">
+                        <div class="author-name">James Peterson</div>
+                        <div class="author-role">Entrepreneur</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>The system considers factors like your <span class="highlight-secondary">risk tolerance, available resources, and personal values</span> to provide practical suggestions with realistic implementation pathways. Each recommendation includes market analysis, potential challenges, resource requirements, and initial steps to help transform ideas into actionable business plans.</p>
+            <div class="card-feature">Generates <b>comprehensive business models</b> with revenue projections</div>
+            <div class="card-feature">Identifies <b>potential partnerships and resources</b> for each concept</div>
+            <div class="card-feature">Provides <b>competitive landscape analysis</b> for market positioning</div>
+            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -640,10 +1213,63 @@
     </footer>
 
     <script>
-        // Scroll animation for cards
+        // Sequential Notification System
         document.addEventListener('DOMContentLoaded', function() {
+            const notificationTrack = document.querySelector('.notification-track');
+            const notifications = [
+                { text: 'Article Generator', icon: 'fas fa-newspaper', href: '#article-generator' },
+                { text: 'Auto Summary', icon: 'fas fa-file-alt', href: '#auto-summary' },
+                { text: 'Movie Suggestor', icon: 'fas fa-film', href: '#movie-suggestor' },
+                { text: 'Music Suggestor', icon: 'fas fa-music', href: '#music-suggestor' },
+                { text: 'Hashtag Generator', icon: 'fas fa-hashtag', href: '#hashtag-generator' },
+                { text: 'Verify News/Trends', icon: 'fas fa-check-circle', href: '#verify-news' },
+                { text: 'Top Trending', icon: 'fas fa-chart-line', href: '#top-trending' },
+                { text: 'Human/AI Article Claims', icon: 'fas fa-user-edit', href: '#human-ai-claims' },
+                { text: 'IQ Grader', icon: 'fas fa-brain', href: '#iq-grader' },
+                { text: 'Idea/Business Suggestor', icon: 'fas fa-lightbulb', href: '#idea-suggestor' }
+            ];
+
+            let currentIndex = 0;
+
+            function showNextNotification() {
+                // Remove existing notification
+                const existingNotification = notificationTrack.querySelector('.notification-item');
+                if (existingNotification) {
+                    existingNotification.classList.add('exiting');
+                    setTimeout(() => {
+                        existingNotification.remove();
+                    }, 600);
+                }
+
+                // Create new notification
+                const notification = notifications[currentIndex];
+                const notificationElement = document.createElement('a');
+                notificationElement.href = notification.href;
+                notificationElement.className = 'notification-item';
+                notificationElement.innerHTML = `
+                    <i class="${notification.icon}"></i>
+                    ${notification.text}
+                `;
+
+                notificationTrack.appendChild(notificationElement);
+
+                // Trigger animation
+                setTimeout(() => {
+                    notificationElement.classList.add('active');
+                }, 50);
+
+                // Move to next notification
+                currentIndex = (currentIndex + 1) % notifications.length;
+
+                // Schedule next notification
+                setTimeout(showNextNotification, 3000); // Show each for 3 seconds
+            }
+
+            // Start the notification sequence
+            showNextNotification();
+
+            // Scroll animation for cards
             const cards = document.querySelectorAll('.card');
-            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -654,39 +1280,6 @@
             
             cards.forEach(card => {
                 observer.observe(card);
-            });
-
-            // Horizontal scrolling bar functionality
-            const scrollingBar = document.querySelector('.scrolling-bar');
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-
-            scrollingBar.addEventListener('mousedown', (e) => {
-                isDown = true;
-                scrollingBar.style.animation = 'none';
-                startX = e.pageX - scrollingBar.offsetLeft;
-                scrollLeft = scrollingBar.scrollLeft;
-            });
-
-            scrollingBar.addEventListener('mouseleave', () => {
-                isDown = false;
-            });
-
-            scrollingBar.addEventListener('mouseup', () => {
-                isDown = false;
-                // Resume animation after a delay
-                setTimeout(() => {
-                    scrollingBar.style.animation = 'scroll 15s linear infinite';
-                }, 5000);
-            });
-
-            scrollingBar.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - scrollingBar.offsetLeft;
-                const walk = (x - startX) * 2;
-                scrollingBar.scrollLeft = scrollLeft - walk;
             });
 
             // Share functionality
