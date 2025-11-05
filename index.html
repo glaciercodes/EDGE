@@ -1,1 +1,720 @@
-a
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spark AI Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1a73e8;
+            --dark-blue: #0d47a1;
+            --light-blue: #e8f0fe;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --medium-gray: #dadce0;
+            --dark-gray: #5f6368;
+            --text-color: #202124;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+        }
+
+        .logo i {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--dark-gray);
+        }
+
+        /* Horizontal Scrolling Bar */
+        .scrolling-bar-container {
+            overflow: hidden;
+            background-color: var(--light-blue);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .scrolling-bar {
+            display: flex;
+            gap: 2rem;
+            padding: 0 2rem;
+            animation: scroll 15s linear infinite; /* Increased speed */
+            cursor: grab;
+        }
+
+        .scrolling-bar:active {
+            cursor: grabbing;
+        }
+
+        .scrolling-bar-item {
+            white-space: nowrap;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--white);
+            border-radius: 50px;
+            box-shadow: var(--card-shadow);
+            font-weight: 500;
+            color: var(--dark-blue);
+            transition: var(--transition);
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .scrolling-bar-item:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Cards Section */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 5%;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-blue);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon i {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+
+        .card p {
+            margin-bottom: 1.5rem;
+            color: var(--dark-gray);
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .card-button:hover {
+            background-color: var(--dark-blue);
+        }
+
+        .share-button {
+            background: none;
+            border: none;
+            color: var(--dark-gray);
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: var(--transition);
+        }
+
+        .share-button:hover {
+            color: var(--primary-blue);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        /* Improved Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #0a2e6b 100%);
+            padding: 3rem 5% 1.5rem;
+            margin-top: 4rem;
+            color: var(--white);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-blue);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .footer-logo .logo-text {
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--white);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links a:hover {
+            color: var(--light-blue);
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        /* Highlighted text */
+        .highlight {
+            background-color: rgba(26, 115, 232, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        b {
+            color: var(--dark-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="logo-text">Spark AI Pro</div>
+        </div>
+        <nav class="nav-links">
+            <a href="site.html"><i class="fas fa-info-circle"></i> About Us</a>
+            <a href="site.html"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="site.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Spark AI Pro</h1>
+        <p>Boost your productivity with smart AI that understands your style. Get quick summaries, clear conclusions, and personalized results in seconds — Spark-AI Pro helps you save time, stay focused, and achieve more with ease.</p>
+    </section>
+
+    <!-- Horizontal Scrolling Bar -->
+    <div class="scrolling-bar-container">
+        <div class="scrolling-bar">
+            <a href="#article-generator" class="scrolling-bar-item">Article Generator</a>
+            <a href="#auto-summary" class="scrolling-bar-item">Auto Summary</a>
+            <a href="#movie-suggestor" class="scrolling-bar-item">Movie Suggestor</a>
+            <a href="#music-suggestor" class="scrolling-bar-item">Music Suggestor</a>
+            <a href="#hashtag-generator" class="scrolling-bar-item">Hashtag Generator</a>
+            <a href="#verify-news" class="scrolling-bar-item">Verify News/Trends</a>
+            <a href="#top-trending" class="scrolling-bar-item">Top Trending</a>
+            <a href="#human-ai-claims" class="scrolling-bar-item">Human/AI Article Claims</a>
+            <a href="#iq-grader" class="scrolling-bar-item">IQ Grader</a>
+            <a href="#idea-suggestor" class="scrolling-bar-item">Idea/Business Suggestor</a>
+        </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="cards-container">
+        <!-- Article Generator Card -->
+        <div class="card" id="article-generator">
+            <div class="card-icon">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            <h3>Article Generator</h3>
+            <p>Transform your ideas and keywords into <b>well-structured, engaging articles</b> with our advanced AI. Whether you're a content creator, marketer, or blogger, our tool helps you overcome writer's block and generate unique content in minutes. Simply input your main ideas or keywords, and our AI will craft a <span class="highlight">coherent, readable article</span> tailored to your needs.</p>
+            <p>The system analyzes your input to understand context and tone, then generates content that flows naturally and maintains reader engagement. You can specify length, style, and focus areas to ensure the output matches your requirements perfectly.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Begin Now</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Auto Summary Card -->
+        <div class="card" id="auto-summary">
+            <div class="card-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <h3>Auto Summary</h3>
+            <p>Save hours of reading time with our intelligent summarization tool that <b>condenses lengthy articles</b> into key takeaways. Our AI doesn't just shorten text—it identifies the most important points, arguments, and conclusions to give you a comprehensive overview. Additionally, it suggests <span class="highlight">relevant content topics and titles</span> based on the key points extracted.</p>
+            <p>Perfect for researchers, students, and professionals who need to process large volumes of information quickly. The system maintains the original meaning while removing redundancy, helping you grasp complex concepts faster and more efficiently.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Get Started</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Movie Suggestor Card -->
+        <div class="card" id="movie-suggestor">
+            <div class="card-icon">
+                <i class="fas fa-film"></i>
+            </div>
+            <h3>Movie Suggestor</h3>
+            <p>Never waste time scrolling through streaming services again. Our AI analyzes your <b>viewing history, mood, and preferences</b> to recommend movies you'll love. Whether you're in the mood for a thriller, comedy, drama, or documentary, our system provides personalized suggestions that match your taste.</p>
+            <p>The algorithm considers factors like genre preferences, director styles, actor preferences, and even time of day to offer the perfect movie choice. You can also specify if you're watching alone, with friends, or with family to get appropriate recommendations.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Begin Now</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Music Suggestor Card -->
+        <div class="card" id="music-suggestor">
+            <div class="card-icon">
+                <i class="fas fa-music"></i>
+            </div>
+            <h3>Music Suggestor</h3>
+            <p>Discover your next favorite song or album with our intelligent music recommendation system. By analyzing your <b>listening habits, mood, and musical preferences</b>, our AI suggests tracks and artists that align with your taste while introducing you to new genres and emerging artists.</p>
+            <p>The system considers factors like tempo, instrumentation, lyrical themes, and even the time of day to create the perfect playlist for any occasion. Whether you're working out, studying, or relaxing, you'll always have the right soundtrack.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Get Started</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Hashtag Generator Card -->
+        <div class="card" id="hashtag-generator">
+            <div class="card-icon">
+                <i class="fas fa-hashtag"></i>
+            </div>
+            <h3>Hashtag Generator</h3>
+            <p>Maximize your social media reach with our intelligent hashtag generator. Designed for platforms like <b>TikTok, Instagram, Twitter, and more</b>, this tool analyzes your content to suggest the most effective hashtags that will help your posts go viral and reach more users.</p>
+            <p>Our AI evaluates trending topics, engagement patterns, and platform-specific algorithms to provide a mix of popular and niche hashtags that give your content the best chance of appearing on the "For You" page. The system also suggests optimal posting times based on your audience's activity.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Begin Now</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Verify News/Trends Card -->
+        <div class="card" id="verify-news">
+            <div class="card-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Verify News/Trends</h3>
+            <p>In today's information age, it's crucial to distinguish fact from fiction. Our verification tool uses <b>advanced fact-checking algorithms</b> to analyze trending news stories and allegations, providing you with a credibility score and supporting evidence.</p>
+            <p>The system cross-references multiple reliable sources, checks for consistency in reporting, and identifies potential biases or misinformation patterns. Stay informed with accurate information and avoid spreading false claims with this essential tool for digital literacy.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Get Started</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Top Trending Card -->
+        <div class="card" id="top-trending">
+            <div class="card-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Top Trending</h3>
+            <p>Stay ahead of the curve with our comprehensive trending topics tracker. Get real-time insights into <b>what's trending globally</b> or personalized to your interests across various categories including news, entertainment, technology, and more.</p>
+            <p>The system aggregates data from multiple sources and uses machine learning to identify emerging trends before they peak. You can customize your feed based on location, interests, or industry to ensure you're always in the know about what matters most to you.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Begin Now</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Human/AI Article Claims Card -->
+        <div class="card" id="human-ai-claims">
+            <div class="card-icon">
+                <i class="fas fa-user-edit"></i>
+            </div>
+            <h3>Human/AI Article Claims</h3>
+            <p>As AI-generated content becomes more prevalent, it's increasingly important to identify its origin. Our detection tool analyzes writing patterns to <b>determine whether an article was written by a human or generated by AI</b> with remarkable accuracy.</p>
+            <p>The system examines factors like sentence structure, vocabulary diversity, coherence, and stylistic elements that are characteristic of AI writing. This is particularly valuable for educators, publishers, and content consumers who need to verify the authenticity of written material.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Get Started</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- IQ Grader Card -->
+        <div class="card" id="iq-grader">
+            <div class="card-icon">
+                <i class="fas fa-brain"></i>
+            </div>
+            <h3>IQ Grader</h3>
+            <p>Challenge yourself with our intelligent IQ assessment tool that adapts to your responses in real-time. Unlike static tests, our system <b>dynamically adjusts question difficulty</b> based on your performance, providing a more accurate measurement of cognitive abilities.</p>
+            <p>The assessment covers various domains including logical reasoning, pattern recognition, verbal comprehension, and spatial awareness. Upon completion, you'll receive a detailed report with your IQ score, strengths, and areas for improvement, along with personalized recommendations for cognitive enhancement.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Begin Now</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Idea/Business Suggestor Card -->
+        <div class="card" id="idea-suggestor">
+            <div class="card-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <h3>Idea/Business Suggestor</h3>
+            <p>Unlock your entrepreneurial potential with our personalized idea generation system. By analyzing your <b>skills, interests, market trends, and personal characteristics</b>, our AI suggests viable business ideas and strategies tailored specifically to you.</p>
+            <p>The system considers factors like your risk tolerance, available resources, industry knowledge, and geographic location to provide practical suggestions with high potential for success. Each recommendation includes initial steps, potential challenges, and resources to help you get started on your entrepreneurial journey.</p>
+            <div class="card-footer">
+                <a href="home.html" class="card-button">Get Started</a>
+                <button class="share-button" title="Share this tool">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Improved Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section footer-about">
+                <div class="footer-logo">
+                    <div class="logo">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="logo-text">Spark AI Pro</div>
+                </div>
+                <p>Boost your productivity with smart AI that understands your style. Get quick summaries, clear conclusions, and personalized results in seconds.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="site.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="site.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    <li><a href="site.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Spark AI Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation for cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Horizontal scrolling bar functionality
+            const scrollingBar = document.querySelector('.scrolling-bar');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            scrollingBar.addEventListener('mousedown', (e) => {
+                isDown = true;
+                scrollingBar.style.animation = 'none';
+                startX = e.pageX - scrollingBar.offsetLeft;
+                scrollLeft = scrollingBar.scrollLeft;
+            });
+
+            scrollingBar.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+
+            scrollingBar.addEventListener('mouseup', () => {
+                isDown = false;
+                // Resume animation after a delay
+                setTimeout(() => {
+                    scrollingBar.style.animation = 'scroll 15s linear infinite';
+                }, 5000);
+            });
+
+            scrollingBar.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - scrollingBar.offsetLeft;
+                const walk = (x - startX) * 2;
+                scrollingBar.scrollLeft = scrollLeft - walk;
+            });
+
+            // Share functionality
+            const shareButtons = document.querySelectorAll('.share-button');
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const cardTitle = this.closest('.card').querySelector('h3').textContent;
+                    const shareText = `Check out this amazing AI tool: ${cardTitle} on Spark AI Pro!`;
+                    
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'Spark AI Pro',
+                            text: shareText,
+                            url: window.location.href
+                        });
+                    } else {
+                        // Fallback for browsers that don't support Web Share API
+                        navigator.clipboard.writeText(shareText + ' ' + window.location.href)
+                            .then(() => {
+                                alert('Link copied to clipboard!');
+                            })
+                            .catch(err => {
+                                console.error('Failed to copy: ', err);
+                            });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
