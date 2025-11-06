@@ -137,7 +137,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.1rem 0;
+            padding: 0.5rem 0;
             position: relative;
             font-size: 0.95rem;
         }
@@ -490,6 +490,14 @@
             margin: 1.5rem 0;
             border-left: 4px solid var(--primary-blue);
             position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none !important;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .testimonial-text {
@@ -497,6 +505,7 @@
             color: var(--dark-gray);
             margin-bottom: 0.8rem;
             line-height: 1.5;
+            text-decoration: none;
         }
 
         .testimonial-author {
@@ -763,6 +772,15 @@
             position: absolute;
             left: 0;
         }
+        
+        /* Remove underline from testimonials */
+        .testimonial-link {
+            text-decoration: none !important;
+        }
+        
+        .testimonial-link:hover {
+            text-decoration: none !important;
+        }
     </style>
 </head>
 <body>
@@ -799,7 +817,8 @@
                 <a href="site.html"><i class="fas fa-envelope"></i> Contact Us</a>
                 <a href="site.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
                 <a href="#"><i class="fas fa-shield-alt"></i> Security</a>
-                </nav>
+                <a href="#"><i class="fas fa-book"></i> Documentation</a>
+            </nav>
             <div class="header-actions">
                 <a href="#" class="btn-login">Client Login</a>
                 <a href="#" class="btn-demo">Request Demo</a>
@@ -810,11 +829,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <h1>Spark AI Pro</h1>
-        <p>Boost your productivity with smart AI that understands your style. Get quick summaries, clear conclusions, and personalized results in seconds — Spark-AI Pro helps you save time, stay focused, and achieve more with ease.</p>
+        <p>Boost your productivity with <span class="highlight">Spark AI Pro - your all-in-one AI assistant </span>. Get <b>quick summaries, clear conclusions, and personalized results</b> in seconds — Spark AI Pro helps you <b>save time, stay focused, and achieve more</b> with ease.</p>
         
         <!-- Star Rating -->
         <div class="rating-container">
-            <a href="index.html" class="rating-text">
+            <a href="review.html" class="rating-text">
                 <div class="stars">
                     <i class="fas fa-star star"></i>
                     <i class="fas fa-star star"></i>
@@ -850,25 +869,40 @@
                 <i class="fas fa-newspaper"></i>
             </div>
             <h3>Article Generator</h3>
-            <p>Transform your <span class="highlight">raw ideas and scattered keywords</span> into polished, publication-ready articles with our sophisticated AI writing assistant. Whether you're a busy content marketer, an aspiring blogger, or a corporate communicator, our tool eliminates writer's block by generating <span class="highlight-secondary">coherent, engaging content</span> that captures your unique voice and perspective.</p>
+            <p>Turn your <span class="highlight">ideas into ready-to-publish articles</span> with our smart writing assistant. Just give us your main points and we'll create <b>well-written content that sounds like you</b>.</p>
             
-            <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"As a freelance writer, this tool has cut my research time in half. I can now produce 3-4 quality articles per day instead of just one. The AI really understands context!"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">SM</div>
-                    <div class="author-info">
-                        <div class="author-name">Sarah Mitchell</div>
-                        <div class="author-role">Content Writer</div>
+            <!-- Testimonials -->
+            <a href="review.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"I used to struggle with <b>writer's block</b>. Now I can create <span class="highlight">3-4 quality articles every day</span>. This tool really gets what I'm trying to say!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div class="author-info">
+                            <div class="author-name">Sarah Mitchell</div>
+                            <div class="author-role">Content Writer</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>The system performs <b>deep semantic analysis</b> of your input to understand context, tone, and intent before crafting content that flows naturally and maintains reader engagement. You can specify desired length, writing style (conversational, formal, technical), and focus areas to ensure the output perfectly matches your requirements.</p>
-            <div class="card-feature">Advanced <b>topic clustering</b> identifies related concepts to create comprehensive coverage</div>
-            <div class="card-feature">Built-in <b>SEO optimization</b> ensures your content ranks well in search results</div>
-            <div class="card-feature">Multiple <b>content variations</b> allow you to choose the perfect version for your audience</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <a href=".html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"As a small business owner, I can now create <b>all my own blog content</b>. It saves me so much <span class="highlight">time and money</span> compared to hiring writers."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JR</div>
+                        <div class="author-info">
+                            <div class="author-name">James Roberts</div>
+                            <div class="author-role">Business Owner</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <p>Our tool understands what you want to say and creates content that <b>flows naturally</b>. You can choose the <span class="highlight">length and style</span> that works best for your audience.</p>
+            <div class="card-feature">Creates <b>complete articles</b> from just a few keywords</div>
+            <div class="card-feature">Helps your content <b>rank better</b> in search results</div>
+            <div class="card-feature">Gives you <span class="highlight">different versions</span> to choose from</div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -883,25 +917,40 @@
                 <i class="fas fa-file-alt"></i>
             </div>
             <h3>Auto Summary</h3>
-            <p>Reclaim precious hours with our intelligent summarization engine that <span class="highlight">distills lengthy documents</span> into their essential insights. Our AI doesn't merely truncate text—it performs sophisticated <b>semantic analysis</b> to identify core arguments, supporting evidence, and critical conclusions, delivering comprehensive overviews that preserve original meaning.</p>
+            <p>Save time by turning <span class="highlight">long documents into short, clear summaries</span>. Our tool finds the <b>most important points</b> so you can understand complex information quickly.</p>
             
-            <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"I process dozens of research papers weekly. This tool extracts key findings so efficiently that I've reduced my reading time by 70% while actually understanding more."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">DR</div>
-                    <div class="author-info">
-                        <div class="author-name">Dr. Robert Chen</div>
-                        <div class="author-role">Research Scientist</div>
+            <!-- Testimonials -->
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"I read dozens of research papers every week. This tool <span class="highlight">cuts my reading time by 70%</span> while helping me understand the <b>key findings better</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RC</div>
+                        <div class="author-info">
+                            <div class="author-name">Robert Chen</div>
+                            <div class="author-role">Research Scientist</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>Perfect for academics conducting literature reviews, executives processing market reports, or students preparing for exams. The system employs <span class="highlight-secondary">advanced NLP techniques</span> to maintain contextual relationships while eliminating redundancy, helping you absorb complex information faster and more effectively than ever before.</p>
-            <div class="card-feature">Generates <b>multiple summary lengths</b> from bullet points to paragraph formats</div>
-            <div class="card-feature">Identifies and highlights <b>key terminology and concepts</b> for quick reference</div>
-            <div class="card-feature">Suggests <b>related reading materials</b> based on content analysis</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"Perfect for my MBA studies! I can quickly understand <b>case studies and business reports</b> without missing <span class="highlight">important details</span>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LP</div>
+                        <div class="author-info">
+                            <div class="author-name">Lisa Park</div>
+                            <div class="author-role">MBA Student</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <p>Great for students, researchers, and busy professionals. Our tool keeps the <b>important information</b> while removing <span class="highlight">unnecessary details</span>.</p>
+            <div class="card-feature">Creates summaries in <b>different lengths</b></div>
+            <div class="card-feature">Highlights <span class="highlight">key terms and concepts</span></div>
+            <div class="card-feature">Suggests <b>related reading materials</b></div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -916,25 +965,27 @@
                 <i class="fas fa-film"></i>
             </div>
             <h3>Movie Suggestor</h3>
-            <p>Eliminate decision fatigue with our intelligent cinema companion that learns your <span class="highlight">unique viewing preferences and patterns</span> to recommend films you'll genuinely enjoy. Our system analyzes your viewing history, ratings, and even your stated mood to create a <b>personalized watchlist</b> that evolves with your tastes.</p>
+            <p>Stop wasting time scrolling through streaming services. Our tool <span class="highlight">learns what you like</span> and suggests movies you'll <b>actually enjoy watching</b>.</p>
             
             <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"My husband and I used to spend 30+ minutes deciding what to watch. Now we get perfect recommendations in seconds. Found so many hidden gems we would've missed!"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">MJ</div>
-                    <div class="author-info">
-                        <div class="author-name">Maria Johnson</div>
-                        <div class="author-role">Film Enthusiast</div>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"My partner and I used to spend <span class="highlight">30 minutes deciding what to watch</span>. Now we get <b>perfect suggestions in seconds</b>. Found so many great movies we would have missed!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <div class="author-name">Maria Johnson</div>
+                            <div class="author-role">Film Enthusiast</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>The recommendation engine employs <span class="highlight-secondary">collaborative filtering and content-based algorithms</span> that consider hundreds of attributes including director style, cinematography, pacing, thematic elements, and emotional resonance. Whether you're planning a solo movie night or selecting something for family viewing, you'll discover perfect matches every time.</p>
-            <div class="card-feature">Considers <b>contextual factors</b> like time available, viewing companions, and desired emotional experience</div>
-            <div class="card-feature">Provides <b>detailed justification</b> for each recommendation based on your preferences</div>
-            <div class="card-feature">Identifies <b>underrated gems</b> beyond mainstream algorithms</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <p>The tool looks at what you've watched and liked before to find <b>similar movies</b>. It considers your <span class="highlight">mood, who you're watching with, and how much time you have</span>.</p>
+            <div class="card-feature">Considers your <b>current mood and available time</b></div>
+            <div class="card-feature">Explains <span class="highlight">why it's recommending</span> each movie</div>
+            <div class="card-feature">Finds <b>hidden gems</b> you might have missed</div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -949,25 +1000,27 @@
                 <i class="fas fa-music"></i>
             </div>
             <h3>Music Suggestor</h3>
-            <p>Discover your next musical obsession with our sophisticated recommendation system that analyzes your <span class="highlight">listening habits, emotional responses, and sonic preferences</span> to suggest tracks and artists perfectly aligned with your taste. Our AI examines musical attributes like <b>tempo, key, instrumentation, and lyrical themes</b> to build a comprehensive understanding of what resonates with you.</p>
+            <p>Discover <span class="highlight">new music you'll love</span>. Our tool learns from what you listen to and suggests <b>songs and artists that match your taste</b>.</p>
             
             <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"I've discovered more new favorite artists in 2 months with Spark AI than in 5 years with other services. The mood-based playlists are incredibly accurate."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">TK</div>
-                    <div class="author-info">
-                        <div class="author-name">Thomas Kelly</div>
-                        <div class="author-role">Music Producer</div>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"I've found more <span class="highlight">new favorite artists in 2 months</span> with this tool than in 5 years with other services. The <b>mood-based playlists are spot on</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TK</div>
+                        <div class="author-info">
+                            <div class="author-name">Thomas Kelly</div>
+                            <div class="author-role">Music Producer</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>The platform creates <span class="highlight-secondary">dynamic listening experiences</span> that adapt to your current activity, whether you're focusing on work, exercising, or relaxing. By connecting with your music streaming services, it continuously refines its understanding of your preferences while introducing you to emerging artists and forgotten classics.</p>
-            <div class="card-feature">Creates <b>mood-based playlists</b> that evolve throughout your day</div>
-            <div class="card-feature">Identifies <b>musical connections</b> between seemingly disparate artists</div>
-            <div class="card-feature">Provides <b>background context</b> about recommended artists and albums</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <p>The tool creates playlists that match your <b>activity</b> - whether you're working out, relaxing, or focusing on work. It connects with your music services to learn your <span class="highlight">preferences</span>.</p>
+            <div class="card-feature">Creates playlists that match your <b>mood and activity</b></div>
+            <div class="card-feature">Shows <span class="highlight">connections between different artists</span></div>
+            <div class="card-feature">Tells you about the <b>artists it recommends</b></div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -982,25 +1035,27 @@
                 <i class="fas fa-hashtag"></i>
             </div>
             <h3>Hashtag Generator</h3>
-            <p>Amplify your social media presence with our intelligent hashtag optimization tool designed for maximum visibility across platforms including <span class="highlight">TikTok, Instagram, Twitter, and LinkedIn</span>. Our system performs comprehensive analysis of your content, target audience, and platform algorithms to suggest the <b>most effective hashtag combinations</b> for virality and engagement.</p>
+            <p>Get <span class="highlight">more people to see your social media posts</span>. Our tool finds the <b>best hashtags for TikTok, Instagram, Twitter, and LinkedIn</b>.</p>
             
             <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"My engagement tripled after using this! Went from 200 to 2,000 followers in 6 weeks. The platform-specific suggestions are game-changing for creators."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">AL</div>
-                    <div class="author-info">
-                        <div class="author-name">Amanda Lee</div>
-                        <div class="author-role">Content Creator</div>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"My engagement <span class="highlight">tripled after using this</span>! Went from 200 to 2,000 followers in 6 weeks. The <b>platform-specific suggestions really work</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AL</div>
+                        <div class="author-info">
+                            <div class="author-name">Amanda Lee</div>
+                            <div class="author-role">Content Creator</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>The AI evaluates <span class="highlight-secondary">real-time trending topics, engagement patterns, and competitor strategies</span> to provide a balanced mix of high-volume and niche hashtags that give your content the best chance of appearing on explore pages and feeds. The platform also identifies optimal posting times based on when your specific audience is most active.</p>
-            <div class="card-feature">Generates <b>platform-specific strategies</b> tailored to each network's algorithm</div>
-            <div class="card-feature">Provides <b>performance predictions</b> for different hashtag combinations</div>
-            <div class="card-feature">Identifies <b>seasonal and event-based opportunities</b> for increased relevance</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <p>The tool looks at what's <b>trending</b> and what works for similar content. It gives you a mix of <span class="highlight">popular and specific hashtags</span> to help more people discover your posts.</p>
+            <div class="card-feature">Creates <b>different strategies for each social platform</b></div>
+            <div class="card-feature">Shows which <span class="highlight">hashtag combinations work best</span></div>
+            <div class="card-feature">Finds <b>trending topics and events</b> to join</div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -1015,25 +1070,40 @@
                 <i class="fas fa-check-circle"></i>
             </div>
             <h3>Verify News/Trends</h3>
-            <p>Navigate today's complex information landscape with confidence using our advanced verification system that <span class="highlight">analyzes trending stories and viral claims</span> for accuracy and credibility. Our tool employs sophisticated <b>fact-checking algorithms</b> that cross-reference information across thousands of reliable sources, providing transparency scores and supporting evidence for any claim.</p>
+            <p>Check if <span class="highlight">news stories and viral claims are true</span>. Our tool looks at information from many sources to help you know <b>what's real and what's not</b>.</p>
             
-            <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"As a journalist, this has become my go-to verification tool. It's saved me from publishing incorrect information multiple times. The bias analysis is particularly insightful."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">DW</div>
-                    <div class="author-info">
-                        <div class="author-name">David Wilson</div>
-                        <div class="author-role">Investigative Reporter</div>
+            <!-- Testimonials -->
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"As a journalist, this has become my <span class="highlight">go-to verification tool</span>. It's saved me from publishing <b>wrong information multiple times</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DW</div>
+                        <div class="author-info">
+                            <div class="author-name">David Wilson</div>
+                            <div class="author-role">Journalist</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>The system examines <span class="highlight-secondary">source reliability, contextual consistency, and potential biases</span> while identifying common misinformation patterns. For journalists, researchers, and concerned citizens, this tool provides an essential defense against the spread of false information while promoting digital literacy and critical thinking.</p>
-            <div class="card-feature">Tracks <b>information provenance</b> to identify original sources and potential manipulation</div>
-            <div class="card-feature">Provides <b>bias analysis</b> across political and ideological spectrums</div>
-            <div class="card-feature">Offers <b>historical context</b> for recurring claims and debunked narratives</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"I use this before sharing anything online. It's helped me avoid <span class="highlight">spreading misinformation</span> and have <b>better conversations with friends</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SG</div>
+                        <div class="author-info">
+                            <div class="author-name">Sarah Green</div>
+                            <div class="author-role">Teacher</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <p>For anyone who wants to be sure about what they're reading online. The tool checks how <b>reliable sources are</b> and looks for <span class="highlight">common patterns in false information</span>.</p>
+            <div class="card-feature">Tracks where information <b>originally came from</b></div>
+            <div class="card-feature">Shows if sources might be <span class="highlight">biased</span></div>
+            <div class="card-feature">Provides <b>background on recurring claims</b></div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -1048,25 +1118,27 @@
                 <i class="fas fa-chart-line"></i>
             </div>
             <h3>Top Trending</h3>
-            <p>Stay ahead of the cultural curve with our comprehensive trending topics tracker that provides <span class="highlight">real-time insights into emerging conversations</span> across global and niche communities. Our system aggregates data from diverse sources including social platforms, news outlets, and search engines to identify <b>patterns before they peak</b> in mainstream awareness.</p>
+            <p>Stay up to date with <span class="highlight">what people are talking about</span>. Our tool shows you <b>emerging trends before they become mainstream</b>.</p>
             
             <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"This tool predicted three viral trends before they hit mainstream. My content now regularly gets 5x more engagement by being early to emerging topics."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">RG</div>
-                    <div class="author-info">
-                        <div class="author-name">Rachel Green</div>
-                        <div class="author-role">Social Media Manager</div>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"This tool predicted <span class="highlight">three viral trends before they hit mainstream</span>. My content now gets <b>5x more engagement</b> by being early to new topics."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RG</div>
+                        <div class="author-info">
+                            <div class="author-name">Rachel Green</div>
+                            <div class="author-role">Social Media Manager</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>For content creators, marketers, and curious minds, this tool offers <span class="highlight-secondary">actionable intelligence about shifting interests</span> and emerging opportunities. You can customize your feed based on location, industry, or personal interests to ensure you're always informed about developments that matter most to your work and passions.</p>
-            <div class="card-feature">Identifies <b>cross-platform trends</b> showing how topics evolve across different media</div>
-            <div class="card-feature">Provides <b>velocity metrics</b> indicating how quickly topics are gaining traction</div>
-            <div class="card-feature">Offers <b>predictive analysis</b> of potential trend duration and impact</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <p>Great for content creators, marketers, and anyone who wants to stay informed. You can customize what types of trends you see based on your <span class="highlight">interests</span>.</p>
+            <div class="card-feature">Shows how topics <b>spread across different platforms</b></div>
+            <div class="card-feature">Measures how <span class="highlight">quickly trends are growing</span></div>
+            <div class="card-feature">Predicts how long trends might <b>last</b></div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -1081,25 +1153,40 @@
                 <i class="fas fa-user-edit"></i>
             </div>
             <h3>Human/AI Article Claims</h3>
-            <p>In an era of increasingly sophisticated AI-generated content, our detection tool provides <span class="highlight">critical transparency about content origins</span> by analyzing writing patterns to determine authorship with remarkable accuracy. The system examines hundreds of linguistic features including <b>sentence structure, vocabulary diversity, and stylistic consistency</b> to identify hallmarks of AI composition.</p>
+            <p>Check if content was <span class="highlight">written by a person or AI</span>. Our tool looks at writing patterns to tell you <b>who likely created the content</b>.</p>
             
-            <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"As a university professor, this tool helps me maintain academic integrity. It's identified AI-generated submissions with 98% accuracy, saving countless hours of manual review."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">PE</div>
-                    <div class="author-info">
-                        <div class="author-name">Prof. Elena Rodriguez</div>
-                        <div class="author-role">University Professor</div>
+            <!-- Testimonials -->
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"As a university professor, this helps me check student work. It's found <span class="highlight">AI-written papers with 98% accuracy</span>, saving me <b>hours of checking</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">ER</div>
+                        <div class="author-info">
+                            <div class="author-name">Elena Rodriguez</div>
+                            <div class="author-role">University Professor</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>For educators verifying student work, publishers maintaining editorial standards, or consumers seeking authentic voices, this tool offers <span class="highlight-secondary">essential verification capabilities</span> in an evolving content landscape. The detection model continuously learns from new examples to maintain effectiveness against increasingly sophisticated AI writing systems.</p>
-            <div class="card-feature">Provides <b>confidence scores</b> and detailed analysis of determining factors</div>
-            <div class="card-feature">Identifies <b>specific AI writing tools</b> that may have been used</div>
-            <div class="card-feature">Detects <b>hybrid content</b> that combines human and AI writing</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"I run a content agency and use this to ensure our writers are creating <b>original work</b>. It's become an <span class="highlight">essential quality check</span> for us."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MB</div>
+                        <div class="author-info">
+                            <div class="author-name">Michael Brown</div>
+                            <div class="author-role">Content Agency Owner</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <p>Useful for teachers, publishers, and anyone who wants to know if they're reading <b>human-written content</b>. The tool keeps learning as <span class="highlight">AI writing improves</span>.</p>
+            <div class="card-feature">Shows how <b>confident it is</b> about its analysis</div>
+            <div class="card-feature">Identifies which <span class="highlight">AI tools might have been used</span></div>
+            <div class="card-feature">Detects when <b>human and AI writing are mixed</b></div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -1114,25 +1201,27 @@
                 <i class="fas fa-brain"></i>
             </div>
             <h3>IQ Grader</h3>
-            <p>Challenge your cognitive abilities with our adaptive intelligence assessment that <span class="highlight">dynamically adjusts to your performance</span> in real-time, providing a more accurate measurement than traditional static tests. Our comprehensive evaluation covers multiple domains of intelligence including <b>logical reasoning, spatial visualization, verbal comprehension, and working memory</b>.</p>
+            <p>Test your <span class="highlight">thinking skills with our adaptive assessment</span>. The questions change based on how you're doing to give you a <b>more accurate result</b>.</p>
             
             <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"The adaptive testing method is brilliant! Unlike standard IQ tests that can be too easy or hard, this perfectly matched my ability level. The cognitive profile was incredibly detailed."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">KS</div>
-                    <div class="author-info">
-                        <div class="author-name">Kevin Simmons</div>
-                        <div class="author-role">Software Engineer</div>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"The <span class="highlight">adaptive testing is great</span>! Unlike standard IQ tests that can be too easy or hard, this matched my level perfectly. The <b>results were really detailed</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">KS</div>
+                        <div class="author-info">
+                            <div class="author-name">Kevin Simmons</div>
+                            <div class="author-role">Software Engineer</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>Upon completion, you'll receive a <span class="highlight-secondary">detailed cognitive profile</span> with your IQ score, strengths analysis, and personalized recommendations for intellectual development. The assessment adapts question difficulty based on your responses, creating a tailored experience that accurately measures your capabilities across different cognitive domains.</p>
-            <div class="card-feature">Measures <b>multiple intelligence types</b> beyond traditional IQ metrics</div>
-            <div class="card-feature">Provides <b>actionable insights</b> for cognitive improvement</div>
-            <div class="card-feature">Tracks <b>progress over time</b> with comparative analytics</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <p>The test looks at different <b>thinking skills</b> like logic, problem-solving, and memory. You'll get a detailed report showing your <span class="highlight">strengths and areas to improve</span>.</p>
+            <div class="card-feature">Measures <b>different types of thinking skills</b></div>
+            <div class="card-feature">Gives suggestions for <span class="highlight">improving your thinking</span></div>
+            <div class="card-feature">Tracks your <b>progress over time</b></div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Begin Now</a>
                 <button class="share-button" title="Share this tool">
@@ -1147,25 +1236,40 @@
                 <i class="fas fa-lightbulb"></i>
             </div>
             <h3>Idea/Business Suggestor</h3>
-            <p>Unlock your entrepreneurial potential with our personalized ideation system that analyzes your <span class="highlight">unique skills, interests, and market opportunities</span> to generate viable business concepts tailored specifically to you. Our AI examines current market trends, emerging technologies, and economic indicators to identify <b>underserved niches and growth opportunities</b> aligned with your capabilities.</p>
+            <p>Find <span class="highlight">business ideas that match your skills and interests</span>. Our tool looks at market opportunities to suggest concepts that could <b>work for you</b>.</p>
             
-            <!-- Testimonial -->
-            <div class="testimonial">
-                <p class="testimonial-text">"This suggested a niche e-commerce business perfectly aligned with my skills. 6 months in, we're already profitable! The market analysis was spot-on."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">JP</div>
-                    <div class="author-info">
-                        <div class="author-name">James Peterson</div>
-                        <div class="author-role">Entrepreneur</div>
+            <!-- Testimonials -->
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"This suggested an <span class="highlight">e-commerce business that fit my skills perfectly</span>. 6 months in, we're already making money! The <b>market analysis was right on</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JP</div>
+                        <div class="author-info">
+                            <div class="author-name">James Peterson</div>
+                            <div class="author-role">Entrepreneur</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             
-            <p>The system considers factors like your <span class="highlight-secondary">risk tolerance, available resources, and personal values</span> to provide practical suggestions with realistic implementation pathways. Each recommendation includes market analysis, potential challenges, resource requirements, and initial steps to help transform ideas into actionable business plans.</p>
-            <div class="card-feature">Generates <b>comprehensive business models</b> with revenue projections</div>
-            <div class="card-feature">Identifies <b>potential partnerships and resources</b> for each concept</div>
-            <div class="card-feature">Provides <b>competitive landscape analysis</b> for market positioning</div>
-            <a href="index.html" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+            <a href="index.html" class="testimonial-link">
+                <div class="testimonial">
+                    <p class="testimonial-text">"I was stuck for ideas for my side business. This tool gave me <span class="highlight">three solid options</span> that matched my <b>budget and available time</b>."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">NW</div>
+                        <div class="author-info">
+                            <div class="author-name">Nina Williams</div>
+                            <div class="author-role">Freelancer</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            <p>The tool considers what you're <b>good at</b>, how much risk you're comfortable with, and what <span class="highlight">resources you have</span>. Each suggestion includes steps to get started.</p>
+            <div class="card-feature">Creates <b>complete business plans</b> with money projections</div>
+            <div class="card-feature">Finds <span class="highlight">potential partners and resources</span> for each idea</div>
+            <div class="card-feature">Shows who you'd be <b>competing against</b></div>
+            <a href="index.html" class="read-more">How this tool works <i class="fas fa-arrow-right"></i></a>
             <div class="card-footer">
                 <a href="home.html" class="card-button">Get Started</a>
                 <button class="share-button" title="Share this tool">
@@ -1304,6 +1408,14 @@
                                 console.error('Failed to copy: ', err);
                             });
                     }
+                });
+            });
+
+            // Make testimonials clickable
+            const testimonials = document.querySelectorAll('.testimonial');
+            testimonials.forEach(testimonial => {
+                testimonial.addEventListener('click', function() {
+                    window.location.href = 'index.html';
                 });
             });
         });
