@@ -42,12 +42,10 @@
             border-bottom: 1px solid rgba(26, 115, 232, 0.1);
         }
 
-        .header-top {
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .logo-container {
@@ -98,35 +96,10 @@
             letter-spacing: 0.5px;
         }
 
-        .header-contact {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-        }
-
-        .contact-item i {
-            color: var(--primary-blue);
-            font-size: 1rem;
-        }
-
-        .header-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0.8rem;
-        }
-
         .nav-links {
             display: flex;
             gap: 2.5rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -161,47 +134,119 @@
             width: 100%;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .btn-login {
-            padding: 0.6rem 1.2rem;
-            background: transparent;
-            border: 1px solid var(--primary-blue);
-            color: var(--primary-blue);
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .btn-login:hover {
-            background-color: var(--primary-blue);
-            color: var(--white);
-        }
-
-        .btn-demo {
-            padding: 0.6rem 1.2rem;
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
-            color: var(--white);
+        /* Modal Menu Styles */
+        .menu-toggle {
+            display: none;
+            background: none;
             border: none;
-            border-radius: 6px;
-            font-weight: 500;
+            font-size: 1.5rem;
+            color: var(--dark-blue);
             cursor: pointer;
             transition: var(--transition);
-            text-decoration: none;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+            padding: 0.5rem;
+            border-radius: 6px;
         }
 
-        .btn-demo:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+        .menu-toggle:hover {
+            background-color: var(--light-blue);
+            transform: scale(1.05);
+        }
+
+        .modal-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-blue) 100%);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-menu.active {
+            display: block;
+            transform: translateX(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+
+        .close-menu:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        .modal-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-nav a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .modal-nav a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            transform: translateX(5px);
+        }
+
+        .modal-nav i {
+            width: 20px;
+            text-align: center;
+            color: var(--primary-blue);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .modal-overlay.active {
+            display: block;
         }
 
         /* Hero Section */
@@ -682,29 +727,18 @@
 
         /* Responsive Design */
         @media (max-width: 1024px) {
-            .header-contact {
+            .nav-links {
                 display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
             }
         }
 
         @media (max-width: 768px) {
             header {
                 padding: 1rem 5%;
-            }
-
-            .header-top, .header-bottom {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .nav-links {
-                gap: 1.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .header-actions {
-                justify-content: center;
             }
 
             .hero h1 {
@@ -734,6 +768,10 @@
             .notification-item {
                 padding: 0.7rem 1.2rem;
                 font-size: 0.9rem;
+            }
+            
+            .modal-menu {
+                width: 100%;
             }
         }
 
@@ -786,7 +824,7 @@
 <body>
     <!-- Improved Header -->
     <header>
-        <div class="header-top">
+        <div class="header-container">
             <div class="logo-container">
                 <div class="logo">
                     <i class="fas fa-bolt"></i>
@@ -796,22 +834,7 @@
                     <div class="logo-tagline">Intelligent Solutions for Modern Productivity</div>
                 </div>
             </div>
-            <div class="header-contact">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>contact@sparkaipro.com</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>+1 (555) 123-4567</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-clock"></i>
-                    <span>Mon-Fri: 9AM-6PM</span>
-                </div>
-            </div>
-        </div>
-        <div class="header-bottom">
+            
             <nav class="nav-links">
                 <a href="site.html"><i class="fas fa-info-circle"></i> About Us</a>
                 <a href="site.html"><i class="fas fa-envelope"></i> Contact Us</a>
@@ -819,21 +842,54 @@
                 <a href="#"><i class="fas fa-shield-alt"></i> Security</a>
                 <a href="#"><i class="fas fa-book"></i> Documentation</a>
             </nav>
-            <div class="header-actions">
-                <a href="#" class="btn-login">Client Login</a>
-                <a href="#" class="btn-demo">Request Demo</a>
-            </div>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
+
+    <!-- Modal Menu -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-menu" id="modalMenu">
+        <div class="modal-header">
+            <h2 class="modal-title">Navigation</h2>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="modal-nav">
+            <a href="site.html">
+                <i class="fas fa-info-circle"></i>
+                About Us
+            </a>
+            <a href="site.html">
+                <i class="fas fa-envelope"></i>
+                Contact Us
+            </a>
+            <a href="site.html">
+                <i class="fas fa-file-contract"></i>
+                Terms of Service
+            </a>
+            <a href="#">
+                <i class="fas fa-shield-alt"></i>
+                Security
+            </a>
+            <a href="#">
+                <i class="fas fa-book"></i>
+                Documentation
+            </a>
+        </nav>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
         <h1>Spark AI Pro</h1>
-        <p>Boost your productivity with <span class="highlight">Spark AI Pro - your all-in-one AI assistant </span>. Get <b>quick summaries, clear conclusions, and personalized results</b> in seconds — Spark AI Pro helps you <b>save time, stay focused, and achieve more</b> with ease.</p>
+        <p>Boost your productivity with <span class="highlight">Spark AI Pro -your all-in-one AI assistant</span>. Get <b>quick summaries, clear conclusions, and personalized results</b> in seconds — Spark-AI Pro helps you <b>save time, stay focused, and achieve more</b> with ease.</p>
         
         <!-- Star Rating -->
         <div class="rating-container">
-            <a href="review.html" class="rating-text">
+            <a href="index.html" class="rating-text">
                 <div class="stars">
                     <i class="fas fa-star star"></i>
                     <i class="fas fa-star star"></i>
@@ -872,7 +928,7 @@
             <p>Turn your <span class="highlight">ideas into ready-to-publish articles</span> with our smart writing assistant. Just give us your main points and we'll create <b>well-written content that sounds like you</b>.</p>
             
             <!-- Testimonials -->
-            <a href="review.html" class="testimonial-link">
+            <a href="index.html" class="testimonial-link">
                 <div class="testimonial">
                     <p class="testimonial-text">"I used to struggle with <b>writer's block</b>. Now I can create <span class="highlight">3-4 quality articles every day</span>. This tool really gets what I'm trying to say!"</p>
                     <div class="testimonial-author">
@@ -885,7 +941,7 @@
                 </div>
             </a>
             
-            <a href=".html" class="testimonial-link">
+            <a href="index.html" class="testimonial-link">
                 <div class="testimonial">
                     <p class="testimonial-text">"As a small business owner, I can now create <b>all my own blog content</b>. It saves me so much <span class="highlight">time and money</span> compared to hiring writers."</p>
                     <div class="testimonial-author">
@@ -1316,6 +1372,35 @@
     </footer>
 
     <script>
+        // Modal Menu Functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const modalMenu = document.getElementById('modalMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const modalOverlay = document.getElementById('modalOverlay');
+
+        function openModal() {
+            modalMenu.classList.add('active');
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalMenu.classList.remove('active');
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        menuToggle.addEventListener('click', openModal);
+        closeMenu.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', closeModal);
+
+        // Close modal when pressing Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
         // Sequential Notification System
         document.addEventListener('DOMContentLoaded', function() {
             const notificationTrack = document.querySelector('.notification-track');
