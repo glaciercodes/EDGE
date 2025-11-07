@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -456,7 +455,7 @@
 
         .testimonials-container {
             position: relative;
-            height: 200px;
+            height: 220px;
             overflow: hidden;
         }
 
@@ -470,18 +469,45 @@
 
         .testimonial-card {
             flex: 0 0 350px;
-            background-color: var(--white);
             border-radius: 12px;
             padding: 1.5rem;
             margin-right: 2rem;
             box-shadow: var(--card-shadow);
             cursor: pointer;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Distinct review card styles */
+        .testimonial-card:nth-child(1) {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-left: 4px solid #2196f3;
+        }
+
+        .testimonial-card:nth-child(2) {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            border-left: 4px solid #9c27b0;
+        }
+
+        .testimonial-card:nth-child(3) {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            border-left: 4px solid #4caf50;
+        }
+
+        .testimonial-card:nth-child(4) {
+            background: linear-gradient(135deg, #fff3e0, #ffcc80);
+            border-left: 4px solid #ff9800;
+        }
+
+        .testimonial-card:nth-child(5) {
+            background: linear-gradient(135deg, #fbe9e7, #ffab91);
+            border-left: 4px solid #ff5722;
         }
 
         .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .testimonial-text {
@@ -489,24 +515,48 @@
             color: var(--dark-gray);
             margin-bottom: 1rem;
             line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
 
         .testimonial-author {
             display: flex;
             align-items: center;
             gap: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .author-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
             font-weight: 600;
+        }
+
+        /* Distinct avatar colors */
+        .testimonial-card:nth-child(1) .author-avatar {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+        }
+
+        .testimonial-card:nth-child(2) .author-avatar {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+        }
+
+        .testimonial-card:nth-child(3) .author-avatar {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+
+        .testimonial-card:nth-child(4) .author-avatar {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+
+        .testimonial-card:nth-child(5) .author-avatar {
+            background: linear-gradient(135deg, #ff5722, #d84315);
         }
 
         .author-info {
@@ -522,6 +572,18 @@
         .author-role {
             font-size: 0.9rem;
             color: var(--dark-gray);
+        }
+
+        /* Rating stars */
+        .rating {
+            display: flex;
+            gap: 0.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .star {
+            color: #FFC107;
+            font-size: 0.9rem;
         }
 
         @keyframes scrollTestimonials {
@@ -919,6 +981,13 @@
             <div class="testimonials-container">
                 <div class="testimonials-track">
                     <div class="testimonial-card" onclick="window.location.href='index.html'">
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
                         <p class="testimonial-text">"As a freelance writer, this tool has cut my research time in half. I can now produce 3-4 quality articles per day instead of just one. The AI really understands context!"</p>
                         <div class="testimonial-author">
                             <div class="author-avatar">SM</div>
@@ -930,6 +999,13 @@
                     </div>
                     
                     <div class="testimonial-card" onclick="window.location.href='index.html'">
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
                         <p class="testimonial-text">"My blog traffic increased by 200% after using Spark AI Pro. The articles are so well-written that readers think I spent hours on each piece!"</p>
                         <div class="testimonial-author">
                             <div class="author-avatar">JR</div>
@@ -941,6 +1017,13 @@
                     </div>
                     
                     <div class="testimonial-card" onclick="window.location.href='index.html'">
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
                         <p class="testimonial-text">"I was struggling with writer's block for months. This tool gave me the creative boost I needed. Now I can focus on strategy while AI handles the writing."</p>
                         <div class="testimonial-author">
                             <div class="author-avatar">AL</div>
@@ -952,6 +1035,13 @@
                     </div>
                     
                     <div class="testimonial-card" onclick="window.location.href='index.html'">
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
                         <p class="testimonial-text">"The quality of articles generated is impressive. They sound human-written and require minimal editing. This has revolutionized our content creation process."</p>
                         <div class="testimonial-author">
                             <div class="author-avatar">DC</div>
@@ -963,6 +1053,13 @@
                     </div>
                     
                     <div class="testimonial-card" onclick="window.location.href='index.html'">
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
                         <p class="testimonial-text">"I've tried many AI writing tools, but Spark AI Pro stands out for its understanding of context and ability to maintain a consistent tone throughout the article."</p>
                         <div class="testimonial-author">
                             <div class="author-avatar">RG</div>
@@ -1155,6 +1252,10 @@
                     // Display the generated content
                     generatedContent.innerHTML = data.result.replace(/\n/g, '<br>');
                     resultModal.classList.add('active');
+                    
+                    // Clear the input field after successful generation
+                    promptInput.value = '';
+                    charCount.textContent = '0';
                 } else {
                     alert('Error generating article: ' + data.error);
                 }
