@@ -1,47 +1,44 @@
 export default async function handler(req, res) {
   try {
-    // Only allow POST requests
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Method not allowed" });
+    const body = JSON.parse(req.body || "{}");
+
+    const { prompt, system = "You are a helpful assistant.", model = "gpt-4o-mini" } = body;
+
+    if (!prompt || prompt.trim().length < 5) {
+      return res.status(400).json({ error: "Prompt is too short or missing." });
     }
 
-    const { prompt } = req.body;
-
-    if (!prompt || prompt.trim().length === 0) {
-      return res.status(400).json({ error: "Prompt is required." });
-    }
-
-    // Call OpenAI — your key is stored in Vercel environment variables
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
+        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model,
         messages: [
-          { role: "system", content: "You are a helpful content generator." },
+          { role: "system", content: system },
           { role: "user", content: prompt }
-        ],
-        max_tokens: 1200,
-        temperature: 0.7
+        ]
       })
     });
 
     const data = await response.json();
 
-    if (data.error) {
-      console.error("OpenAI Error:", data.error);
-      return res.status(500).json({ error: "AI generation failed." });
+    if (!data?.choices?.length) {
+      return res.status(500).json({ error: "OpenAI returned no response." });
     }
 
-    const aiText = data.choices?.[0]?.message?.content || "No output generated.";
-
-    return res.status(200).json({ result: aiText });
+    res.status(200).json({
+      success: true,
+      result: data.choices[0].message.content
+    });
 
   } catch (error) {
-    console.error("Server Error:", error);
-    return res.status(500).json({ error: "Server error occurred." });
+    res.status(500).json({
+      success: false,
+      error: "Server error. Check your backend setup.",
+      details: error.message
+    });
   }
 }
