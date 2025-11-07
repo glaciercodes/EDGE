@@ -1168,7 +1168,225 @@
             <p>&copy; 2023 Spark AI Pro. All rights reserved.</p>
         </div>
     </footer>
+<script>
+    // Modal Menu Functionality
+    const menuToggle = document.getElementById('menuToggle');
+    const modalMenu = document.getElementById('modalMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const modalOverlay = document.getElementById('modalOverlay');
 
+    function openModal() {
+        modalMenu.classList.add('active');
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modalMenu.classList.remove('active');
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    menuToggle.addEventListener('click', openModal);
+    closeMenu.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+
+    // Close modal when pressing Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    // Character counter for prompt input
+    const promptInput = document.getElementById('promptInput');
+    const charCount = document.getElementById('charCount');
+
+    promptInput.addEventListener('input', function() {
+        charCount.textContent = this.value.length;
+    });
+
+    // Result Modal Functionality
+    const resultModal = document.getElementById('resultModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const generateBtn = document.getElementById('generateBtn');
+    const generatedContent = document.getElementById('generatedContent');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const shareBtn = document.getElementById('shareBtn');
+
+    // Mock article generation function
+    function generateMockArticle(prompt) {
+        // Sample article templates based on the prompt
+        const templates = {
+            'blog': `# The Power of ${prompt.split(' ').slice(-2).join(' ')}\n\nIn today's fast-paced world, the importance of ${prompt.toLowerCase()} cannot be overstated. This comprehensive guide explores the key benefits and practical applications that can transform your daily life.\n\n## Understanding the Core Concepts\n\nThe foundation of successful ${prompt.toLowerCase()} lies in understanding the fundamental principles. Research shows that individuals who master these basics experience significant improvements in both personal and professional spheres.\n\n## Practical Implementation Strategies\n\nImplementing ${prompt.toLowerCase()} doesn't have to be complicated. Start with small, consistent steps and gradually build upon your successes. Many experts recommend beginning with a 30-day challenge to establish lasting habits.\n\n## Real-World Success Stories\n\nFrom entrepreneurs to students, people worldwide are leveraging ${prompt.toLowerCase()} to achieve remarkable results. Their stories serve as inspiration and proof that anyone can benefit from these techniques.\n\n## Conclusion\n\nEmbracing ${prompt.toLowerCase()} opens doors to new opportunities and personal growth. The journey may require dedication, but the rewards are well worth the effort.`,
+
+            'guide': `# Complete Guide to ${prompt.split('about')[1] ? prompt.split('about')[1].trim() : 'Your Topic'}\n\n## Introduction\n\nWelcome to your ultimate guide on ${prompt.toLowerCase()}. Whether you're a beginner or looking to enhance your skills, this comprehensive resource covers everything you need to know.\n\n## Step 1: Getting Started\n\nThe first step is often the most challenging. Begin by gathering the necessary resources and creating a comfortable workspace. Proper preparation sets the stage for success.\n\n## Step 2: Core Techniques\n\nMaster the fundamental techniques that form the backbone of ${prompt.toLowerCase()}. Practice these regularly to build confidence and competence.\n\n## Step 3: Advanced Strategies\n\nOnce you've mastered the basics, explore advanced methods that can take your skills to the next level. These techniques separate amateurs from experts.\n\n## Step 4: Troubleshooting Common Issues\n\nEven experienced practitioners encounter challenges. This section addresses common problems and provides practical solutions.\n\n## Final Thoughts\n\nRemember that mastery takes time and patience. Celebrate small victories and stay committed to continuous improvement.`,
+
+            'review': `# In-Depth Review: ${prompt.split('review')[1] ? prompt.split('review')[1].trim() : 'The Product'}\n\n## Overview\n\nAfter extensive testing and analysis, we present our comprehensive review of ${prompt.toLowerCase()}. This product/service has generated significant buzz, and we're here to separate fact from fiction.\n\n## Key Features and Performance\n\nThe standout features deliver impressive results, particularly in areas of efficiency and user experience. During our testing period, we noted consistent performance across various scenarios.\n\n## Pros and Cons\n\n### Strengths:\n- Exceptional build quality and design\n- User-friendly interface\n- Reliable performance under pressure\n- Excellent value for money\n\n### Areas for Improvement:\n- Learning curve for advanced features\n- Limited customization options\n- Could benefit from additional accessories\n\n## User Experience\n\nFrom setup to daily use, the overall experience is smooth and intuitive. Minor quirks are easily overlooked given the overall quality and performance.\n\n## Final Verdict\n\n${prompt.split('review')[1] ? prompt.split('review')[1].trim() : 'This product'} delivers on its promises and represents a solid investment for anyone serious about ${prompt.toLowerCase()}. We highly recommend it.`,
+
+            'default': `# ${prompt}\n\n## Introduction\n\nIn an increasingly complex world, understanding ${prompt.toLowerCase()} has never been more important. This article explores the key aspects and provides actionable insights for immediate application.\n\n## The Current Landscape\n\nThe field of ${prompt.toLowerCase()} is evolving rapidly, with new developments emerging regularly. Staying informed about these changes is crucial for maintaining a competitive edge.\n\n## Key Benefits and Applications\n\nImplementing strategies related to ${prompt.toLowerCase()} can yield significant benefits across multiple areas of life and business. These include improved efficiency, enhanced creativity, and better decision-making capabilities.\n\n## Future Outlook\n\nAs technology advances and our understanding deepens, the potential applications of ${prompt.toLowerCase()} continue to expand. Early adopters stand to gain the most from these developments.\n\n## Conclusion\n\nWhether you're just beginning your journey or looking to deepen your existing knowledge, ${prompt.toLowerCase()} offers valuable opportunities for growth and improvement. The time to start is now.`
+        };
+
+        // Determine which template to use based on prompt content
+        let template = 'default';
+        if (prompt.toLowerCase().includes('blog')) template = 'blog';
+        if (prompt.toLowerCase().includes('guide') || prompt.toLowerCase().includes('how to')) template = 'guide';
+        if (prompt.toLowerCase().includes('review')) template = 'review';
+
+        return templates[template];
+    }
+
+    // Generate Article Function
+    generateBtn.addEventListener('click', async function() {
+        const prompt = promptInput.value.trim();
+        
+        if (!prompt) {
+            alert('Please enter a description for your article');
+            return;
+        }
+        
+        if (prompt.length < 10) {
+            alert('Please provide a more detailed description (at least 10 characters)');
+            return;
+        }
+        
+        // Show loading state
+        generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+        generateBtn.disabled = true;
+        
+        try {
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Generate mock article content
+            const articleContent = generateMockArticle(prompt);
+            
+            // Display the generated content
+            generatedContent.innerHTML = articleContent.replace(/\n/g, '<br>');
+            resultModal.classList.add('active');
+            
+            // Clear the input field after successful generation
+            promptInput.value = '';
+            charCount.textContent = '0';
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to generate article. Please try again.');
+        } finally {
+            // Reset button state
+            generateBtn.innerHTML = '<i class="fas fa-bolt"></i> Generate Article';
+            generateBtn.disabled = false;
+        }
+    });
+
+    // Close result modal
+    closeModalBtn.addEventListener('click', function() {
+        resultModal.classList.remove('active');
+    });
+
+    // Download generated content
+    downloadBtn.addEventListener('click', function() {
+        const content = generatedContent.innerText;
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'spark-ai-generated-article.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        // Show download confirmation
+        const originalText = downloadBtn.innerHTML;
+        downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+        setTimeout(function() {
+            downloadBtn.innerHTML = originalText;
+        }, 2000);
+    });
+
+    // Copy generated content
+    copyBtn.addEventListener('click', function() {
+        const content = generatedContent.innerText;
+        navigator.clipboard.writeText(content).then(function() {
+            // Show copied message
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(function() {
+                copyBtn.innerHTML = originalText;
+            }, 2000);
+        }).catch(function() {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = content;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(function() {
+                copyBtn.innerHTML = originalText;
+            }, 2000);
+        });
+    });
+
+    // Share tool
+    shareBtn.addEventListener('click', function() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Spark AI Pro - Article Generator',
+                text: 'Check out this amazing AI tool that can generate articles in seconds!',
+                url: window.location.href,
+            });
+        } else {
+            // Fallback for browsers that don't support Web Share API
+            navigator.clipboard.writeText(window.location.href).then(function() {
+                alert('Link copied to clipboard! Share it with your friends!');
+            }).catch(function() {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = window.location.href;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Link copied to clipboard! Share it with your friends!');
+            });
+        }
+    });
+
+    // Close result modal when clicking outside
+    resultModal.addEventListener('click', function(event) {
+        if (event.target === resultModal) {
+            resultModal.classList.remove('active');
+        }
+    });
+
+    // Add some sample prompts for user convenience
+    const samplePrompts = [
+        "Write a blog post about the benefits of remote work for productivity",
+        "Create a guide on how to start meditation for beginners",
+        "Review the latest smartphone model focusing on camera features",
+        "Write an article about sustainable living in urban areas",
+        "Create a comprehensive guide to healthy meal preparation"
+    ];
+
+    // Add click to fill functionality for prompt input placeholder
+    promptInput.addEventListener('focus', function() {
+        if (this.value === '' && this.placeholder.includes('For example:')) {
+            this.placeholder = 'Describe your article idea here...';
+        }
+    });
+
+    promptInput.addEventListener('blur', function() {
+        if (this.value === '' && this.placeholder === 'Describe your article idea here...') {
+            this.placeholder = 'Describe the article you want to create. For example: "Write a blog post about sustainable living practices for urban dwellers" or "Create an informative article about the benefits of meditation for stress reduction"...';
+        }
+    });
+</script>
     <script>
         // Modal Menu Functionality
         const menuToggle = document.getElementById('menuToggle');
