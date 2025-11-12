@@ -1,54 +1,196 @@
-async function callDetectionAPI(text) {
-    try {
-        const response = await fetch('/api/detect-ai', {
+class AIContentDetector {
+    constructor() {
+        this.initializeElements();
+        this.setupEventListeners();
+        this.updateButtonState();
+    }
+
+    initializeElements() {
+        this.textInput = document.getElementById('textInput');
+        this.analyzeBtn = document.getElementById('analyzeBtn');
+        this.clearBtn = document.getElementById('clearBtn');
+        this.charCount = document.getElementById('charCount');
+        this.loadingSection = document.getElementById('loadingSection');
+        this.resultSection = document.getElementById('resultSection');
+        this.errorSection = document.getElementById('errorSection');
+        this.resultContent = document.getElementById('resultContent');
+        this.errorContent = document.getElementById('errorContent');
+    }
+
+    setupEventListeners() {
+        this.textInput.addEventListener('input', () => {
+            this.updateButtonState();
+            this.updateCharCount();
+        });
+
+        this.analyzeBtn.addEventListener('click', () => this.analyzeText());
+        this.clearBtn.addEventListener('click', () => this.clearText());
+    }
+
+    updateCharCount() {
+        const count = this.textInput.value.length;
+        this.charCount.textContent = count;
+        
+        // Update color based on length
+        if (count < 100) {
+            this.charCount.style.color = '#ef4444';
+        } else if (count < 200) {
+            this.charCount.style.color = '#f59e0b';
+        } else {
+            this.charCount.style.color = '#10b981';
+        }
+    }
+
+    updateButtonState() {
+        const text = this.textInput.value.trim();
+        this.analyzeBtn.disabled = text.length < 100;
+    }
+
+    async analyzeText() {
+        const text = this.textInput.value.trim();
+        
+        if (text.length < 100) {
+            this.showError('Please enter at least 100 characters for accurate analysis.');
+            return;
+        }
+
+        this.showLoading();
+        this.hideResults();
+        this.hideError();
+
+        try {
+            const result = await this.callDetectionAPI(text);
+            this.displayResult(result);
+        } catch (error) {
+            console.error('Analysis error:', error);
+            this.showError(error.message || 'Failed to analyze text. Please try again.');
+        }
+    }
+
+    async callDetectionAPI(text) {
+        const response = await fetch('/api/detect', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ text })
+            body: JSON.stringify({ text: text.substring(0, 4000) }) // Limit text length
         });
 
-        const responseText = await response.text();
-        console.log('Raw API response:', responseText);
-
         if (!response.ok) {
-            let errorMessage = 'Failed to analyze text';
+            const errorText = await response.text();
+            let errorData;
             try {
-                const errorData = JSON.parse(responseText);
-                errorMessage = errorData.error || errorMessage;
+                errorData = JSON.parse(errorText);
             } catch (e) {
-                errorMessage = responseText || `HTTP error: ${response.status}`;
+                throw new Error(`Server error: ${response.status}`);
             }
-            throw new Error(errorMessage);
+            throw new Error(errorData.error || 'Analysis failed');
         }
 
-        // Parse the successful response
-        const result = JSON.parse(responseText);
+        const result = await response.json();
         return result;
-        
-    } catch (error) {
-        console.error('API call error:', error);
-        throw error;
+    }
+
+    displayResult(result) {
+        const confidence = result.confidence;
+        const isAI = result.isAI;
+        const reasoning = result.reasoning;
+
+        // Determine confidence level and color
+        let confidenceLevel, confidenceClass;
+        if (confidence >= 0.7) {
+            confidenceLevel = 'High confidence';
+            confidenceClass = isAI ? 'ai-high' : 'human-high';
+        } else if (confidence >= 0.6) {
+            confidenceLevel = 'Moderate confidence';
+            confidenceClass = 'uncertain';
+        } else {
+            confidenceLevel = 'Low confidence';
+            confidenceClass = 'uncertain';
+        }
+
+        const confidencePercent = Math.round(confidence * 100);
+
+        this.resultContent.innerHTML = `
+            <div class="confidence-meter">
+                <div class="confidence-fill ${confidenceClass}" style="width: ${confidencePercent}%"></div>
+            </div>
+            <div class="confidence-labels">
+                <span>0%</span>
+                <span>${confidenceLevel}</span>
+                <span>100%</span>
+            </div>
+            
+            <div class="result-text ${isAI ? 'ai' : 'human'}">
+                ${isAI ? '🤖 AI Generated' : '👤 Human Written'}
+            </div>
+            
+            <div class="confidence-score">
+                Confidence: ${confidencePercent}%
+            </div>
+            
+            ${reasoning ? `
+                <div class="reasoning">
+                    <strong>Analysis:</strong> ${reasoning}
+                </div>
+            ` : ''}
+        `;
+
+        this.hideLoading();
+        this.showResults();
+    }
+
+    showError(message) {
+        this.errorContent.innerHTML = `
+            <p>${message}</p>
+            <div class="error-details">
+                <strong>Tips:</strong><br>
+                • Ensure your text is at least 100 characters<br>
+                • Check your internet connection<br>
+                • Try again in a few moments
+            </div>
+        `;
+        this.hideLoading();
+        this.hideResults();
+        this.showErrorSection();
+    }
+
+    clearText() {
+        this.textInput.value = '';
+        this.updateButtonState();
+        this.updateCharCount();
+        this.hideResults();
+        this.hideError();
+    }
+
+    showLoading() {
+        this.loadingSection.classList.remove('hidden');
+        this.analyzeBtn.disabled = true;
+    }
+
+    hideLoading() {
+        this.loadingSection.classList.add('hidden');
+        this.updateButtonState();
+    }
+
+    showResults() {
+        this.resultSection.classList.remove('hidden');
+    }
+
+    hideResults() {
+        this.resultSection.classList.add('hidden');
+    }
+
+    showErrorSection() {
+        this.errorSection.classList.remove('hidden');
+    }
+
+    hideError() {
+        this.errorSection.classList.add('hidden');
     }
 }
 
-
-displayError(message) {
-    this.resultContent.innerHTML = `
-        <div class="error-message">
-            <p style="color: #ff6b6b; font-weight: 600;">Error: ${message}</p>
-            <p>Please try again with different text.</p>
-            <details style="margin-top: 10px; color: #666; font-size: 0.9em;">
-                <summary>Technical Details</summary>
-                <p>If this continues, check your OpenAI API key in Vercel environment variables.</p>
-            </details>
-        </div>
-    `;
-    this.showResult();
-}
-
-
-
-git add .
-git commit -m "Fix JSON parsing and error handling"
-git push origin main
+// Initialize the application when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    new AIContentDetector();
+});
