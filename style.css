@@ -1,93 +1,93 @@
-// front-end interaction for GenZbot
-document.addEventListener('DOMContentLoaded',()=>{
-  const articleForm = document.getElementById('articleForm');
-  const generateBtn = document.getElementById('generateBtn');
-  const topicInput = document.getElementById('topic');
-  const audienceInput = document.getElementById('audience');
-  const toneSelect = document.getElementById('tone');
-  const lengthSelect = document.getElementById('length');
-  const loading = document.getElementById('loading');
-  const generatedPre = document.getElementById('generated');
-  const copyBtn = document.getElementById('copyBtn');
-  const regenerateBtn = document.getElementById('regenerateBtn');
-  const shareBtn = document.getElementById('shareBtn');
-  const jumpBtn = document.getElementById('jumpToForm');
-  const yearEl = document.getElementById('year');
+:root{
+  --bg:#050509;
+  --panel:#071018;
+  --neon:#00f0ff;
+  --muted:#9aa6b2;
+  --accent:#00e6ff;
+  --glass: rgba(255,255,255,0.03);
+  --radius:14px;
+  --gap:18px;
+  font-synthesis: none;
+}
 
-  yearEl.textContent = new Date().getFullYear();
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:linear-gradient(180deg,#020207 0%, #05050a 100%);
+  color:#dbe8ef;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
 
-  // scroll to form when clicking 'Generate now'
-  jumpBtn.addEventListener('click', (e)=>{
-    document.getElementById('generator').scrollIntoView({behavior:'smooth'});
-  });
+.container{max-width:1100px;margin:28px auto;padding:20px}
 
-  articleForm.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    const topic = topicInput.value.trim();
-    if(!topic) { alert('Please provide a topic or keywords.'); topicInput.focus(); return; }
+.site-header{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:18px 20px;border-radius:12px;background:transparent;
+}
+.brand h1{margin:0;font-size:22px;color:var(--neon);letter-spacing:0.6px}
+.subtitle{margin:2px 0 0;font-size:12px;color:var(--muted)}
 
-    const audience = audienceInput.value.trim();
-    const tone = toneSelect.value;
-    const length = lengthSelect.value;
+.top-nav{display:flex;gap:10px;align-items:center}
+.top-nav .nav-link{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:8px}
+.top-nav .nav-link:hover{background:rgba(0,246,255,0.03);color:var(--neon)}
 
-    generatedPre.textContent = '';
-    loading.classList.remove('hidden');
+.logo-link{display:inline-block}
+.logo-img{width:64px;height:64px;object-fit:cover;border-radius:12px;border:1px solid rgba(0,255,255,0.08)}
 
-    try{
-      const resp = await fetch('/api/detect', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ topic, audience, tone, length })
-      });
+.neon-card{background:linear-gradient(180deg, rgba(0,246,255,0.03), rgba(0,246,255,0.01));border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 8px 30px rgba(0,246,255,0.03)}
 
-      if(!resp.ok){
-        const text = await resp.text();
-        throw new Error(text || 'Server error');
-      }
+.hero-copy{color:var(--muted);margin:10px 0 14px}
+.highlight{background:linear-gradient(90deg, rgba(0,246,255,0.08), rgba(0,246,255,0.03));padding:3px 6px;border-radius:6px;color:var(--accent)}
 
-      const data = await resp.json();
-      const article = data.article || data.content || '';
-      generatedPre.textContent = article;
-    }catch(err){
-      generatedPre.textContent = 'Error generating article. ' + (err.message || '');
-    }finally{
-      loading.classList.add('hidden');
-    }
-  });
+.rate-five .stars{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--neon);font-weight:600}
+.rate-five i{color:var(--neon)}
 
-  copyBtn.addEventListener('click', async ()=>{
-    const text = generatedPre.textContent.trim();
-    if(!text) return alert('No generated content to copy.');
-    try{
-      await navigator.clipboard.writeText(text);
-      copyBtn.textContent = 'Copied!';
-      setTimeout(()=> copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy', 1500);
-    }catch(e){
-      alert('Copy failed. You can select and copy manually.');
-    }
-  });
+.btn-solid{
+  background:linear-gradient(90deg,var(--neon),#00a7c6);
+  border:none;color:#00121a;padding:10px 16px;border-radius:12px;font-weight:700;cursor:pointer;margin-top:10px;
+  box-shadow:0 8px 30px rgba(0,246,255,0.06)
+}
+.btn-ghost{
+  background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--neon);padding:9px 12px;border-radius:10px;cursor:pointer;
+}
 
-  regenerateBtn.addEventListener('click', ()=>{
-    // re-submit with same values
-    articleForm.requestSubmit();
-  });
+.howto article{background:var(--panel);padding:18px;border-radius:12px;margin-bottom:18px;color:var(--muted)}
+.howto h3{color:var(--neon)}
 
-  shareBtn.addEventListener('click', async ()=>{
-    const shareData = {
-      title: 'GenZbot Article Generator',
-      text: 'Check this AI article tool — generate articles from simple keywords in seconds! Try GenZbot.',
-      url: window.location.href
-    };
-    if(navigator.share){
-      try{ await navigator.share(shareData); }catch(e){ /* user canceled */ }
-    }else{
-      // fallback: copy text to clipboard
-      try{
-        await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-        alert('Link copied to clipboard. Share it with others!');
-      }catch(e){
-        alert('Sharing not supported. Please copy the URL manually.');
-      }
-    }
-  });
-});
+.generator{background:linear-gradient(180deg, rgba(0,20,30,0.3), rgba(0,10,20,0.4));padding:18px;border-radius:12px;margin-bottom:18px}
+.form{display:grid;gap:12px}
+.form input,.form select{padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted)}
+.form label{font-size:13px;color:var(--muted)}
+
+.form-actions{display:flex;gap:10px;margin-top:6px}
+.result-area{margin-top:14px;background:var(--glass);padding:12px;border-radius:10px;min-height:120px}
+.hidden{display:none}
+.generated-text{white-space:pre-wrap;font-family:inherit;color:#e7fbff}
+.result-actions{display:flex;gap:8px;margin-top:8px}
+
+.tools-card{background:linear-gradient(90deg, rgba(0,10,20,0.4), rgba(0,0,0,0.35));padding:14px;border-radius:12px;margin:18px 0}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
+.tool{display:block;padding:10px;border-radius:8px;text-decoration:none;color:var(--muted);background:rgba(255,255,255,0.02)}
+.tool:hover{background:rgba(0,246,255,0.03);color:var(--neon)}
+
+.reviews{padding:14px;border-radius:12px;background:rgba(0,0,0,0.25);margin-bottom:28px}
+.review-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.review{display:block;padding:10px;border-radius:10px;background:rgba(0,0,0,0.18);text-decoration:none;color:var(--muted)}
+.review strong{color:var(--neon)}
+.rate-btns{margin-top:12px}
+
+.site-footer{padding:18px;margin-top:20px;border-radius:12px;text-align:center;color:var(--muted)}
+.footer-links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:13px}
+.footer-links a:hover{color:var(--neon)}
+
+.small{font-size:12px;color:var(--muted)}
+@media (max-width:720px){
+  .top-nav{display:none}
+  .container{padding:12px}
+  .logo-img{width:56px;height:56px}
+}
