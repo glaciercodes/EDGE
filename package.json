@@ -1,0 +1,16 @@
+{
+  "name": "genzbot",
+  "version": "1.0.0",
+  "description": "AI-powered article generator",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel start"
+  },
+  "dependencies": {
+    "openai": "^4.20.1"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
