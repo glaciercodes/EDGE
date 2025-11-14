@@ -1,148 +1,165 @@
 // DOM Elements
-const generateNowBtn = document.getElementById('generate-now');
-const articleForm = document.getElementById('article-form');
-const resultSection = document.getElementById('result-section');
-const articleOutput = document.getElementById('article-output');
+const generateNowBtn = document.getElementById('generate-now-btn');
+const articleInput = document.getElementById('article-input');
+const generateArticleBtn = document.getElementById('generate-article');
+const articleResult = document.getElementById('article-result');
 const copyBtn = document.getElementById('copy-btn');
 const shareBtn = document.getElementById('share-btn');
-const rateBtn = document.getElementById('rate-btn');
+const resultSection = document.querySelector('.result-section');
+const rateUsBtn = document.querySelector('.rate-us-btn');
+const toolCards = document.querySelectorAll('.tool-card');
+const reviewCards = document.querySelectorAll('.review-card');
+const stars = document.querySelectorAll('.rating .stars i');
 
-// Scroll to input section when "Generate Now" is clicked
+// Scroll to article generator when "Generate Now" is clicked
 generateNowBtn.addEventListener('click', () => {
-    document.querySelector('.input-section').scrollIntoView({ 
+    document.querySelector('.article-generator').scrollIntoView({ 
         behavior: 'smooth' 
     });
 });
 
-// Handle article form submission
-articleForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+// Generate article when button is clicked
+generateArticleBtn.addEventListener('click', async () => {
+    const inputText = articleInput.value.trim();
     
-    const keywords = document.getElementById('keywords').value;
-    const preferences = document.getElementById('preferences').value;
-    
-    if (!keywords.trim()) {
-        alert('Please enter some keywords or ideas to generate an article.');
+    if (!inputText) {
+        alert('Please enter a topic or keywords for your article');
         return;
     }
     
     // Show loading state
-    articleOutput.innerHTML = '<div class="loading">Generating your article... <i class="fas fa-spinner fa-spin"></i></div>';
-    resultSection.style.display = 'block';
+    generateArticleBtn.textContent = 'Generating...';
+    generateArticleBtn.disabled = true;
     
     try {
         // Call the API to generate the article
-        const article = await generateArticle(keywords, preferences);
-        articleOutput.innerHTML = formatArticle(article);
+        const response = await fetch('/api/detect', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                prompt: inputText,
+                type: 'article'
+            }),
+        });
         
-        // Scroll to results
-        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (!response.ok) {
+            throw new Error('Failed to generate article');
+        }
+        
+        const data = await response.json();
+        
+        // Display the generated article
+        articleResult.textContent = data.article || data.text || 'Article generated successfully!';
+        resultSection.style.display = 'block';
+        
+        // Scroll to the result
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
     } catch (error) {
         console.error('Error generating article:', error);
-        articleOutput.innerHTML = '<div class="error">Sorry, there was an error generating your article. Please try again.</div>';
+        articleResult.textContent = 'Sorry, there was an error generating your article. Please try again.';
+        resultSection.style.display = 'block';
+    } finally {
+        // Reset button state
+        generateArticleBtn.textContent = 'Generate Article';
+        generateArticleBtn.disabled = false;
     }
 });
 
-// Format the article with proper HTML structure
-function formatArticle(articleText) {
-    // Convert line breaks to paragraphs and add basic formatting
-    return articleText
-        .split('\n\n')
-        .map(paragraph => {
-            if (paragraph.trim() === '') return '';
-            
-            // Check if this looks like a heading
-            if (paragraph.length < 100 && !paragraph.includes('.') && !paragraph.includes(',')) {
-                return `<h4>${paragraph}</h4>`;
-            }
-            
-            return `<p>${paragraph}</p>`;
-        })
-        .join('');
-}
-
 // Copy article to clipboard
 copyBtn.addEventListener('click', () => {
-    const articleText = articleOutput.innerText;
+    const textToCopy = articleResult.textContent;
     
-    navigator.clipboard.writeText(articleText).then(() => {
+    navigator.clipboard.writeText(textToCopy).then(() => {
         // Show success feedback
-        const originalText = copyBtn.innerHTML;
-        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        copyBtn.style.backgroundColor = '#4CAF50';
-        copyBtn.style.borderColor = '#4CAF50';
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
         
         setTimeout(() => {
-            copyBtn.innerHTML = originalText;
-            copyBtn.style.backgroundColor = '';
-            copyBtn.style.borderColor = '';
+            copyBtn.textContent = originalText;
         }, 2000);
     }).catch(err => {
-        console.error('Failed to copy: ', err);
-        alert('Failed to copy article to clipboard. Please select and copy manually.');
+        console.error('Failed to copy text: ', err);
+        alert('Failed to copy text to clipboard');
     });
 });
 
-// Share tool
+// Share functionality
 shareBtn.addEventListener('click', () => {
     if (navigator.share) {
         navigator.share({
             title: 'GenZbot - AI Article Generator',
-            text: 'Check out this amazing AI tool that generates personalized articles in seconds!',
-            url: window.location.href
+            text: 'Check out this amazing AI tool that generates articles in seconds!',
+            url: window.location.href,
         })
         .then(() => console.log('Successful share'))
         .catch((error) => console.log('Error sharing:', error));
     } else {
         // Fallback for browsers that don't support the Web Share API
-        const shareUrl = window.location.href;
-        navigator.clipboard.writeText(shareUrl).then(() => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
             alert('Link copied to clipboard! Share it with your friends.');
         });
     }
 });
 
-// Rate button redirect
-rateBtn.addEventListener('click', () => {
+// Redirect to index.html for various elements
+rateUsBtn.addEventListener('click', () => {
     window.location.href = 'index.html';
 });
 
-// Generate article using OpenAI API
-async function generateArticle(keywords, preferences) {
-    const response = await fetch('/api/detect', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            keywords: keywords,
-            preferences: preferences
-        })
+// Add click events to tool cards
+toolCards.forEach(card => {
+    card.addEventListener('click', () => {
+        window.location.href = 'index.html';
     });
-    
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'API request failed');
-    }
-    
-    const data = await response.json();
-    return data.article;
-}
+});
 
-// Add smooth scrolling for all anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+// Add click events to review cards
+reviewCards.forEach(card => {
+    card.addEventListener('click', () => {
+        window.location.href = 'index.html';
     });
+});
+
+// Add click events to rating stars
+stars.forEach(star => {
+    star.addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
+});
+
+// Add some sample content for demonstration (remove in production)
+document.addEventListener('DOMContentLoaded', () => {
+    // Sample article for demonstration
+    const sampleArticle = `How to Boost Your Productivity with AI Tools
+
+In today's fast-paced digital world, staying productive can be challenging. With countless distractions and an ever-growing to-do list, it's easy to feel overwhelmed. However, artificial intelligence (AI) tools are revolutionizing how we work and manage our time.
+
+Key Benefits of AI Productivity Tools:
+
+1. Automation of Repetitive Tasks
+AI can handle mundane, repetitive tasks that consume valuable time. From sorting emails to scheduling meetings, these tools free up your mental space for more important work.
+
+2. Smart Prioritization
+AI algorithms can analyze your tasks and help you prioritize what's most important. This ensures you're always working on high-impact activities.
+
+3. Personalized Workflows
+Unlike one-size-fits-all solutions, AI tools adapt to your unique working style and preferences, creating a customized productivity system.
+
+4. Intelligent Reminders
+Never miss a deadline again with AI-powered reminders that learn your patterns and alert you at the optimal time.
+
+Getting Started with AI Productivity Tools:
+
+Begin by identifying the areas where you struggle most. Is it time management? Task organization? Or perhaps focus? Then, explore AI tools designed to address those specific challenges.
+
+Remember, the goal isn't to replace human intelligence but to augment it. The most successful users of AI tools are those who view them as partners in productivity rather than replacements for their own capabilities.
+
+As AI technology continues to evolve, we can expect even more sophisticated tools that understand our needs and work styles on a deeper level. The future of productivity is personalized, intelligent, and remarkably efficient.`;
+
+    // Set sample text in the article result for demonstration
+    // Remove this in production or when connected to the actual API
+    articleResult.textContent = sampleArticle;
 });
