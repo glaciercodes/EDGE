@@ -1,97 +1,99 @@
-// api/detect.js - Vercel Serverless Function
-const OpenAI = require('openai');
+// This file would typically be a serverless function in Vercel
+// For this example, we'll create a mock API endpoint
 
-module.exports = async (req, res) => {
-    // Enable CORS
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-    res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-
-    // Handle preflight request
-    if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
-    }
-
+export default async function handler(req, res) {
+    // Only allow POST requests
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
-
+    
     try {
-        const { text } = req.body;
-
-        if (!text) {
-            return res.status(400).json({ error: 'Text is required' });
-        }
-
-        const words = text.trim().split(/\s+/);
-        if (words.length < 50 || words.length > 1500) {
-            return res.status(400).json({ 
-                error: 'Text must be between 50 and 1500 words' 
-            });
-        }
-
-        // Initialize OpenAI with your private key from environment variables
-        const openai = new OpenAI({
-            apiKey: process.env.OPENAI_API_KEY
-        });
-
-        // Create a prompt for AI detection
-        const prompt = `Analyze the following text and determine the likelihood that it was AI-generated vs human-written. Consider factors like:
-        - Perplexity and burstiness
-        - Sentence structure variation
-        - Repetitive patterns
-        - Logical flow and coherence
-        - Common AI writing patterns
-
-        Text to analyze: "${text}"
-
-        Provide your analysis as a JSON object with this structure:
-        {
-            "human": 0.85,
-            "ai": 0.15,
-            "confidence": 0.92,
-            "reasoning": "Brief explanation of the analysis"
-        }`;
-
-        const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
-            messages: [
-                {
-                    role: "system",
-                    content: "You are an AI detection expert. Analyze texts and provide probabilities for human vs AI authorship. Always respond with valid JSON."
-                },
-                {
-                    role: "user",
-                    content: prompt
-                }
-            ],
-            temperature: 0.1,
-            max_tokens: 500
-        });
-
-        const responseText = completion.choices[0].message.content;
+        const { topic, title, wordCount } = req.body;
         
-        try {
-            const result = JSON.parse(responseText);
-            res.status(200).json(result);
-        } catch (parseError) {
-            console.error('Error parsing OpenAI response:', parseError);
-            // Fallback analysis if JSON parsing fails
-            res.status(200).json({
-                human: 0.5,
-                ai: 0.5,
-                confidence: 0.7,
-                reasoning: "Analysis completed with default values due to parsing issues"
-            });
+        // Validate input
+        if (!topic) {
+            return res.status(400).json({ error: 'Topic is required' });
         }
-
-    } catch (error) {
-        console.error('Error in AI detection:', error);
-        res.status(500).json({ 
-            error: 'Failed to analyze text',
-            details: error.message 
+        
+        // In a real implementation, you would call the OpenAI API here
+        // For this example, we'll generate a mock response
+        
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Generate article content based on inputs
+        const generatedArticle = generateArticleContent(topic, title, wordCount);
+        
+        // Return the generated article
+        res.status(200).json({
+            article: generatedArticle,
+            topic: topic,
+            title: title || `Exploring ${topic}`,
+            wordCount: wordCount
         });
+        
+    } catch (error) {
+        console.error('Error in article generation:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-};
+}
+
+// Function to generate article content (mock implementation)
+function generateArticleContent(topic, title, wordCount) {
+    const articleTitle = title || `The Comprehensive Guide to ${topic}`;
+    
+    // Sample article structure with placeholders for the topic
+    return `
+        <h3>${articleTitle}</h3>
+        <p>In the contemporary landscape, ${topic} has emerged as a transformative force across multiple domains. This comprehensive analysis delves into the nuances of ${topic}, exploring its implications, applications, and future trajectory.</p>
+        
+        <h4>The Fundamentals of ${topic}</h4>
+        <p>Understanding ${topic} requires examining its core principles and historical context. The concept has evolved significantly over recent years, shaped by technological advancements and changing societal needs.</p>
+        
+        <p><strong>A critical insight</strong> about ${topic} is its interdisciplinary nature, drawing from various fields to create innovative solutions to complex problems.</p>
+        
+        <h4>Current Applications and Impact</h4>
+        <p>The practical implementation of ${topic} spans numerous sectors, each with unique challenges and opportunities:</p>
+        
+        <ul>
+            <li><strong>Business transformation</strong> through process optimization and innovation</li>
+            <li><strong>Educational enhancement</strong> by improving learning methodologies</li>
+            <li><strong>Healthcare advancement</strong> through improved diagnostics and treatments</li>
+            <li><strong>Environmental sustainability</strong> by developing eco-friendly solutions</li>
+        </ul>
+        
+        <p>These applications demonstrate the versatility of ${topic} and its capacity to address diverse challenges.</p>
+        
+        <h4>Emerging Trends and Future Directions</h4>
+        <p>The evolution of ${topic} continues at an accelerated pace, with several key trends shaping its future development:</p>
+        
+        <ol>
+            <li><strong>Integration with emerging technologies</strong> that expand its capabilities</li>
+            <li><strong>Increased accessibility</strong> making ${topic} available to broader audiences</li>
+            <li><strong>Ethical considerations</strong> becoming central to its implementation</li>
+            <li><strong>Global collaboration</strong> driving innovation and standardization</li>
+        </ol>
+        
+        <p>These trends indicate that ${topic} will continue to evolve in ways that maximize its positive impact while addressing potential challenges.</p>
+        
+        <h4>Practical Implementation Strategies</h4>
+        <p>For organizations and individuals looking to leverage ${topic}, several strategies can facilitate successful implementation:</p>
+        
+        <ul>
+            <li>Start with clear objectives aligned with specific needs</li>
+            <li>Build foundational knowledge through training and education</li>
+            <li>Adopt an iterative approach with continuous improvement</li>
+            <li>Foster collaboration between different stakeholders</li>
+            <li>Monitor outcomes and adjust strategies accordingly</li>
+        </ul>
+        
+        <p><strong>The most successful implementations</strong> of ${topic} typically combine technical expertise with strategic vision and organizational commitment.</p>
+        
+        <h4>Conclusion</h4>
+        <p>${topic} represents more than just a technological or methodological advancement—it signifies a paradigm shift in how we approach challenges and opportunities. As this field continues to develop, its potential to create positive change across multiple domains remains substantial.</p>
+        
+        <p>By understanding the principles, applications, and future directions of ${topic}, individuals and organizations can position themselves to harness its full potential while navigating the complexities of implementation.</p>
+        
+        <p>The journey with ${topic} is just beginning, and the coming years promise even more innovative applications and transformative impacts across society.</p>
+    `;
+}
