@@ -3,67 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Content Detector</title>
+    <title>GenZbot - AI-Powered Content Generation</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>AI Content Detector</h1>
-            <p>Analyze text to detect AI-generated content (50-1500 words)</p>
-        </header>
-
-        <main>
-            <div class="upload-section">
-                <textarea 
-                    id="textInput" 
-                    placeholder="Paste your text here (50-1500 words)..."
-                    rows="10"
-                ></textarea>
-                <div class="word-count">
-                    <span id="wordCount">0</span> words
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="about.html">
+                        <img src="images/001" alt="GenZbot Logo" class="logo-img">
+                    </a>
                 </div>
-                <button id="analyzeBtn" class="analyze-btn">Analyze Text</button>
+                <div class="nav-links">
+                    <a href="con.html"><i class="fas fa-users"></i> About Us</a>
+                    <a href="con.html"><i class="fas fa-envelope"></i> Contact</a>
+                    <a href="con.html"><i class="fas fa-file-contract"></i> Terms</a>
+                </div>
             </div>
+        </nav>
+    </header>
 
-            <div id="resultSection" class="result-section hidden">
-                <div class="result-card">
-                    <h2>Analysis Results</h2>
-                    <div class="progress-bars">
-                        <div class="progress-item">
-                            <label>Human Written</label>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="humanProgress" style="width: 0%"></div>
-                            </div>
-                            <span id="humanPercent" class="percentage">0%</span>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="main-title">GenZbot</h1>
+                <p class="subtitle">Boost your productivity with smart AI that understands your style. Get quick summaries, clear conclusions and personalized results in seconds. GenZai helps you save time, stay focused and achieve more with ease.</p>
+                <button class="cta-button" onclick="scrollToGenerator()">Generate Now</button>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>Transform Your Content Creation with GenZbot</h2>
+                <p>In today's fast-paced digital world, creating engaging content quickly is essential. GenZbot is your ultimate AI writing assistant that understands your unique style and delivers professional-quality articles in seconds.</p>
+
+                <h3>How to Use GenZbot</h3>
+                <p>Getting started with GenZbot is incredibly simple. Our intuitive interface guides you through the process step by step:</p>
+                
+                <div class="video-container">
+                    <h4>Watch Our Quick Tutorial</h4>
+                    <video controls class="demo-video">
+                        <source src="video/002" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <h3>Step-by-Step Guide</h3>
+                <ol class="feature-list">
+                    <li><strong>Enter Your Topic:</strong> Start by typing your main idea or keyword in the input field below</li>
+                    <li><strong>Set Preferences:</strong> Choose your preferred article length, writing style, and specific requirements</li>
+                    <li><strong>Generate Content:</strong> Click the generate button and watch as our AI creates custom content</li>
+                    <li><strong>Copy & Use:</strong> Instantly copy your generated article and use it anywhere</li>
+                </ol>
+
+                <h3>Why Choose GenZbot?</h3>
+                <ul class="advantages-list">
+                    <li><span class="highlight">Lightning Fast:</span> Generate complete articles in under 30 seconds</li>
+                    <li><span class="highlight">Style Adaptive:</span> AI that learns and matches your writing style</li>
+                    <li><span class="highlight">Quality Guaranteed:</span> Human-like content that reads naturally</li>
+                    <li><span class="highlight">Time Saving:</span> Cut your content creation time by up to 90%</li>
+                    <li><span class="highlight">Versatile:</span> Perfect for blogs, social media, academic work, and business content</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="generator-section" id="generator">
+            <div class="container">
+                <h2>AI Article Generator</h2>
+                <div class="generator-container">
+                    <div class="input-section">
+                        <div class="form-group">
+                            <label for="topic">Main Topic/Keyword</label>
+                            <input type="text" id="topic" placeholder="Enter your main topic or keyword...">
                         </div>
-                        <div class="progress-item">
-                            <label>AI Generated</label>
-                            <div class="progress-bar">
-                                <div class="progress-fill ai" id="aiProgress" style="width: 0%"></div>
-                            </div>
-                            <span id="aiPercent" class="percentage">0%</span>
+                        
+                        <div class="form-group">
+                            <label for="title">Preferred Title (Optional)</label>
+                            <input type="text" id="title" placeholder="Enter your preferred title...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="wordCount">Number of Words</label>
+                            <select id="wordCount">
+                                <option value="300">300 words</option>
+                                <option value="500" selected>500 words</option>
+                                <option value="800">800 words</option>
+                                <option value="1000">1000 words</option>
+                                <option value="1500">1500+ words</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="writingStyle">Writing Style</label>
+                            <select id="writingStyle">
+                                <option value="professional">Professional</option>
+                                <option value="casual">Casual</option>
+                                <option value="academic">Academic</option>
+                                <option value="creative">Creative</option>
+                                <option value="technical">Technical</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contentType">Content Type</label>
+                            <select id="contentType">
+                                <option value="blog">Blog Post</option>
+                                <option value="article">Article</option>
+                                <option value="social">Social Media</option>
+                                <option value="academic">Academic</option>
+                                <option value="business">Business</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additionalInfo">Additional Preferences</label>
+                            <textarea id="additionalInfo" placeholder="Any specific requirements, tone, or key points to include..."></textarea>
+                        </div>
+                        
+                        <button class="generate-btn" onclick="generateArticle()">Generate Article</button>
+                    </div>
+                    
+                    <div class="output-section">
+                        <div class="output-header">
+                            <h3>Generated Article</h3>
+                            <button class="copy-btn" onclick="copyArticle()"><i class="fas fa-copy"></i> Copy</button>
+                        </div>
+                        <div class="article-output" id="articleOutput">
+                            <p class="placeholder">Your generated article will appear here...</p>
                         </div>
                     </div>
-                    <div id="confidence" class="confidence"></div>
-                    <button id="analyzeAgain" class="analyze-again-btn">Analyze Another Text</button>
+                </div>
+
+                <div class="share-section">
+                    <button class="share-btn" onclick="shareTool()">
+                        <i class="fas fa-share-alt"></i> Share This Amazing Tool
+                    </button>
                 </div>
             </div>
+        </section>
 
-            <div id="loadingSection" class="loading-section hidden">
-                <div class="spinner"></div>
-                <p>Analyzing your text...</p>
-            </div>
-
-            <div id="errorSection" class="error-section hidden">
-                <div class="error-card">
-                    <h2>Error</h2>
-                    <p id="errorMessage"></p>
-                    <button onclick="hideError()">Try Again</button>
+        <section class="tools-section">
+            <div class="container">
+                <h2>Explore More AI Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card" onclick="redirectToIndex()">
+                        <i class="fas fa-file-contract"></i>
+                        <h4>Summarize Content</h4>
+                    </div>
+                    <div class="tool-card" onclick="redirectToIndex()">
+                        <i class="fas fa-film"></i>
+                        <h4>Suggest Movies & Music</h4>
+                    </div>
+                    <div class="tool-card" onclick="redirectToIndex()">
+                        <i class="fas fa-hashtag"></i>
+                        <h4>Generate Hashtags</h4>
+                    </div>
+                    <div class="tool-card" onclick="redirectToIndex()">
+                        <i class="fas fa-newspaper"></i>
+                        <h4>Verify News/Trends</h4>
+                    </div>
+                    <div class="tool-card" onclick="redirectToIndex()">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Show Trending Topics</h4>
+                    </div>
+                    <div class="tool-card" onclick="redirectToIndex()">
+                        <i class="fas fa-robot"></i>
+                        <h4>Detect AI-written Content</h4>
+                    </div>
+                    <div class="tool-card" onclick="redirectToIndex()">
+                        <i class="fas fa-brain"></i>
+                        <h4>Ask IQ-style Questions</h4>
+                    </div>
+                    <div class="tool-card" onclick="redirectToIndex()">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Suggest Business/Idea Strategies</h4>
+                    </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="con.html"><i class="fas fa-users"></i> About Us</a>
+                <a href="con.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="con.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 GenZbot. All rights reserved. Empowering your creativity with AI.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
