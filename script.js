@@ -1,144 +1,116 @@
-class StoryGenerator {
+class ArticleGenerator {
     constructor() {
+        this.topicInput = document.getElementById('topicInput');
         this.generateBtn = document.getElementById('generateBtn');
-        this.loadingElement = document.getElementById('loading');
-        this.resultElement = document.getElementById('result');
-        this.errorElement = document.getElementById('error');
-        this.storyContent = document.getElementById('storyContent');
+        this.loading = document.getElementById('loading');
+        this.resultSection = document.getElementById('resultSection');
+        this.articleContent = document.getElementById('articleContent');
         this.copyBtn = document.getElementById('copyBtn');
-        this.newStoryBtn = document.getElementById('newStoryBtn');
+        this.error = document.getElementById('error');
         
         this.initEventListeners();
     }
-
+    
     initEventListeners() {
-        this.generateBtn.addEventListener('click', () => this.generateStory());
+        this.generateBtn.addEventListener('click', () => this.generateArticle());
+        this.topicInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.generateArticle();
+            }
+        });
         this.copyBtn.addEventListener('click', () => this.copyToClipboard());
-        this.newStoryBtn.addEventListener('click', () => this.resetForm());
     }
-
-    async generateStory() {
-        const topic = document.getElementById('topic').value.trim();
-        const genre = document.getElementById('genre').value;
-        const length = document.getElementById('length').value;
-        const style = document.getElementById('style').value;
-
+    
+    async generateArticle() {
+        const topic = this.topicInput.value.trim();
+        
         if (!topic) {
-            this.showError('Please enter a story topic or theme.');
+            this.showError('Please enter a topic for the article.');
             return;
         }
-
+        
+        if (topic.length > 100) {
+            this.showError('Topic must be 100 characters or less.');
+            return;
+        }
+        
+        this.hideError();
         this.showLoading();
         this.hideResult();
-        this.hideError();
-
+        
         try {
-            const prompt = this.buildPrompt(topic, genre, length, style);
-            const story = await this.callOpenAI(prompt);
+            const response = await fetch('/api/generate-article', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ topic: topic })
+            });
             
-            this.displayStory(story);
-            this.showResult();
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to generate article');
+            }
+            
+            this.displayArticle(data.article);
             
         } catch (error) {
-            console.error('Error generating story:', error);
-            this.showError('Failed to generate story. Please try again.');
+            console.error('Error:', error);
+            this.showError(error.message || 'Something went wrong. Please try again.');
+        } finally {
+            this.hideLoading();
         }
     }
-
-    buildPrompt(topic, genre, length, style) {
-        const lengthMap = {
-            'short': '1-2 paragraphs',
-            'medium': '3-4 paragraphs', 
-            'long': '5-6 paragraphs'
-        };
-
-        return `Write a ${genre} story about "${topic}". 
-                The story should be ${lengthMap[length]} long and written in a ${style} style.
-                Make it engaging, creative, and well-structured. 
-                Include character development and an interesting plot.`;
+    
+    displayArticle(article) {
+        this.articleContent.textContent = article;
+        this.resultSection.style.display = 'block';
+        this.resultSection.scrollIntoView({ behavior: 'smooth' });
     }
-
-    async callOpenAI(prompt) {
-        const response = await fetch('/api/generate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                prompt: prompt,
-                max_tokens: 1500,
-                temperature: 0.7
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`API request failed: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
-        if (data.error) {
-            throw new Error(data.error);
-        }
-
-        return data.story;
-    }
-
-    displayStory(story) {
-        this.storyContent.textContent = story;
-    }
-
-    showLoading() {
-        this.generateBtn.disabled = true;
-        this.generateBtn.textContent = 'Generating...';
-        this.loadingElement.classList.remove('hidden');
-    }
-
-    hideLoading() {
-        this.generateBtn.disabled = false;
-        this.generateBtn.textContent = 'Generate Story';
-        this.loadingElement.classList.add('hidden');
-    }
-
-    showResult() {
-        this.hideLoading();
-        this.resultElement.classList.remove('hidden');
-    }
-
-    hideResult() {
-        this.resultElement.classList.add('hidden');
-    }
-
-    showError(message) {
-        this.hideLoading();
-        document.getElementById('errorMessage').textContent = message;
-        this.errorElement.classList.remove('hidden');
-    }
-
-    hideError() {
-        this.errorElement.classList.add('hidden');
-    }
-
+    
     async copyToClipboard() {
         try {
-            await navigator.clipboard.writeText(this.storyContent.textContent);
+            await navigator.clipboard.writeText(this.articleContent.textContent);
+            const originalText = this.copyBtn.textContent;
             this.copyBtn.textContent = 'Copied!';
+            this.copyBtn.style.background = '#6c757d';
+            
             setTimeout(() => {
-                this.copyBtn.textContent = 'Copy to Clipboard';
+                this.copyBtn.textContent = originalText;
+                this.copyBtn.style.background = '#28a745';
             }, 2000);
         } catch (err) {
-            console.error('Failed to copy text: ', err);
+            this.showError('Failed to copy to clipboard');
         }
     }
-
-    resetForm() {
-        this.hideResult();
-        document.getElementById('topic').value = '';
-        document.getElementById('topic').focus();
+    
+    showLoading() {
+        this.generateBtn.disabled = true;
+        this.loading.style.display = 'block';
+    }
+    
+    hideLoading() {
+        this.generateBtn.disabled = false;
+        this.loading.style.display = 'none';
+    }
+    
+    showError(message) {
+        this.error.textContent = message;
+        this.error.style.display = 'block';
+        this.error.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    hideError() {
+        this.error.style.display = 'none';
+    }
+    
+    hideResult() {
+        this.resultSection.style.display = 'none';
     }
 }
 
-// Initialize the application when DOM is loaded
+// Initialize the application when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new StoryGenerator();
+    new ArticleGenerator();
 });
