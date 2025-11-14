@@ -1,116 +1,139 @@
-class ArticleGenerator {
-    constructor() {
-        this.topicInput = document.getElementById('topicInput');
-        this.generateBtn = document.getElementById('generateBtn');
-        this.loading = document.getElementById('loading');
-        this.resultSection = document.getElementById('resultSection');
-        this.articleContent = document.getElementById('articleContent');
-        this.copyBtn = document.getElementById('copyBtn');
-        this.error = document.getElementById('error');
-        
-        this.initEventListeners();
-    }
+// API configuration
+const API_URL = '/api/generate';
+
+// DOM Elements
+const topicInput = document.getElementById('topicInput');
+const generateBtn = document.getElementById('generateBtn');
+const resultSection = document.getElementById('resultSection');
+const articleContent = document.getElementById('articleContent');
+const errorSection = document.getElementById('errorSection');
+const errorMessage = document.getElementById('errorMessage');
+
+async function generateArticle() {
+    const topic = topicInput.value.trim();
     
-    initEventListeners() {
-        this.generateBtn.addEventListener('click', () => this.generateArticle());
-        this.topicInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.generateArticle();
-            }
+    if (!topic) {
+        showError('Please enter a topic for your article');
+        return;
+    }
+
+    // Show loading state
+    setLoading(true);
+    hideError();
+    hideResult();
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                topic: topic,
+                max_tokens: 1000
+            })
         });
-        this.copyBtn.addEventListener('click', () => this.copyToClipboard());
-    }
-    
-    async generateArticle() {
-        const topic = this.topicInput.value.trim();
-        
-        if (!topic) {
-            this.showError('Please enter a topic for the article.');
-            return;
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to generate article');
         }
-        
-        if (topic.length > 100) {
-            this.showError('Topic must be 100 characters or less.');
-            return;
+
+        if (data.article) {
+            showResult(data.article);
+        } else {
+            throw new Error('No article content received');
         }
-        
-        this.hideError();
-        this.showLoading();
-        this.hideResult();
-        
-        try {
-            const response = await fetch('/api/generate-article', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ topic: topic })
-            });
-            
-            const data = await response.json();
-            
-            if (!response.ok) {
-                throw new Error(data.error || 'Failed to generate article');
-            }
-            
-            this.displayArticle(data.article);
-            
-        } catch (error) {
-            console.error('Error:', error);
-            this.showError(error.message || 'Something went wrong. Please try again.');
-        } finally {
-            this.hideLoading();
-        }
-    }
-    
-    displayArticle(article) {
-        this.articleContent.textContent = article;
-        this.resultSection.style.display = 'block';
-        this.resultSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    async copyToClipboard() {
-        try {
-            await navigator.clipboard.writeText(this.articleContent.textContent);
-            const originalText = this.copyBtn.textContent;
-            this.copyBtn.textContent = 'Copied!';
-            this.copyBtn.style.background = '#6c757d';
-            
-            setTimeout(() => {
-                this.copyBtn.textContent = originalText;
-                this.copyBtn.style.background = '#28a745';
-            }, 2000);
-        } catch (err) {
-            this.showError('Failed to copy to clipboard');
-        }
-    }
-    
-    showLoading() {
-        this.generateBtn.disabled = true;
-        this.loading.style.display = 'block';
-    }
-    
-    hideLoading() {
-        this.generateBtn.disabled = false;
-        this.loading.style.display = 'none';
-    }
-    
-    showError(message) {
-        this.error.textContent = message;
-        this.error.style.display = 'block';
-        this.error.scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    hideError() {
-        this.error.style.display = 'none';
-    }
-    
-    hideResult() {
-        this.resultSection.style.display = 'none';
+
+    } catch (error) {
+        console.error('Error:', error);
+        showError(error.message || 'Something went wrong. Please try again.');
+    } finally {
+        setLoading(false);
     }
 }
 
-// Initialize the application when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new ArticleGenerator();
+function setLoading(isLoading) {
+    const btnText = generateBtn.querySelector('.btn-text');
+    const btnLoading = generateBtn.querySelector('.btn-loading');
+    
+    if (isLoading) {
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'flex';
+        generateBtn.disabled = true;
+    } else {
+        btnText.style.display = 'block';
+        btnLoading.style.display = 'none';
+        generateBtn.disabled = false;
+    }
+}
+
+function showResult(article) {
+    articleContent.textContent = article;
+    resultSection.style.display = 'block';
+    resultSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideResult() {
+    resultSection.style.display = 'none';
+}
+
+function showError(message) {
+    errorMessage.textContent = message;
+    errorSection.style.display = 'block';
+    errorSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideError() {
+    errorSection.style.display = 'none';
+}
+
+function copyToClipboard() {
+    const articleText = articleContent.textContent;
+    navigator.clipboard.writeText(articleText).then(() => {
+        // Show temporary success message
+        const copyBtn = document.querySelector('.action-btn');
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => {
+            copyBtn.textContent = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        showError('Failed to copy to clipboard');
+    });
+}
+
+function downloadArticle() {
+    const articleText = articleContent.textContent;
+    const topic = topicInput.value.trim().substring(0, 50) || 'article';
+    const filename = `${topic.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.txt`;
+    
+    const blob = new Blob([articleText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function generateNew() {
+    topicInput.value = '';
+    topicInput.focus();
+    hideResult();
+    hideError();
+}
+
+// Add event listeners
+topicInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && e.ctrlKey) {
+        generateArticle();
+    }
 });
+
+// Initialize
+topicInput.focus();
