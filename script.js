@@ -1,200 +1,183 @@
 // DOM Elements
-const generateBtn = document.getElementById('generateBtn');
-const generateArticleBtn = document.getElementById('generateArticleBtn');
-const copyBtn = document.getElementById('copyBtn');
-const shareBtn = document.getElementById('shareBtn');
-const rateBtn = document.getElementById('rateBtn');
-const generatorSection = document.getElementById('generatorSection');
-const resultsSection = document.getElementById('resultsSection');
-const articleOutput = document.getElementById('articleOutput');
-const topicInput = document.getElementById('topic');
-const titleInput = document.getElementById('title');
-const wordCountSelect = document.getElementById('wordCount');
+const generateNowBtn = document.getElementById('generate-now');
+const articleForm = document.getElementById('article-form');
+const resultSection = document.getElementById('result-section');
+const articleOutput = document.getElementById('article-output');
+const copyBtn = document.getElementById('copy-btn');
+const shareBtn = document.getElementById('share-btn');
+const rateBtn = document.getElementById('rate-btn');
 
-// Event Listeners
-document.addEventListener('DOMContentLoaded', function() {
-    // Generate Now button scrolls to generator section
-    generateBtn.addEventListener('click', function() {
-        generatorSection.scrollIntoView({ behavior: 'smooth' });
-    });
-    
-    // Generate Article button
-    generateArticleBtn.addEventListener('click', generateArticle);
-    
-    // Copy Article button
-    copyBtn.addEventListener('click', copyArticle);
-    
-    // Share Tool button
-    shareBtn.addEventListener('click', shareTool);
-    
-    // Rate Us button
-    rateBtn.addEventListener('click', function() {
-        window.location.href = 'index.html';
-    });
-    
-    // Tool cards redirect to index.html
-    const toolCards = document.querySelectorAll('.tool-card');
-    toolCards.forEach(card => {
-        card.addEventListener('click', function() {
-            window.location.href = 'index.html';
-        });
-    });
-    
-    // Review cards redirect to index.html
-    const reviewCards = document.querySelectorAll('.review-card');
-    reviewCards.forEach(card => {
-        card.addEventListener('click', function() {
-            window.location.href = 'index.html';
-        });
-    });
-    
-    // Star rating in hero section redirects to index.html
-    const heroStars = document.querySelector('.rating');
-    heroStars.addEventListener('click', function() {
-        window.location.href = 'index.html';
+// Scroll to input section when "Generate Now" is clicked
+generateNowBtn.addEventListener('click', () => {
+    document.querySelector('.input-section').scrollIntoView({ 
+        behavior: 'smooth' 
     });
 });
 
-// Generate Article Function
-async function generateArticle() {
-    const topic = topicInput.value.trim();
-    const title = titleInput.value.trim();
-    const wordCount = wordCountSelect.value;
+// Handle article form submission
+articleForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
     
-    if (!topic) {
-        alert('Please enter a topic for your article');
+    const keywords = document.getElementById('keywords').value;
+    const preferences = document.getElementById('preferences').value;
+    
+    if (!keywords.trim()) {
+        alert('Please enter some keywords or ideas to generate an article.');
         return;
     }
     
     // Show loading state
-    generateArticleBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-    generateArticleBtn.disabled = true;
+    articleOutput.innerHTML = '<div class="loading">Generating your article... <i class="fas fa-spinner fa-spin"></i></div>';
+    resultSection.style.display = 'block';
     
     try {
-        // Call the API endpoint
-        const response = await fetch('/api/detect.js', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                topic: topic,
-                title: title,
-                wordCount: wordCount
-            })
-        });
+        // Call the API to generate the article
+        const article = await generateArticle(keywords, preferences);
+        articleOutput.innerHTML = article;
         
-        if (!response.ok) {
-            throw new Error('Failed to generate article');
-        }
-        
-        const data = await response.json();
-        
-        // Display the generated article
-        displayArticle(data.article);
-        
-        // Show results section
-        resultsSection.style.display = 'block';
-        
+        // Scroll to results
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (error) {
         console.error('Error generating article:', error);
-        
-        // For demo purposes, show a sample article if API fails
-        displayArticle(generateSampleArticle(topic, title, wordCount));
-        resultsSection.style.display = 'block';
-    } finally {
-        // Reset button state
-        generateArticleBtn.innerHTML = 'Generate Article';
-        generateArticleBtn.disabled = false;
+        articleOutput.innerHTML = '<div class="error">Sorry, there was an error generating your article. Please try again.</div>';
     }
-}
+});
 
-// Display Article Function
-function displayArticle(article) {
-    articleOutput.innerHTML = article;
-}
-
-// Copy Article Function
-function copyArticle() {
+// Copy article to clipboard
+copyBtn.addEventListener('click', () => {
     const articleText = articleOutput.innerText;
     
-    navigator.clipboard.writeText(articleText).then(function() {
+    navigator.clipboard.writeText(articleText).then(() => {
         // Show success feedback
         const originalText = copyBtn.innerHTML;
         copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        copyBtn.style.backgroundColor = '#4CAF50';
+        copyBtn.style.borderColor = '#4CAF50';
         
         setTimeout(() => {
             copyBtn.innerHTML = originalText;
+            copyBtn.style.backgroundColor = '';
+            copyBtn.style.borderColor = '';
         }, 2000);
-    }).catch(function(err) {
-        console.error('Failed to copy text: ', err);
-        alert('Failed to copy article to clipboard');
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Failed to copy article to clipboard. Please select and copy manually.');
     });
-}
+});
 
-// Share Tool Function
-function shareTool() {
-    const shareText = "Check out GenZbot - an amazing AI tool that generates personalized articles in seconds!";
-    const shareUrl = window.location.href;
-    
+// Share tool
+shareBtn.addEventListener('click', () => {
     if (navigator.share) {
         navigator.share({
             title: 'GenZbot - AI Article Generator',
-            text: shareText,
-            url: shareUrl,
+            text: 'Check out this amazing AI tool that generates personalized articles in seconds!',
+            url: window.location.href
         })
         .then(() => console.log('Successful share'))
         .catch((error) => console.log('Error sharing:', error));
     } else {
         // Fallback for browsers that don't support the Web Share API
-        const tempInput = document.createElement('input');
-        document.body.appendChild(tempInput);
-        tempInput.value = shareUrl;
-        tempInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempInput);
+        const shareUrl = window.location.href;
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            alert('Link copied to clipboard! Share it with your friends.');
+        });
+    }
+});
+
+// Rate button redirect
+rateBtn.addEventListener('click', () => {
+    window.location.href = 'index.html';
+});
+
+// Generate article using OpenAI API
+async function generateArticle(keywords, preferences) {
+    try {
+        // Call our API endpoint
+        const response = await fetch('/api/detect', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                keywords: keywords,
+                preferences: preferences
+            })
+        });
         
-        // Show success feedback
-        const originalText = shareBtn.innerHTML;
-        shareBtn.innerHTML = '<i class="fas fa-check"></i> Link Copied!';
+        if (!response.ok) {
+            throw new Error('API request failed');
+        }
         
-        setTimeout(() => {
-            shareBtn.innerHTML = originalText;
-        }, 2000);
+        const data = await response.json();
+        return data.article || 'Article generated successfully.';
+    } catch (error) {
+        console.error('Error calling API:', error);
+        
+        // Fallback: Return a mock article for demonstration
+        return generateMockArticle(keywords, preferences);
     }
 }
 
-// Generate Sample Article (for demo purposes)
-function generateSampleArticle(topic, title, wordCount) {
-    const sampleTitle = title || `The Future of ${topic}`;
+// Generate a mock article for demonstration purposes
+function generateMockArticle(keywords, preferences) {
+    const title = `Understanding ${keywords}: A Comprehensive Guide`;
     
     return `
-        <h3>${sampleTitle}</h3>
-        <p>In today's rapidly evolving world, ${topic} has become an increasingly important subject that impacts various aspects of our lives. This article explores the key dimensions of ${topic} and its implications for the future.</p>
+        <h3>${title}</h3>
+        <p>In today's fast-paced digital world, ${keywords} has become an increasingly important topic. Whether you're a beginner looking to understand the basics or an expert seeking advanced insights, this article will provide valuable information tailored to your needs.</p>
         
-        <h4>Understanding ${topic}</h4>
-        <p>At its core, ${topic} represents a significant shift in how we approach problems and opportunities. The fundamental principles behind ${topic} have been developing for years, but recent advancements have accelerated its adoption across multiple sectors.</p>
+        <h4>Key Benefits of ${keywords}</h4>
+        <p>The advantages of implementing ${keywords} in your workflow are numerous. First and foremost, it enhances productivity by streamlining processes that would otherwise take significantly more time. Additionally, it improves accuracy and reduces the likelihood of human error.</p>
         
-        <p><strong>The most crucial aspect</strong> of ${topic} is its ability to transform traditional processes and create new possibilities. This transformation is not just technological but also cultural and organizational.</p>
+        <h4>Getting Started with ${keywords}</h4>
+        <p>If you're new to ${keywords}, the best approach is to start with the fundamentals. Begin by familiarizing yourself with the core concepts and terminology. From there, you can gradually progress to more advanced applications as your confidence grows.</p>
         
-        <h4>Key Benefits and Applications</h4>
-        <p>The applications of ${topic} are diverse and far-reaching. From improving efficiency to enabling entirely new capabilities, the benefits are substantial:</p>
-        
-        <ul>
-            <li><strong>Enhanced productivity</strong> through automation and optimization</li>
-            <li><strong>Improved decision-making</strong> with data-driven insights</li>
-            <li><strong>Cost reduction</strong> by streamlining operations</li>
-            <li><strong>Innovation acceleration</strong> through new approaches</li>
-        </ul>
-        
-        <h4>Future Outlook</h4>
-        <p>Looking ahead, the trajectory of ${topic} suggests continued growth and evolution. Experts predict that within the next decade, ${topic} will become even more integrated into our daily lives and business operations.</p>
-        
-        <p><strong>The most exciting development</strong> is the potential for ${topic} to address some of society's most pressing challenges. From healthcare to education, environmental sustainability to economic development, the possibilities are truly remarkable.</p>
+        <h4>Advanced Applications</h4>
+        <p>For those with existing experience, ${keywords} offers numerous opportunities for optimization and innovation. By leveraging advanced techniques, you can achieve results that were previously thought impossible.</p>
         
         <h4>Conclusion</h4>
-        <p>In conclusion, ${topic} represents not just a technological advancement but a fundamental shift in how we approach problems and opportunities. As we continue to explore and develop this field, it's clear that ${topic} will play an increasingly important role in shaping our future.</p>
+        <p>${keywords} represents a significant advancement in how we approach problem-solving and efficiency. By understanding and implementing these concepts, you position yourself at the forefront of your field, ready to tackle challenges with confidence and expertise.</p>
         
-        <p>Whether you're a business leader, educator, student, or simply curious about the future, understanding ${topic} is essential for navigating the changes ahead and leveraging the opportunities they present.</p>
+        <p><em>This article was generated based on your input: "${keywords}" with preferences: "${preferences || 'Not specified'}".</em></p>
     `;
 }
+
+// Add smooth scrolling for all anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Add animation to elements when they come into view
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+        }
+    });
+}, observerOptions);
+
+// Observe elements for animation
+document.addEventListener('DOMContentLoaded', () => {
+    const elementsToAnimate = document.querySelectorAll('.review-card, .tool-card, .input-card');
+    elementsToAnimate.forEach(el => {
+        observer.observe(el);
+    });
+});
