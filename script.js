@@ -1,165 +1,139 @@
-class AIDetector {
-    constructor() {
-        this.textInput = document.getElementById('textInput');
-        this.analyzeBtn = document.getElementById('analyzeBtn');
-        this.wordCount = document.getElementById('wordCount');
-        this.resultSection = document.getElementById('resultSection');
-        this.loadingSection = document.getElementById('loadingSection');
-        this.errorSection = document.getElementById('errorSection');
-        
-        this.init();
-    }
-
-    init() {
-        this.textInput.addEventListener('input', this.updateWordCount.bind(this));
-        this.analyzeBtn.addEventListener('click', this.analyzeText.bind(this));
-        document.getElementById('analyzeAgain').addEventListener('click', this.resetAnalysis.bind(this));
-    }
-
-    updateWordCount() {
-        const text = this.textInput.value.trim();
-        const words = text ? text.split(/\s+/).filter(word => word.length > 0) : [];
-        const count = words.length;
-        
-        this.wordCount.textContent = count;
-        this.wordCount.className = 'word-count';
-        
-        if (count < 50) {
-            this.wordCount.classList.add('error');
-            this.analyzeBtn.disabled = true;
-        } else if (count > 1500) {
-            this.wordCount.classList.add('error');
-            this.analyzeBtn.disabled = true;
-        } else {
-            this.wordCount.classList.add('success');
-            this.analyzeBtn.disabled = false;
-        }
-    }
-
-    async analyzeText() {
-        const text = this.textInput.value.trim();
-        const words = text.split(/\s+/).filter(word => word.length > 0);
-        
-        if (words.length < 50 || words.length > 1500) {
-            this.showError('Please enter text between 50 and 1500 words.');
-            return;
-        }
-
-        this.showLoading();
-        
-        try {
-            const result = await this.callAIDetectionAPI(text);
-            this.displayResults(result);
-        } catch (error) {
-            console.error('Error analyzing text:', error);
-            this.showError('Failed to analyze text. Please try again.');
-        }
-    }
-
-    async callAIDetectionAPI(text) {
-        // This would typically call your Vercel serverless function
-        // For now, we'll simulate the API response
-        return await simulateAIDetection(text);
-    }
-
-    displayResults(result) {
-        this.hideLoading();
-        
-        const humanPercent = Math.round(result.human * 100);
-        const aiPercent = Math.round(result.ai * 100);
-        
-        document.getElementById('humanPercent').textContent = `${humanPercent}%`;
-        document.getElementById('aiPercent').textContent = `${aiPercent}%`;
-        document.getElementById('humanProgress').style.width = `${humanPercent}%`;
-        document.getElementById('aiProgress').style.width = `${aiPercent}%`;
-        
-        const confidence = document.getElementById('confidence');
-        if (humanPercent >= 70) {
-            confidence.textContent = '✅ This text appears to be mostly human-written.';
-            confidence.style.color = '#4CAF50';
-        } else if (aiPercent >= 70) {
-            confidence.textContent = '⚠️ This text appears to be mostly AI-generated.';
-            confidence.style.color = '#ff6b6b';
-        } else {
-            confidence.textContent = '🔍 This text appears to be a mix of human and AI content.';
-            confidence.style.color = '#ffa500';
-        }
-        
-        this.resultSection.classList.remove('hidden');
-    }
-
-    showLoading() {
-        this.loadingSection.classList.remove('hidden');
-        this.resultSection.classList.add('hidden');
-        this.errorSection.classList.add('hidden');
-        this.analyzeBtn.disabled = true;
-    }
-
-    hideLoading() {
-        this.loadingSection.classList.add('hidden');
-        this.analyzeBtn.disabled = false;
-    }
-
-    showError(message) {
-        document.getElementById('errorMessage').textContent = message;
-        this.errorSection.classList.remove('hidden');
-        this.resultSection.classList.add('hidden');
-        this.loadingSection.classList.add('hidden');
-    }
-
-    hideError() {
-        this.errorSection.classList.add('hidden');
-    }
-
-    resetAnalysis() {
-        this.textInput.value = '';
-        this.wordCount.textContent = '0';
-        this.wordCount.className = 'word-count';
-        this.resultSection.classList.add('hidden');
-        this.analyzeBtn.disabled = true;
-    }
+// Smooth scrolling to generator section
+function scrollToGenerator() {
+    document.getElementById('articleGenerator').scrollIntoView({
+        behavior: 'smooth'
+    });
 }
 
-// Simulated AI detection function (replace with actual API call)
-async function simulateAIDetection(text) {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Simple simulation based on text characteristics
-    const words = text.split(/\s+/);
-    const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-    
-    // Basic heuristics for simulation
-    let aiScore = 0;
-    
-    // Check for repetitive patterns
-    const uniqueWords = new Set(words.map(w => w.toLowerCase()));
-    const diversityRatio = uniqueWords.size / words.length;
-    if (diversityRatio < 0.5) aiScore += 0.3;
-    
-    // Check sentence length variation
-    const sentenceLengths = sentences.map(s => s.split(/\s+/).length);
-    const lengthVariance = Math.max(...sentenceLengths) - Math.min(...sentenceLengths);
-    if (lengthVariance < 5) aiScore += 0.2;
-    
-    // Check for common AI patterns
-    const aiPatterns = ['as an AI', 'however, it is important', 'in conclusion', 'additionally'];
-    if (aiPatterns.some(pattern => text.toLowerCase().includes(pattern))) {
-        aiScore += 0.3;
+// Generate article function
+function generateArticle() {
+    const topic = document.getElementById('topic').value;
+    const title = document.getElementById('title').value;
+    const wordCount = document.getElementById('wordCount').value;
+    const writingStyle = document.getElementById('writingStyle').value;
+    const contentType = document.getElementById('contentType').value;
+    const additionalInstructions = document.getElementById('additionalInstructions').value;
+
+    if (!topic.trim()) {
+        alert('Please enter a topic or keywords to generate an article.');
+        return;
     }
-    
-    // Add some randomness for demo
-    aiScore += (Math.random() * 0.2) - 0.1;
-    aiScore = Math.max(0, Math.min(1, aiScore));
-    
-    return {
-        human: 1 - aiScore,
-        ai: aiScore,
-        confidence: Math.random() * 0.3 + 0.7 // 70-100% confidence
+
+    // Show loading state
+    const outputElement = document.getElementById('articleOutput');
+    outputElement.innerHTML = '<p class="placeholder-text"><i class="fas fa-spinner fa-spin"></i> Generating your article... This may take a few seconds.</p>';
+
+    // Simulate API call to OpenAI (you'll need to implement the actual API call)
+    setTimeout(() => {
+        // This is a mock response - replace with actual OpenAI API call
+        const mockArticle = generateMockArticle(topic, title, wordCount, writingStyle, contentType, additionalInstructions);
+        outputElement.innerHTML = mockArticle;
+    }, 2000);
+}
+
+// Generate mock article (replace with actual OpenAI integration)
+function generateMockArticle(topic, title, wordCount, writingStyle, contentType, instructions) {
+    const styles = {
+        professional: "formal and business-like",
+        casual: "friendly and conversational",
+        academic: "scholarly and research-based",
+        creative: "engaging and storytelling",
+        technical: "detailed and precise"
     };
+
+    const contents = {
+        blog: "blog post",
+        article: "news article",
+        guide: "how-to guide",
+        review: "product review",
+        social: "social media content"
+    };
+
+    return `
+        <h3>${title || `Exploring ${topic}`}</h3>
+        <p><strong>Word Count:</strong> ${wordCount} | <strong>Style:</strong> ${writingStyle} | <strong>Type:</strong> ${contentType}</p>
+        <hr>
+        <p>This is a sample ${contents[contentType]} about "${topic}" written in a ${styles[writingStyle]} style.</p>
+        
+        <h4>Introduction</h4>
+        <p>Welcome to this comprehensive exploration of ${topic}. In today's fast-paced world, understanding this subject has never been more important.</p>
+        
+        <h4>Key Insights</h4>
+        <ul>
+            <li><strong>Major Benefit:</strong> Understanding ${topic} can significantly improve your productivity and efficiency</li>
+            <li><strong>Current Trends:</strong> The field is evolving rapidly with new developments emerging weekly</li>
+            <li><strong>Practical Application:</strong> You can start implementing these ideas immediately</li>
+        </ul>
+        
+        <h4>Detailed Analysis</h4>
+        <p>When we examine ${topic} closely, several important patterns emerge. The data suggests that professionals who master this area see measurable improvements in their output quality and speed.</p>
+        
+        <div class="highlight-box">
+            <h4><i class="fas fa-lightbulb"></i> Pro Tip</h4>
+            <p>Based on your additional instructions: "${instructions}", we've tailored this content to meet your specific needs. Remember to always verify the information and adapt it to your unique situation.</p>
+        </div>
+        
+        <h4>Conclusion</h4>
+        <p>In summary, ${topic} represents a significant opportunity for growth and improvement. By applying the principles discussed in this ${contents[contentType]}, you're well on your way to achieving better results.</p>
+        
+        <p><em>Article generated by GenZbot AI. Always review and customize generated content to ensure it meets your specific requirements.</em></p>
+    `;
 }
 
-// Initialize the application when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    new AIDetector();
+// Copy article to clipboard
+function copyArticle() {
+    const articleOutput = document.getElementById('articleOutput');
+    const textToCopy = articleOutput.innerText;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        // Show success message
+        const copyBtn = document.querySelector('.copy-btn');
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        copyBtn.style.background = '#4CAF50';
+        copyBtn.style.borderColor = '#4CAF50';
+        
+        setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+            copyBtn.style.background = '';
+            copyBtn.style.borderColor = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+        alert('Failed to copy article. Please select the text and copy manually.');
+    });
+}
+
+// Share tool function
+function shareTool() {
+    const shareText = "Check out GenZbot - an amazing AI tool that generates professional articles in seconds! Save time and boost your productivity. #AI #Productivity #ContentCreation";
+    const shareUrl = "https://genzbots.netlify.app/";
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'GenZbot - AI Article Generator',
+            text: shareText,
+            url: shareUrl
+        }).then(() => {
+            console.log('Thanks for sharing!');
+        }).catch(console.error);
+    } else {
+        // Fallback for browsers that don't support Web Share API
+        const tempInput = document.createElement('input');
+        tempInput.value = `${shareText} ${shareUrl}`;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        
+        alert('Share link copied to clipboard! Paste it anywhere to share this amazing tool.');
+    }
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Add any initialization code here
+    console.log('GenZbot homepage loaded successfully!');
+    
+    // You can add more interactive features here
 });
