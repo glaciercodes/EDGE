@@ -1,5 +1,13 @@
-// Vercel serverless function for OpenAI integration
-const OpenAI = require('openai');
+// This would be a serverless function for Vercel
+// Save this as /api/detect.js in your Vercel project
+
+const { Configuration, OpenAIApi } = require('openai');
+
+// Initialize OpenAI with your API key from environment variables
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
 module.exports = async (req, res) => {
   // Set CORS headers
@@ -11,7 +19,7 @@ module.exports = async (req, res) => {
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   );
 
-  // Handle preflight request
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
@@ -23,63 +31,59 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { keywords, preferences } = req.body;
+    const { prompt, type = 'article' } = req.body;
 
-    if (!keywords) {
-      return res.status(400).json({ error: 'Keywords are required' });
+    if (!prompt) {
+      return res.status(400).json({ error: 'Prompt is required' });
     }
 
-    // Initialize OpenAI with API key from environment variables
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+    // Create a more detailed prompt based on the type
+    let systemPrompt = '';
+    let userPrompt = '';
 
-    // Construct the prompt for OpenAI
-    const prompt = `Write a comprehensive, well-structured article about "${keywords}". ${
-      preferences ? `Please consider these preferences: ${preferences}.` : ''
+    if (type === 'article') {
+      systemPrompt = 'You are a professional content writer. Create engaging, well-structured articles that are informative and easy to read. Use proper headings, paragraphs, and highlight key points.';
+      userPrompt = `Write a comprehensive article about: ${prompt}. The article should be approximately 500-700 words, well-structured with clear sections, and include practical insights.`;
+    } else {
+      systemPrompt = 'You are a helpful AI assistant. Provide clear, concise, and accurate responses.';
+      userPrompt = prompt;
     }
-
-    Requirements:
-    - Create a professional, engaging article
-    - Include an introduction, main content with key points, and conclusion
-    - Use clear, readable language
-    - Make it informative and valuable for readers
-    - Ensure proper structure with logical flow
-    - Length: approximately 500-800 words
-
-    Please generate the article now:`;
 
     // Call OpenAI API
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+    const completion = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
       messages: [
-        {
-          role: "system",
-          content: "You are a professional content writer who creates high-quality, engaging articles. Your writing is clear, informative, and well-structured. Always provide original, valuable content."
-        },
-        {
-          role: "user",
-          content: prompt
-        }
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
       ],
       max_tokens: 1500,
       temperature: 0.7,
     });
 
-    const article = completion.choices[0].message.content;
+    const generatedText = completion.data.choices[0].message.content;
 
-    // Return the generated article
+    // Return the generated content
     res.status(200).json({
       success: true,
-      article: article
+      article: generatedText,
+      type: type
     });
 
   } catch (error) {
-    console.error('Error generating article:', error);
+    console.error('OpenAI API error:', error);
     
-    res.status(500).json({ 
-      error: 'Failed to generate article. Please try again.',
-      details: error.message
-    });
+    // Handle different types of errors
+    if (error.response) {
+      console.error('Error response:', error.response.status, error.response.data);
+      res.status(error.response.status).json({
+        error: 'Error from OpenAI API',
+        details: error.response.data
+      });
+    } else {
+      res.status(500).json({ 
+        error: 'Internal server error',
+        message: error.message 
+      });
+    }
   }
 };
