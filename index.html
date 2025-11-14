@@ -1,203 +1,349 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GenZbot : Get Personalized results in seconds</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/a2d9f9d3d3.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenZbot : Get Personalized results in seconds</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <h1>GenZbot</h1>
-      <p class="subtitle">Boost your productivity with smart AI that understands your style.</p>
-    </div>
-
-    <nav class="top-nav">
-      <a class="nav-link" href="con.html"><i class="fas fa-info-circle"></i> About Us</a>
-      <a class="nav-link" href="con.html"><i class="fas fa-envelope"></i> Contact Us</a>
-      <a class="nav-link" href="con.html"><i class="fas fa-file-contract"></i> Terms</a>
-      <a class="nav-link" href="con.html"><i class="fas fa-star"></i> Rate</a>
-      <a class="nav-link" href="con.html"><i class="fas fa-bell"></i> Subscribe</a>
-    </nav>
-
-    <a class="logo-link" href="about.html" title="About GenZbot">
-      <img src="images/001" alt="GenZbot logo" class="logo-img" />
-    </a>
-  </header>
-
-  <main class="container">
-    <section class="hero neon-card">
-      <h2>Get Personalized results in seconds</h2>
-
-      <p class="hero-copy">
-        GenZai helps you save time, stay focused and achieve more with ease.
-        <span class="highlight">Get quick summaries, clear conclusions and tailored articles</span>
-        based on your keywords and style.
-      </p>
-
-      <div class="rate-five">
-        <a href="index.html" class="stars" title="See reviews">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-          <span class="rate-text">5.0 — Trusted by users</span>
-        </a>
-      </div>
-
-      <div class="video-link">
-        <a href="video/002" target="_blank" rel="noopener">Watch a quick walkthrough ▶</a>
-      </div>
-
-      <button id="jumpToForm" class="btn-solid">Generate now</button>
-    </section>
-
-    <section class="howto">
-      <article>
-        <!-- ~700 words: friendly, simple, human-writable instructions and advantages -->
-        <h3>How to use the Article Generator</h3>
-        <p>
-          Welcome to <strong>GenZbot</strong> — your fast, friendly AI writing assistant.
-          This tool turns simple keywords or short ideas into ready-to-use articles.
-          Whether you're writing a blog, a newsletter, or a quick social post, GenZbot helps you
-          create clear and useful content in seconds.
-        </p>
-
-        <p>
-          Start by typing the main <span class="highlight">topic or keyword</span>.
-          Next, add the style you want — for example: "friendly", "professional", or "funny".
-          Choose a length (short, medium, or long) and press <em>Generate Article</em>.
-          Our backend (hosted on Vercel) sends your request to the OpenAI model and returns
-          a clean, readable article that you can copy, edit, or share instantly.
-        </p>
-
-        <p>
-          <strong>Why use GenZbot?</strong> Here are the main advantages:
-        </p>
-        <ul>
-          <li><span class="highlight">Save time:</span> Generate a first draft in seconds so you can focus on refining ideas, not getting started.</li>
-          <li><span class="highlight">Consistent voice:</span> Ask for a tone and GenZbot keeps style consistent across the whole piece.</li>
-          <li><span class="highlight">Ideas on demand:</span> Give a few keywords and receive a structured article with an intro, body points and conclusion.</li>
-          <li><span class="highlight">Easy sharing:</span> Copy or use the share button to send the article to teammates.</li>
-          <li><span class="highlight">Multiple uses:</span> Blog posts, product descriptions, email drafts, or study notes — all work well.</li>
-        </ul>
-
-        <p>
-          A few quick tips: give clear keywords, include a desired audience (e.g. "for beginners"),
-          and pick a tone that matches your brand. If the article needs facts, double-check sources —
-          the AI helps write, but you control accuracy.
-        </p>
-
-        <p>
-          We designed GenZbot to feel trustworthy and organized. The page highlights the main points,
-          keeps language simple, and provides easy buttons to copy, share, or regenerate text.
-          If you want more control, try adding constraints like word count or a required point list.
-        </p>
-
-        <p>
-          Finally, this tool is built to be simple: your keyword → choose tone and length → press generate.
-          You're just a few clicks away from a usable article.
-        </p>
-      </article>
-    </section>
-
-    <section id="generator" class="generator neon-panel">
-      <h3>Article Generator</h3>
-
-      <form id="articleForm" class="form">
-        <label for="topic">Tell us the topic / keywords</label>
-        <input id="topic" name="topic" required placeholder="e.g. Benefits of remote work, Tips for time management" />
-
-        <label for="audience">Audience (optional)</label>
-        <input id="audience" name="audience" placeholder="e.g. beginners, team leads, students" />
-
-        <label for="tone">Tone</label>
-        <select id="tone">
-          <option value="friendly">Friendly</option>
-          <option value="professional">Professional</option>
-          <option value="informative">Informative</option>
-          <option value="casual">Casual</option>
-        </select>
-
-        <label for="length">Length</label>
-        <select id="length">
-          <option value="short">Short (200-300 words)</option>
-          <option value="medium" selected>Medium (400-600 words)</option>
-          <option value="long">Long (700+ words)</option>
-        </select>
-
-        <div class="form-actions">
-          <button type="submit" id="generateBtn" class="btn-solid">Generate Article</button>
-          <button type="button" id="shareBtn" class="btn-ghost"><i class="fas fa-share-alt"></i> Share</button>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/001" alt="GenZbot Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    <li><a href="con.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    <li><a href="con.html"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    <li><a href="con.html"><i class="fas fa-star"></i> Rate</a></li>
+                    <li><a href="con.html"><i class="fas fa-bell"></i> Subscribe</a></li>
+                </ul>
+            </nav>
         </div>
-      </form>
+    </header>
 
-      <div id="resultArea" class="result-area">
-        <div id="loading" class="hidden">Generating…</div>
-        <pre id="generated" class="generated-text" aria-live="polite"></pre>
-        <div class="result-actions">
-          <button id="copyBtn" class="btn-ghost"><i class="fas fa-copy"></i> Copy</button>
-          <button id="regenerateBtn" class="btn-ghost">Regenerate</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>GenZbot</h1>
+            <h2>Get Personalized results in seconds</h2>
+            <p class="subtitle">Boost your productivity with smart AI that understands your style. Get quick summaries, clear conclusions and personalized results in seconds. GenZai helps you save time, stay focused and achieve more with ease.</p>
+            
+            <!-- Star Rating -->
+            <div class="rating">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Rated 4.9/5 by 10,000+ users</p>
+            </div>
+            
+            <button id="generate-now-btn" class="cta-button">Generate Now</button>
         </div>
-      </div>
     </section>
 
-    <section class="tools-card">
-      <h4>Check out these tools</h4>
-      <div class="tool-grid">
-        <a class="tool" href="index.html">Summarize content</a>
-        <a class="tool" href="index.html">Suggest movies & music</a>
-        <a class="tool" href="index.html">Generate hashtags</a>
-        <a class="tool" href="index.html">Verify news/trends</a>
-        <a class="tool" href="index.html">Show trending topics</a>
-        <a class="tool" href="index.html">Detect AI-written content</a>
-        <a class="tool" href="index.html">Ask IQ-style questions</a>
-        <a class="tool" href="index.html">Suggest business/idea strategies</a>
-      </div>
-    </section>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Article Generator Section -->
+        <section class="article-generator">
+            <h2>AI Article Generator</h2>
+            <p>Transform your ideas into well-written articles in seconds. Just provide a topic or keywords, and our AI will create engaging content tailored to your needs.</p>
+            
+            <div class="input-section">
+                <textarea id="article-input" placeholder="Enter your topic, keywords, or ideas for the article..."></textarea>
+                <button id="generate-article" class="generate-btn">Generate Article</button>
+            </div>
+            
+            <div class="share-section">
+                <button id="share-btn" class="share-btn">
+                    <i class="fas fa-share-alt"></i> Share This Tool
+                </button>
+            </div>
+            
+            <div class="result-section">
+                <div id="article-result" class="article-result"></div>
+                <button id="copy-btn" class="copy-btn">Copy Article</button>
+            </div>
+        </section>
 
-    <section class="reviews neon-panel">
-      <h4>User reviews</h4>
+        <!-- How to Use Section -->
+        <section class="how-to-use">
+            <h2>How to Use GenZbot Article Generator</h2>
+            <p>Our AI-powered article generator is designed to be simple yet powerful. Here's how to get the most out of it:</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <h3><span class="highlight">Step 1:</span> Enter Your Topic</h3>
+                    <p>Type in the subject you want to write about. You can be as specific or as general as you like. For better results, include keywords that capture the essence of your article.</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="highlight">Step 2:</span> Click Generate</h3>
+                    <p>Hit the "Generate Article" button and let our AI work its magic. It analyzes your input and creates a well-structured article in seconds.</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="highlight">Step 3:</span> Review and Edit</h3>
+                    <p>Read through the generated content. You can make any edits directly in the output box to personalize it further.</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="highlight">Step 4:</span> Copy and Use</h3>
+                    <p>Once you're satisfied with the article, simply click the "Copy Article" button to save it to your clipboard for use anywhere.</p>
+                </div>
+            </div>
+            
+            <div class="video-section">
+                <h3>Watch Our Tutorial</h3>
+                <div class="video-placeholder">
+                    <p>Video tutorial coming soon</p>
+                    <!-- In a real implementation, you would embed a video here -->
+                    <!-- <video src="video/002" controls></video> -->
+                </div>
+            </div>
+        </section>
 
-      <div class="review-list">
-        <a href="index.html" class="review">
-          <strong>Jade M.</strong>
-          <p>Fast and accurate — saved me hours on blog drafts.</p>
-        </a>
-        <a href="index.html" class="review">
-          <strong>Kwame A.</strong>
-          <p>The tone options keep our brand voice consistent. Love it.</p>
-        </a>
-        <a href="index.html" class="review">
-          <strong>Lisa R.</strong>
-          <p>Simple, clear, and the copy button is handy for quick posts.</p>
-        </a>
-        <a href="index.html" class="review">
-          <strong>Omar S.</strong>
-          <p>Great for idea generation when I'm stuck.</p>
-        </a>
-        <a href="index.html" class="review">
-          <strong>Nora P.</strong>
-          <p>Well organized — feels trustworthy and reliable.</p>
-        </a>
-      </div>
+        <!-- Advantages Section -->
+        <section class="advantages">
+            <h2>Why Choose GenZbot?</h2>
+            
+            <div class="advantage-grid">
+                <div class="advantage">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Lightning Fast</h3>
+                    <p>Generate complete articles in seconds, not hours. Our AI processes your input and delivers results almost instantly.</p>
+                </div>
+                
+                <div class="advantage">
+                    <i class="fas fa-user-cog"></i>
+                    <h3>Personalized Output</h3>
+                    <p>The AI adapts to your writing style and preferences, creating content that sounds like you wrote it.</p>
+                </div>
+                
+                <div class="advantage">
+                    <i class="fas fa-brain"></i>
+                    <h3>Smart & Context-Aware</h3>
+                    <p>Our AI understands context and creates coherent, well-structured articles that make sense.</p>
+                </div>
+                
+                <div class="advantage">
+                    <i class="fas fa-edit"></i>
+                    <h3>Easy to Customize</h3>
+                    <p>The generated content is fully editable, allowing you to add your personal touch before using it.</p>
+                </div>
+                
+                <div class="advantage">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Boosts Productivity</h3>
+                    <p>Save hours of research and writing time. Focus on what matters while we handle the content creation.</p>
+                </div>
+                
+                <div class="advantage">
+                    <i class="fas fa-infinity"></i>
+                    <h3>Unlimited Ideas</h3>
+                    <p>Never run out of content ideas. Our AI can generate articles on virtually any topic you can imagine.</p>
+                </div>
+            </div>
+        </section>
 
-      <div class="rate-btns">
-        <a class="btn-solid" href="index.html">Rate us</a>
-      </div>
-    </section>
-  </main>
+        <!-- User Reviews -->
+        <section class="reviews">
+            <h2>What Our Users Say</h2>
+            
+            <div class="review-grid">
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="avatar">JD</div>
+                        <div class="reviewer-info">
+                            <h4>Jamie D.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"As a content creator, GenZbot has saved me countless hours. The articles are well-researched and sound natural. It's like having a writing assistant available 24/7!"</p>
+                </div>
+                
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="avatar">MS</div>
+                        <div class="reviewer-info">
+                            <h4>Maria S.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"I was skeptical at first, but GenZbot exceeded my expectations. The content is engaging and requires minimal editing. It's perfect for my blog and social media posts."</p>
+                </div>
+                
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="avatar">TK</div>
+                        <div class="reviewer-info">
+                            <h4>Tom K.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"The personalized results are incredible. The AI actually understands my writing style and produces content that sounds like me. This tool is a game-changer for my business."</p>
+                </div>
+                
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="avatar">AP</div>
+                        <div class="reviewer-info">
+                            <h4>Alex P.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"I've tried several AI writing tools, but GenZbot stands out for its accuracy and natural flow. The articles require very little editing, which saves me so much time."</p>
+                </div>
+                
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="avatar">SR</div>
+                        <div class="reviewer-info">
+                            <h4>Sarah R.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"The speed and quality of GenZbot are unmatched. I can now produce multiple articles in the time it used to take me to write one. Highly recommended for content creators!"</p>
+                </div>
+            </div>
+            
+            <div class="rate-us-section">
+                <button class="rate-us-btn">Rate Us</button>
+            </div>
+        </section>
 
-  <footer class="site-footer">
-    <div class="footer-links">
-      <a href="con.html"><i class="fas fa-info-circle"></i> About Us</a>
-      <a href="con.html"><i class="fas fa-envelope"></i> Contact</a>
-      <a href="con.html"><i class="fas fa-file-contract"></i> Terms</a>
-      <a href="con.html"><i class="fas fa-star"></i> Rate</a>
-      <a href="con.html"><i class="fas fa-bell"></i> Subscribe</a>
-    </div>
-    <p class="small">© <span id="year"></span> GenZbot — Trusted AI tools</p>
-  </footer>
+        <!-- Tools Section -->
+        <section class="tools">
+            <h2>Check Out Our Other Tools</h2>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Summarize Content</h3>
+                    <p>Get concise summaries of long articles and documents.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <i class="fas fa-film"></i>
+                    <h3>Suggest Movies & Music</h3>
+                    <p>Personalized recommendations based on your preferences.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <i class="fas fa-hashtag"></i>
+                    <h3>Generate Hashtags</h3>
+                    <p>Create relevant hashtags for your social media posts.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Verify News/Trends</h3>
+                    <p>Check the credibility of news and trending topics.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Show Trending Topics</h3>
+                    <p>Stay updated with what's trending worldwide.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Detect AI-written Content</h3>
+                    <p>Identify if content was generated by AI systems.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Ask IQ-style Questions</h3>
+                    <p>Challenge yourself with intelligent questions.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Suggest Business/Idea Strategies</h3>
+                    <p>Get strategic advice for your business or ideas.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <script src="script.js"></script>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/001" alt="GenZbot Logo">
+                    <p>Get Personalized results in seconds</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="con.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="con.html"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                        <li><a href="con.html"><i class="fas fa-star"></i> Rate</a></li>
+                        <li><a href="con.html"><i class="fas fa-bell"></i> Subscribe</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Stay Connected</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 GenZbot. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
