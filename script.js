@@ -33,7 +33,7 @@ articleForm.addEventListener('submit', async (e) => {
     try {
         // Call the API to generate the article
         const article = await generateArticle(keywords, preferences);
-        articleOutput.innerHTML = article;
+        articleOutput.innerHTML = formatArticle(article);
         
         // Scroll to results
         resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -42,6 +42,24 @@ articleForm.addEventListener('submit', async (e) => {
         articleOutput.innerHTML = '<div class="error">Sorry, there was an error generating your article. Please try again.</div>';
     }
 });
+
+// Format the article with proper HTML structure
+function formatArticle(articleText) {
+    // Convert line breaks to paragraphs and add basic formatting
+    return articleText
+        .split('\n\n')
+        .map(paragraph => {
+            if (paragraph.trim() === '') return '';
+            
+            // Check if this looks like a heading
+            if (paragraph.length < 100 && !paragraph.includes('.') && !paragraph.includes(',')) {
+                return `<h4>${paragraph}</h4>`;
+            }
+            
+            return `<p>${paragraph}</p>`;
+        })
+        .join('');
+}
 
 // Copy article to clipboard
 copyBtn.addEventListener('click', () => {
@@ -91,55 +109,24 @@ rateBtn.addEventListener('click', () => {
 
 // Generate article using OpenAI API
 async function generateArticle(keywords, preferences) {
-    try {
-        // Call our API endpoint
-        const response = await fetch('/api/detect', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                keywords: keywords,
-                preferences: preferences
-            })
-        });
-        
-        if (!response.ok) {
-            throw new Error('API request failed');
-        }
-        
-        const data = await response.json();
-        return data.article || 'Article generated successfully.';
-    } catch (error) {
-        console.error('Error calling API:', error);
-        
-        // Fallback: Return a mock article for demonstration
-        return generateMockArticle(keywords, preferences);
-    }
-}
-
-// Generate a mock article for demonstration purposes
-function generateMockArticle(keywords, preferences) {
-    const title = `Understanding ${keywords}: A Comprehensive Guide`;
+    const response = await fetch('/api/detect', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            keywords: keywords,
+            preferences: preferences
+        })
+    });
     
-    return `
-        <h3>${title}</h3>
-        <p>In today's fast-paced digital world, ${keywords} has become an increasingly important topic. Whether you're a beginner looking to understand the basics or an expert seeking advanced insights, this article will provide valuable information tailored to your needs.</p>
-        
-        <h4>Key Benefits of ${keywords}</h4>
-        <p>The advantages of implementing ${keywords} in your workflow are numerous. First and foremost, it enhances productivity by streamlining processes that would otherwise take significantly more time. Additionally, it improves accuracy and reduces the likelihood of human error.</p>
-        
-        <h4>Getting Started with ${keywords}</h4>
-        <p>If you're new to ${keywords}, the best approach is to start with the fundamentals. Begin by familiarizing yourself with the core concepts and terminology. From there, you can gradually progress to more advanced applications as your confidence grows.</p>
-        
-        <h4>Advanced Applications</h4>
-        <p>For those with existing experience, ${keywords} offers numerous opportunities for optimization and innovation. By leveraging advanced techniques, you can achieve results that were previously thought impossible.</p>
-        
-        <h4>Conclusion</h4>
-        <p>${keywords} represents a significant advancement in how we approach problem-solving and efficiency. By understanding and implementing these concepts, you position yourself at the forefront of your field, ready to tackle challenges with confidence and expertise.</p>
-        
-        <p><em>This article was generated based on your input: "${keywords}" with preferences: "${preferences || 'Not specified'}".</em></p>
-    `;
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'API request failed');
+    }
+    
+    const data = await response.json();
+    return data.article;
 }
 
 // Add smooth scrolling for all anchor links
@@ -157,27 +144,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 block: 'start'
             });
         }
-    });
-});
-
-// Add animation to elements when they come into view
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-        }
-    });
-}, observerOptions);
-
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', () => {
-    const elementsToAnimate = document.querySelectorAll('.review-card, .tool-card, .input-card');
-    elementsToAnimate.forEach(el => {
-        observer.observe(el);
     });
 });
