@@ -32,8 +32,11 @@ generateArticleBtn.addEventListener('click', async () => {
     generateArticleBtn.disabled = true;
     articleResult.textContent = 'Generating your article... This may take a few seconds.';
     resultSection.style.display = 'block';
+    copyBtn.style.display = 'none';
     
     try {
+        console.log('Sending request to API...');
+        
         // Call the API to generate the article
         const response = await fetch('/api/detect', {
             method: 'POST',
@@ -45,28 +48,160 @@ generateArticleBtn.addEventListener('click', async () => {
                 type: 'article'
             }),
         });
+
+        console.log('Response status:', response.status);
         
-        const data = await response.json();
-        
+        // Check if response is OK and has content
         if (!response.ok) {
-            throw new Error(data.error || 'Failed to generate article');
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        // Get response text first to handle potential JSON parsing issues
+        const responseText = await response.text();
+        console.log('Raw response:', responseText.substring(0, 200) + '...');
+        
+        if (!responseText) {
+            throw new Error('Empty response from server');
+        }
+        
+        // Try to parse JSON
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (parseError) {
+            console.error('JSON parse error:', parseError);
+            throw new Error('Invalid response format from server');
+        }
+        
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        
+        if (!data.article) {
+            throw new Error('No article content in response');
         }
         
         // Display the generated article
-        articleResult.textContent = data.article || 'Article generated successfully!';
+        articleResult.textContent = data.article;
+        copyBtn.style.display = 'block';
+        
+        console.log('Article generated successfully');
         
     } catch (error) {
         console.error('Error generating article:', error);
-        articleResult.textContent = `Error: ${error.message}. Please check your API configuration and try again.`;
         
-        // Show more detailed error info in console for debugging
-        console.log('Full error details:', error);
+        let errorMessage = `Error: ${error.message}. `;
+        
+        if (error.message.includes('401')) {
+            errorMessage += 'Please check your OpenAI API key configuration in Vercel.';
+        } else if (error.message.includes('429')) {
+            errorMessage += 'OpenAI API quota exceeded. Please check your billing.';
+        } else if (error.message.includes('Empty response') || error.message.includes('JSON')) {
+            errorMessage += 'Server configuration issue. Please check the API implementation.';
+        } else {
+            errorMessage += 'Please try again or check your network connection.';
+        }
+        
+        articleResult.textContent = errorMessage;
+        copyBtn.style.display = 'none';
+        
+        // Show demo option
+        showDemoOption(inputText);
     } finally {
         // Reset button state
         generateArticleBtn.textContent = 'Generate Article';
         generateArticleBtn.disabled = false;
     }
 });
+
+// Show demo option when API fails
+function showDemoOption(inputText) {
+    const demoBtn = document.createElement('button');
+    demoBtn.textContent = 'Try Demo Version';
+    demoBtn.className = 'demo-btn';
+    demoBtn.style.marginTop = '10px';
+    demoBtn.style.padding = '8px 15px';
+    demoBtn.style.backgroundColor = '#ff9900';
+    demoBtn.style.color = '#000';
+    demoBtn.style.border = 'none';
+    demoBtn.style.borderRadius = '5px';
+    demoBtn.style.cursor = 'pointer';
+    
+    demoBtn.addEventListener('click', () => {
+        generateDemoArticle(inputText);
+        demoBtn.remove();
+    });
+    
+    articleResult.parentNode.insertBefore(demoBtn, copyBtn);
+}
+
+// Generate demo article
+function generateDemoArticle(inputText) {
+    const demoArticles = {
+        default: `# Article About: ${inputText}
+
+## Introduction
+${inputText} is a fascinating topic that has gained significant attention in recent times. This comprehensive article explores the various aspects and implications of this subject.
+
+## Key Benefits
+- **Enhanced Productivity**: Understanding ${inputText} can significantly improve workflow efficiency
+- **Cost Effectiveness**: Implementing strategies related to ${inputText} often leads to reduced operational costs
+- **Competitive Advantage**: Organizations leveraging ${inputText} effectively gain market edge
+
+## Practical Applications
+1. **Business Implementation**: How companies can integrate ${inputText} into their operations
+2. **Personal Development**: Ways individuals can benefit from understanding ${inputText}
+3. **Future Trends**: Emerging developments in the field of ${inputText}
+
+## Challenges and Solutions
+While adopting ${inputText} presents certain challenges, these can be overcome through:
+- Strategic planning
+- Proper training and education
+- Gradual implementation approach
+
+## Conclusion
+${inputText} represents a significant opportunity for growth and innovation. By understanding its principles and applications, both individuals and organizations can achieve remarkable results.
+
+*Note: This is a demo article. Connect your OpenAI API for AI-generated content.*`,
+
+        technology: `# The Future of ${inputText} in Technology
+
+## Revolutionizing Industries
+${inputText} is transforming how we approach technological solutions across various sectors.
+
+## Key Innovations
+- AI integration with ${inputText}
+- Cloud-based ${inputText} solutions
+- Mobile applications of ${inputText}
+
+## Impact Assessment
+The implementation of ${inputText} has shown 45% improvement in operational efficiency according to recent studies.`,
+
+        health: `# ${inputText}: A Health Perspective
+
+## Understanding the Basics
+${inputText} plays a crucial role in modern healthcare approaches.
+
+## Health Benefits
+- Improved patient outcomes
+- Reduced recovery time
+- Enhanced diagnostic accuracy
+
+## Professional Recommendations
+Medical experts suggest incorporating ${inputText} into daily health routines for optimal results.`
+    };
+
+    let demoContent = demoArticles.default;
+    
+    if (inputText.toLowerCase().includes('tech') || inputText.toLowerCase().includes('software') || inputText.toLowerCase().includes('ai')) {
+        demoContent = demoArticles.technology;
+    } else if (inputText.toLowerCase().includes('health') || inputText.toLowerCase().includes('medical') || inputText.toLowerCase().includes('fitness')) {
+        demoContent = demoArticles.health;
+    }
+    
+    articleResult.textContent = demoContent;
+    copyBtn.style.display = 'block';
+}
 
 // Copy article to clipboard
 copyBtn.addEventListener('click', () => {
@@ -149,34 +284,10 @@ stars.forEach(star => {
     });
 });
 
-// Add demo mode toggle (for testing without API)
-let demoMode = false;
-
-// Add a hidden demo mode toggle (for development)
-document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key === 'd') {
-        demoMode = !demoMode;
-        alert(`Demo mode: ${demoMode ? 'ON' : 'OFF'}`);
-    }
-});
-
-// Update the generate function to include demo mode
-const originalGenerateFunction = generateArticleBtn.onclick;
-generateArticleBtn.onclick = async function() {
-    if (demoMode) {
-        // Use demo content
-        const inputText = articleInput.value.trim();
-        generateArticleBtn.textContent = 'Generating...';
-        generateArticleBtn.disabled = true;
-        resultSection.style.display = 'block';
-        articleResult.textContent = `Demo Article about: ${inputText}\n\nThis is a demo article generated in demonstration mode. In a real environment, this would be created by OpenAI's powerful AI model.\n\nKey points about ${inputText}:\n\n• First important aspect\n• Second key feature  \n• Third major benefit\n\nConclusion: ${inputText} represents an exciting topic that deserves thorough exploration and discussion.`;
-        
-        setTimeout(() => {
-            generateArticleBtn.textContent = 'Generate Article';
-            generateArticleBtn.disabled = false;
-        }, 1000);
-        return;
-    }
+// Add some sample content for demonstration
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('GenZbot loaded successfully');
     
-    await originalGenerateFunction();
-};
+    // Add demo mode hint
+    console.log('Tip: If API fails, use the "Try Demo Version" button for sample content');
+});
