@@ -5,44 +5,39 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { topic } = req.body;
+        const { topic, max_tokens = 1000 } = req.body;
 
-        if (!topic || topic.trim().length === 0) {
+        if (!topic) {
             return res.status(400).json({ error: 'Topic is required' });
         }
 
-        if (topic.length > 100) {
-            return res.status(400).json({ error: 'Topic must be 100 characters or less' });
-        }
-
-        // Get OpenAI API key from environment variables
-        const apiKey = process.env.OPENAI_API_KEY;
+        // Get OpenAI API key from environment variable
+        const openaiApiKey = process.env.OPENAI_API_KEY;
         
-        if (!apiKey) {
-            console.error('OpenAI API key is not configured');
+        if (!openaiApiKey) {
+            console.error('OpenAI API key not found in environment variables');
             return res.status(500).json({ error: 'Server configuration error' });
         }
 
-        // Call OpenAI API
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
+                'Authorization': `Bearer ${openaiApiKey}`
             },
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
                 messages: [
                     {
                         role: 'system',
-                        content: 'You are a professional article writer. Create well-structured, engaging articles with proper formatting. Always write at least 300 words.'
+                        content: 'You are a professional article writer. Create well-structured, engaging, and informative articles based on the given topic. Format the article with clear paragraphs and appropriate sections.'
                     },
                     {
                         role: 'user',
-                        content: `Write a comprehensive article about: ${topic}`
+                        content: `Please write a comprehensive article about: ${topic}`
                     }
                 ],
-                max_tokens: 1000,
+                max_tokens: max_tokens,
                 temperature: 0.7
             })
         });
@@ -60,20 +55,22 @@ export default async function handler(req, res) {
             throw new Error('No article content received from AI');
         }
 
-        res.status(200).json({ article });
+        res.status(200).json({ 
+            article: article,
+            model: data.model,
+            usage: data.usage
+        });
 
     } catch (error) {
-        console.error('Error in generate-article API:', error);
+        console.error('Error in generate API:', error);
         
-        // Provide user-friendly error messages
+        // Provide more specific error messages
         if (error.message.includes('API key') || error.message.includes('authorization')) {
-            return res.status(500).json({ error: 'API configuration error. Please check your OpenAI API key.' });
-        }
-        
-        if (error.message.includes('rate limit')) {
+            return res.status(500).json({ error: 'Authentication error. Please check API configuration.' });
+        } else if (error.message.includes('rate limit')) {
             return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
+        } else {
+            return res.status(500).json({ error: error.message || 'Internal server error' });
         }
-        
-        res.status(500).json({ error: error.message || 'Internal server error' });
     }
 }
