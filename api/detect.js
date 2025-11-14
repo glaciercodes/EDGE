@@ -1,10 +1,4 @@
 // api/detect.js - Vercel Serverless Function
-import { OpenAI } from 'openai';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -32,6 +26,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Prompt is required' });
     }
 
+    // Check if API key is available
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('OpenAI API key is missing');
+      return res.status(500).json({ 
+        error: 'Server configuration error: OpenAI API key is missing' 
+      });
+    }
+
     // Create a more detailed prompt based on the type
     let systemPrompt = '';
     let userPrompt = '';
@@ -44,19 +46,42 @@ export default async function handler(req, res) {
       userPrompt = prompt;
     }
 
-    // Call OpenAI API
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt }
-      ],
-      max_tokens: 1500,
-      temperature: 0.7,
+    console.log('Making request to OpenAI API...');
+    
+    // Call OpenAI API directly using fetch
+    const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        max_tokens: 1500,
+        temperature: 0.7,
+      })
     });
 
-    const generatedText = completion.choices[0].message.content;
+    if (!openaiResponse.ok) {
+      const errorData = await openaiResponse.text();
+      console.error('OpenAI API error:', openaiResponse.status, errorData);
+      throw new Error(`OpenAI API returned ${openaiResponse.status}: ${errorData}`);
+    }
 
+    const openaiData = await openaiResponse.json();
+    
+    if (!openaiData.choices || !openaiData.choices[0] || !openaiData.choices[0].message) {
+      throw new Error('Invalid response format from OpenAI API');
+    }
+
+    const generatedText = openaiData.choices[0].message.content;
+
+    console.log('Successfully generated article');
+    
     // Return the generated content
     return res.status(200).json({
       success: true,
@@ -65,21 +90,20 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('OpenAI API error:', error);
+    console.error('API error:', error);
     
     // Provide more specific error messages
-    if (error.code === 'invalid_api_key') {
+    if (error.message.includes('401')) {
       return res.status(401).json({ 
-        error: 'Invalid API key. Please check your OpenAI API configuration.' 
+        error: 'Invalid OpenAI API key. Please check your API configuration in Vercel environment variables.' 
       });
-    } else if (error.code === 'insufficient_quota') {
+    } else if (error.message.includes('429')) {
       return res.status(429).json({ 
         error: 'API quota exceeded. Please check your OpenAI billing.' 
       });
-    } else if (error.response) {
-      return res.status(error.response.status).json({
-        error: 'Error from OpenAI API',
-        details: error.response.data
+    } else if (error.message.includes('OpenAI API')) {
+      return res.status(502).json({
+        error: `OpenAI API error: ${error.message}`
       });
     } else {
       return res.status(500).json({ 
