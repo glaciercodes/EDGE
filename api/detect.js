@@ -1,12 +1,5 @@
-// This file would typically be deployed as a serverless function on Vercel
-// For demonstration, we're showing the structure
-
+// Vercel serverless function for OpenAI integration
 const OpenAI = require('openai');
-
-// Initialize OpenAI with API key from environment variables
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
 module.exports = async (req, res) => {
   // Set CORS headers
@@ -36,10 +29,25 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Keywords are required' });
     }
 
+    // Initialize OpenAI with API key from environment variables
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
     // Construct the prompt for OpenAI
     const prompt = `Write a comprehensive, well-structured article about "${keywords}". ${
       preferences ? `Please consider these preferences: ${preferences}.` : ''
-    } The article should be informative, engaging, and suitable for a general audience. Include an introduction, several sections with subheadings, and a conclusion.`;
+    }
+
+    Requirements:
+    - Create a professional, engaging article
+    - Include an introduction, main content with key points, and conclusion
+    - Use clear, readable language
+    - Make it informative and valuable for readers
+    - Ensure proper structure with logical flow
+    - Length: approximately 500-800 words
+
+    Please generate the article now:`;
 
     // Call OpenAI API
     const completion = await openai.chat.completions.create({
@@ -47,7 +55,7 @@ module.exports = async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "You are a professional content writer who creates high-quality, engaging articles. Your writing is clear, informative, and well-structured."
+          content: "You are a professional content writer who creates high-quality, engaging articles. Your writing is clear, informative, and well-structured. Always provide original, valuable content."
         },
         {
           role: "user",
@@ -69,10 +77,9 @@ module.exports = async (req, res) => {
   } catch (error) {
     console.error('Error generating article:', error);
     
-    // Provide a fallback response in case of API failure
     res.status(500).json({ 
-      error: 'Failed to generate article',
-      fallback: true
+      error: 'Failed to generate article. Please try again.',
+      details: error.message
     });
   }
 };
